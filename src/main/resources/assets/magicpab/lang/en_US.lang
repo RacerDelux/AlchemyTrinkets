@@ -1,0 +1,13 @@
+item.magicpab.copper_ingot.name=Copper Ingot
+item.magicpab.nickel_ingot.name=Nickel Ingot
+item.magicpab.pyrite_ingot.name=Pyrite Ingot
+item.magicpab.pyrite_shard.name=Pyrite Shard
+item.magicpab.topaz_gem.name=Topaz
+
+tile.magicpab.copperOre.name=Copper Ore
+tile.magicpab.nickelOre.name=Nickel Ore
+tile.magicpab.pyriteOre.name=Pyrite Ore
+tile.magicpab.topazOre.name=Topaz Ore
+tile.magicpab.pyriteBlock.name=Pyrite Block
+
+itemGroup.ngCreativeTab=Magical Potions and Brews
