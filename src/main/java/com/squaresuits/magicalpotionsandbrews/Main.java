@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = MPBGlobal.MOD_ID, name = MPBGlobal.MOD_NAME, version = MPBGlobal.VERSION)
+@Mod(modid = MPBGlobal.MOD_ID, name = MPBGlobal.MOD_NAME, version = MPBGlobal.VERSION, dependencies = "after:basemetals;before:orespawn")
 public class Main {
 
 	@Instance(MPBGlobal.MOD_ID)

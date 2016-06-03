@@ -44,4 +44,7 @@ public class MPBResourceMaterial {
 	public String getName(){
 		return identifier;
 	}
+	public String getCapitalizedName(){
+		return titleName;
+	}
 }
