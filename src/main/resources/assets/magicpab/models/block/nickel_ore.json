@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "magicpab:blocks/topazOre"
+        "all": "magicpab:blocks/nickel_ore"
     }
 }
