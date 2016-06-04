@@ -12,13 +12,16 @@ public class MPBItemGem extends Item  implements MPBOreDictionaryEntry {
 	public MPBItemGem(MPBResourceMaterial metal) {
 		//super();
 		this.metal = metal;
-		this.oreDict = "ingot"+metal.getCapitalizedName();
+		this.oreDict = "gem"+metal.getCapitalizedName();
 		//this.setCreativeTab(CreativeTabs.MATERIALS);
 	}
 	
 	@Override
 	public String getOreDictionaryName() {
 		// TODO Auto-generated method stub
-		return null;
+		return oreDict;
+	}
+	public MPBResourceMaterial getMetalMaterial(){
+		return metal;
 	}
 }

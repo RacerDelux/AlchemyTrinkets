@@ -14,6 +14,12 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
 /*
 // for people who want stable - not yet functional for MC 1.8.8 - we require the forgegradle 2.1 snapshot
 plugins {
@@ -21,7 +27,7 @@ plugins {
 }
 */
 version = "0.0.1"
-group= "com.squaresuits.magicpab" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "com.squaresuits.magicalpotionsandbrews" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "MagicalPotionsAndBrews_1.9.4"
 
 minecraft {

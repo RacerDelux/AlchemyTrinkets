@@ -1,8 +1,7 @@
 package com.squaresuits.magicalpotionsandbrews.proxy;
 
+import com.squaresuits.magicalpotionsandbrews.init.MPBBlocks;
 import com.squaresuits.magicalpotionsandbrews.init.MPBItems;
-import com.squaresuits.magicalpotionsandbrews.render.MPBBlockRender;
-import com.squaresuits.magicalpotionsandbrews.render.MPBItemRender;
 
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -16,10 +15,9 @@ public class ClientProxy extends CommonProxy{
 	public void init(FMLInitializationEvent event){
 		super.init(event);
 		
-		MPBBlockRender.registerBlockRender();
-		MPBItemRender.registerItemRender();
 		
 		MPBItems.regItemRenders(event);
+		MPBBlocks.regBlockRenders(event);
 	}
 
 	public void postInit(FMLPostInitializationEvent postEvent){

@@ -13,25 +13,34 @@ public class MPBRecipes {
 	
 	public static void initRecipes(){
 		
-		GameRegistry.addRecipe(new ItemStack(MPBBlocks.pyriteBlock),
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBBlocks.pyrite_block),
 				new Object [] {
 						"###",
 						"###",
 						"###",
-						'#', MPBItems.pyrite_ingot
-				});
+						'#', "ingotPyrite"
+				}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.pyrite_infused_glass, 4),
+				new Object [] {
+						"# #",
+						" @ ",
+						"# #",
+						'#', "blockGlass",
+						'@', "ingotPyrite"
+				}));
 		GameRegistry.addShapelessRecipe(new ItemStack(MPBItems.pyrite_ingot, 9),
 				new Object [] {
-				MPBBlocks.pyriteBlock
+				MPBBlocks.pyrite_block
 				});
 		 if (Loader.isModLoaded("basemetals")) {
 	            try {
-	            	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBBlocks.copperOre),
+	            	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.copper_flask_component),
 	        				new Object [] {
-	        						" # ",
-	        						" # ",
-	        						" # ",
-	        						'#', "ingotCopper"
+	        						" o ",
+	        						"oxo",
+	        						"   ",
+	        						'o', "ingotCopper",
+	        						'x', "ingotPyrite"
 	        				}));
 	                Console.out().println("Base Metals found - recipes added!");
 	            }

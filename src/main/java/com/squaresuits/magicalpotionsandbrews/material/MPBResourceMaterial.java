@@ -47,4 +47,56 @@ public class MPBResourceMaterial {
 	public String getCapitalizedName(){
 		return titleName;
 	}
+	
+	/**
+	 * Gets the amount of XP per ore block that is smelted
+	 * @return XP value per ore block
+	 */
+	public float getOreSmeltXP(){
+		return 0.1f * magicAffinity;
+	}
+	
+	/**
+	 * Gets the hardness for blocks made from this material
+	 * @return the hardness for blocks made from this material
+	 */
+	public float getMetalBlockHardness(){
+		return 2.0f * hardness;
+	}
+	
+	/**
+	 * Gets the hardness of the ore block for this material
+	 * @return the hardness of the ore block for this material
+	 */
+	public float getOreBlockHardness(){
+		return 0.5f * hardness;
+	}
+	
+	/**
+	 * Gets the resistance of blocks made from this metal to explosions
+	 * @return the blast resistance score
+	 */
+	public float getBlastResistance(){
+		return 2.5f * strength;
+	}
+	
+	public int getRequiredHarvestLevel(){
+		return (int)clamp((0.9f*hardness / 3f),-1,3); 
+	}
+	
+	static int clamp(int x, int min, int max){
+		if(x < min)return min;
+		if(x > max) return max;
+		return x;
+	}
+	static float clamp(float x, float min, float max){
+		if(x < min)return min;
+		if(x > max) return max;
+		return x;
+	}
+	static double clamp(double x, double min, double max){
+		if(x < min)return min;
+		if(x > max) return max;
+		return x;
+	}
 }

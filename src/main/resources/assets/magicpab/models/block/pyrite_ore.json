@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "magicpab:blocks/nickelOre"
+        "all": "magicpab:blocks/pyrite_ore"
     }
 }

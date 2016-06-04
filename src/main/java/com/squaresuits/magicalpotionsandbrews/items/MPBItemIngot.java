@@ -19,7 +19,9 @@ public class MPBItemIngot extends Item implements MPBOreDictionaryEntry{
 	
 	@Override
 	public String getOreDictionaryName() {
-		// TODO Auto-generated method stub
-		return null;
+		return oreDict;
+	}
+	public MPBResourceMaterial getMetalMaterial(){
+		return metal;
 	}
 }
