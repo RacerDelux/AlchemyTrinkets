@@ -6,7 +6,7 @@ import java.util.Map;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockBlock;
 import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockOre;
-import com.squaresuits.magicalpotionsandbrews.items.MPBBItemInfusedGlass;
+import com.squaresuits.magicalpotionsandbrews.items.MPBItemInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 

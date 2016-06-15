@@ -1,5 +1,7 @@
 package com.squaresuits.magicalpotionsandbrews;
 
+import org.apache.logging.log4j.Logger;
+
 import com.squaresuits.magicalpotionsandbrews.proxy.CommonProxy;
 
 import net.minecraftforge.fml.common.Mod;
@@ -12,6 +14,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = MPBGlobal.MOD_ID, name = MPBGlobal.MOD_NAME, version = MPBGlobal.VERSION, dependencies = "after:basemetals;before:orespawn")
 public class Main {
+	
+	public static Logger logger;
+	
 
 	@Instance(MPBGlobal.MOD_ID)
 	public static Main instance;
@@ -21,8 +26,9 @@ public class Main {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent preEvent){
-		
+		logger = preEvent.getModLog();
 		this.proxy.preInit(preEvent);
+		
 	}
 	
 	@EventHandler

@@ -26,12 +26,12 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "0.0.1"
+version = "0.0.2"
 group= "com.squaresuits.magicalpotionsandbrews" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "MagicalPotionsAndBrews_1.9.4"
 
 minecraft {
-    version = "1.9.4-12.17.0.1937"
+    version = "1.9.4-12.17.0.1963"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
