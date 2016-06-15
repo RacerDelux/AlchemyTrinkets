@@ -4,11 +4,11 @@ import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
 
 import net.minecraft.item.Item;
 
-public class MPBItemFlaskComponents extends Item{
+public class MPBItemFlaskComponent extends Item{
 	
 	protected final MPBResourceMaterial metal;
 	
-	public MPBItemFlaskComponents(MPBResourceMaterial metal) {
+	public MPBItemFlaskComponent(MPBResourceMaterial metal) {
 		//super();
 		this.metal = metal;
 

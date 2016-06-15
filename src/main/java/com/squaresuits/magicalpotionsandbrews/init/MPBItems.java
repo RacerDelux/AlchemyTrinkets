@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.items.MPBBItemInfusedGlass;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemFlaskComponents;
+import com.squaresuits.magicalpotionsandbrews.items.MPBItemInfusedGlass;
+import com.squaresuits.magicalpotionsandbrews.items.MPBItemFlaskComponent;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemGem;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemIngot;
+import com.squaresuits.magicalpotionsandbrews.items.MPBItemPotionFlask;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemShard;
 import com.squaresuits.magicalpotionsandbrews.items.tools.MPBCopperPickaxe;
 import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
@@ -30,6 +31,9 @@ public class MPBItems {
 	
 	private static Map<Item,String> itemMPBRegistry = new HashMap<>();
 	private static Map<String,Item> allMPBItems = new HashMap<>();
+	
+	//Flask
+	public static Item potion_flask;
 	
 	//Tools
 	public static ToolMaterial COPPERTOOLS = EnumHelper.addToolMaterial("COPPERTOOLS", 2, 350, 5.0F, 2.2F, 15);
@@ -59,8 +63,11 @@ public class MPBItems {
 	
 	public static void initItems(){
 		
+		
+		//Flask
+		potion_flask = createPotionFlask();
 		//Tools
-		GameRegistry.registerItem(copperPickaxe = new MPBCopperPickaxe("copperPickaxe", COPPERTOOLS), "copperPickaxe");
+		//GameRegistry.registerItem(copperPickaxe = new MPBCopperPickaxe("copperPickaxe", COPPERTOOLS), "copperPickaxe");
 		
 		//Infused Glass
 		pyrite_infused_glass = createInfusedGlass(MPBMaterial.pyrite);
@@ -87,12 +94,16 @@ public class MPBItems {
 		
 	}
 	
+	private static Item createPotionFlask(){
+		return regFlask(new MPBItemPotionFlask(), "potion_flask", MPBGlobal.MyCrTab);
+	}
+	
 	private static Item createInfusedGlass(MPBResourceMaterial metal){
-		return regItem(new MPBBItemInfusedGlass(metal), metal.getName()+"_infused_glass", metal, MPBGlobal.MyCrTab);
+		return regItem(new MPBItemInfusedGlass(metal), metal.getName()+"_infused_glass", metal, MPBGlobal.MyCrTab);
 	}
 	
 	private static Item createFlaskComponent(MPBResourceMaterial metal){
-		return regItem(new MPBItemFlaskComponents(metal), metal.getName()+"_flask_component", metal, MPBGlobal.MyCrTab);
+		return regItem(new MPBItemFlaskComponent(metal), metal.getName()+"_flask_component", metal, MPBGlobal.MyCrTab);
 	}
 	
 	private static Item createIngot(MPBResourceMaterial metal){
@@ -117,7 +128,16 @@ public class MPBItems {
 		}
 		return item;
 	}
-	
+	private static Item regFlask(Item item, String name, CreativeTabs tab){
+		item.setRegistryName(MPBGlobal.MOD_ID, name);
+		item.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
+		GameRegistry.register(item); 
+		itemMPBRegistry.put(item, name);
+		if(tab != null){
+			item.setCreativeTab(tab);
+		}
+		return item;
+	}
 	
 	@SideOnly(Side.CLIENT)
 	public static void regItemRenders(FMLInitializationEvent event){

@@ -3,6 +3,7 @@ item.magicpab.nickel_ingot.name=Nickel Ingot
 item.magicpab.pyrite_ingot.name=Pyrite Ingot
 item.magicpab.pyrite_shard.name=Pyrite Shard
 item.magicpab.topaz_gem.name=Topaz
+item.magicpab.potion_flask.name=Flask
 
 tile.magicpab.copper_ore.name=Copper Ore
 tile.magicpab.nickel_ore.name=Nickel Ore
