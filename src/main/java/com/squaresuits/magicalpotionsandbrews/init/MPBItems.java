@@ -19,13 +19,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import scala.Console;
 
 public class MPBItems {
 	
@@ -44,9 +48,6 @@ public class MPBItems {
 	public static Item copperHoe;
 	public static Item copperSword;
 	
-	//infused glass
-	public static Item pyrite_infused_glass;
-	
 	//Ingots
 	public static Item copper_ingot;
 	public static Item nickel_ingot;
@@ -60,6 +61,10 @@ public class MPBItems {
 	
 	//Flask Components
 	public static Item copper_flask_component;
+	public static Item iron_flask_component;
+	public static Item gold_flask_component;
+	
+	public static Item starsteel_flask_component;
 	
 	public static void initItems(){
 		
@@ -68,9 +73,6 @@ public class MPBItems {
 		potion_flask = createPotionFlask();
 		//Tools
 		//GameRegistry.registerItem(copperPickaxe = new MPBCopperPickaxe("copperPickaxe", COPPERTOOLS), "copperPickaxe");
-		
-		//Infused Glass
-		pyrite_infused_glass = createInfusedGlass(MPBMaterial.pyrite);
 		
 		//Ingot
 		pyrite_ingot = createIngot(MPBMaterial.pyrite);
@@ -85,6 +87,19 @@ public class MPBItems {
 		
 		//Flask Components
 		copper_flask_component = createFlaskComponent(MPBMaterial.copper);
+		iron_flask_component = createFlaskComponent(MPBMaterial.vanilla_iron);
+		gold_flask_component = createFlaskComponent(MPBMaterial.vanilla_gold);
+		
+		if (Loader.isModLoaded("basemetals")) {
+            try {
+            	starsteel_flask_component = createFlaskComponent(MPBMaterial.starsteel);
+                Console.out().println("Base Metals found - recipes added!");
+            }
+            catch (Exception e) {
+            	Console.out().println("Base Metals not found!");
+                e.printStackTrace(System.err);
+            }
+        }
 		
 		for(Item i : itemMPBRegistry.keySet()){
 			allMPBItems.put(itemMPBRegistry.get(i), i);

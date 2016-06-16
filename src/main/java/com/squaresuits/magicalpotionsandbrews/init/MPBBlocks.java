@@ -6,6 +6,7 @@ import java.util.Map;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockBlock;
 import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockOre;
+import com.squaresuits.magicalpotionsandbrews.blocks.MPBGlassBlock;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
@@ -37,6 +38,7 @@ public class MPBBlocks {
 	
 	//Blocks
 	public static Block pyrite_block;
+	public static Block pyrite_glass_block;
 	
 	public static void initBlocks(){
 		
@@ -50,6 +52,7 @@ public class MPBBlocks {
 		
 		pyrite_ore = createOre(MPBMaterial.pyrite);
 		pyrite_block = createBlock(MPBMaterial.pyrite);
+		pyrite_glass_block = createGlasBlock(MPBMaterial.pyrite, false);
 		
 
 		for(Block b : allBlocks.values()){
@@ -58,7 +61,9 @@ public class MPBBlocks {
 		}
 	}
 	
-	
+	private static Block createGlasBlock(MPBResourceMaterial metal, boolean ignoreSimilarity){
+		return regBlock(new MPBGlassBlock(metal,ignoreSimilarity),metal.getName()+"_glass_block");
+	}
 	
 	private static Block createBlock(MPBResourceMaterial metal){
 		return createBlock(metal,false);

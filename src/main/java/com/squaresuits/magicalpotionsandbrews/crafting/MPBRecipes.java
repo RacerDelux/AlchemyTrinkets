@@ -23,11 +23,11 @@ public class MPBRecipes {
 						'#', "ingotPyrite"
 				}));
 		//Pyrite Infused Glass
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.pyrite_infused_glass, 4),
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBBlocks.pyrite_glass_block, 4),
 				new Object [] {
-						"# #",
-						" @ ",
-						"# #",
+						"###",
+						"#@#",
+						"###",
 						'#', "blockGlass",
 						'@', "ingotPyrite"
 				}));
@@ -36,17 +36,8 @@ public class MPBRecipes {
 				new Object [] {
 				MPBBlocks.pyrite_block
 				});
-		//Copper Flask Component
-    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.copper_flask_component),
-				new Object [] {
-						" o ",
-						"oxo",
-						"   ",
-						'o', "ingotCopper",
-						'x', "ingotPyrite"
-				}));
-    	//Copper Flask Component
-    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.copper_flask_component),
+		// Flask Component
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.iron_flask_component),
 				new Object [] {
 						" o ",
 						"oxo",
@@ -54,18 +45,69 @@ public class MPBRecipes {
 						'o', "ingotIron",
 						'x', "ingotPyrite"
 				}));
+    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.gold_flask_component),
+				new Object [] {
+						" o ",
+						"oxo",
+						"   ",
+						'o', "ingotGold",
+						'x', "ingotPyrite"
+				}));
+    	
     	//Potion Flask
     	GameRegistry.addRecipe(new MPBRecipe(new ItemStack(MPBItems.potion_flask),
 				new Object [] {
 						" o ",
 						"x x",
 						"xxx",
-						'o', MPBItems.copper_flask_component,
-						'x', MPBItems.pyrite_infused_glass
+						'o', MPBItems.iron_flask_component,
+						'x', MPBBlocks.pyrite_glass_block
+				}));
+    	GameRegistry.addRecipe(new MPBRecipe(new ItemStack(MPBItems.potion_flask),
+				new Object [] {
+						" o ",
+						"x x",
+						"xxx",
+						'o', MPBItems.gold_flask_component,
+						'x', MPBBlocks.pyrite_glass_block
 				}));
 		 if (Loader.isModLoaded("basemetals")) {
 	            try {
+	            	//Copper Flask Component
+	            	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.copper_flask_component),
+	        				new Object [] {
+	        						" o ",
+	        						"oxo",
+	        						"   ",
+	        						'o', "ingotCopper",
+	        						'x', "ingotPyrite"
+	        				}));
+	            	//Copper Flask Component
+	            	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(MPBItems.starsteel_flask_component),
+	        				new Object [] {
+	        						" o ",
+	        						"oxo",
+	        						"   ",
+	        						'o', "ingotStarsteel",
+	        						'x', "ingotPyrite"
+	        				}));
 	            	
+	            	GameRegistry.addRecipe(new MPBRecipe(new ItemStack(MPBItems.potion_flask),
+	        				new Object [] {
+	        						" o ",
+	        						"x x",
+	        						"xxx",
+	        						'o', MPBItems.copper_flask_component,
+	        						'x', MPBBlocks.pyrite_glass_block
+	        				}));
+	            	GameRegistry.addRecipe(new MPBRecipe(new ItemStack(MPBItems.potion_flask),
+	        				new Object [] {
+	        						" o ",
+	        						"x x",
+	        						"xxx",
+	        						'o', MPBItems.starsteel_flask_component,
+	        						'x', MPBBlocks.pyrite_glass_block
+	        				}));
 	                Console.out().println("Base Metals found - recipes added!");
 	            }
 	            catch (Exception e) {

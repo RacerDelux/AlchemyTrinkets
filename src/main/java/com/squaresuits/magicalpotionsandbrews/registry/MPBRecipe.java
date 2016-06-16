@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.Main;
+import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockBlock;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemFlaskComponent;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.items.MPBItemPotionFlask;
@@ -41,8 +42,8 @@ public class MPBRecipe extends ShapedOreRecipe{
     		}
     	}
     	ItemStack tmp = output.copy();
-    	MPBItemFlaskComponent flaskComponentUsed = (MPBItemFlaskComponent) ((ItemStack) input[1]).getItem();
-    	MPBItemInfusedGlass infusedGlassUsed = (MPBItemInfusedGlass) ((ItemStack) input[3]).getItem();
+    	ItemStack flaskComponentUsed = ((ItemStack) input[1]);
+    	ItemStack infusedGlassUsed = ((ItemStack) input[3]);
     	//NBTTagCompound hi = null;
     	if(input[1] instanceof MPBItemFlaskComponent){
     		Main.logger.info("Ok! this is a flask component, which means I can get the NBT off it!");
