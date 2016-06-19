@@ -9,14 +9,18 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
+import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.crafting.MPBRecipes;
 import com.squaresuits.magicalpotionsandbrews.crafting.MPBSmelting;
 import com.squaresuits.magicalpotionsandbrews.init.MPBBlocks;
+import com.squaresuits.magicalpotionsandbrews.init.MPBFluids;
 import com.squaresuits.magicalpotionsandbrews.init.MPBItems;
 import com.squaresuits.magicalpotionsandbrews.init.MPBMaterial;
+import com.squaresuits.magicalpotionsandbrews.init.tconPlugin;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLLog;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.MissingModsException;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -71,12 +75,17 @@ public class CommonProxy {
 		
 		config.save();
 		
+		
 		MPBMaterial.initMaterial();
 		MPBItems.initItems();
 		MPBBlocks.initBlocks();
-		
+		MPBFluids.initFluids();
 		MPBRecipes.initRecipes();
 		MPBSmelting.initSmelting();
+		//Plugins
+		if(Loader.isModLoaded("tconstruct")) {
+			tconPlugin.initTconPlugin();
+		}
 	}
 	
 	public void init(FMLInitializationEvent event){

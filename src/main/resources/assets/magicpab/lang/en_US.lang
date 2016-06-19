@@ -11,6 +11,10 @@ tile.magicpab.pyrite_ore.name=Pyrite Ore
 tile.magicpab.topaz_ore.name=Topaz Ore
 tile.magicpab.pyrite_block.name=Pyrite Block
 
+fluid.magicpab.pyrite=Molten Pyrite
+
+fluid.magicpab.pyrite.name=Molten Pyrite
+
 item.magicpab.copper_flask_component.name=Copper Flask Component
 item.magicpab.iron_flask_component.name=Iron Flask Component
 item.magicpab.gold_flask_component.name=Gold Flask Component

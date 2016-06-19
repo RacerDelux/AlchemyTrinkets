@@ -12,6 +12,6 @@ public class MPBSmelting {
 	public static void initSmelting(){
 		GameRegistry.addSmelting(MPBBlocks.copper_ore, new ItemStack(MPBItems.copper_ingot), 1);
 		GameRegistry.addSmelting(MPBBlocks.nickel_ore, new ItemStack(MPBItems.nickel_ingot), 1);
-		GameRegistry.addSmelting(MPBItems.pyrite_shard, new ItemStack(MPBItems.pyrite_ingot), 10);
+		GameRegistry.addSmelting(MPBBlocks.pyrite_ore, new ItemStack(MPBItems.pyrite_ingot), 10);
 	}
 }

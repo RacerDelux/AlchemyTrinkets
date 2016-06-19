@@ -13,7 +13,7 @@ public class MPBCreativeTab extends CreativeTabs{
 	}
 	
 	public Item getTabIconItem() {
-		return MPBItems.pyrite_shard;
+		return MPBItems.potion_flask;
 	}
 
 }

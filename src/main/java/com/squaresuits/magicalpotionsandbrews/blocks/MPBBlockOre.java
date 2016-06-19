@@ -44,8 +44,7 @@ public class MPBBlockOre extends BlockOre implements MPBOreDictionaryEntry {
 	}
 	
 	public Item getItemDropped(IBlockState state, Random rand, int fortune){
-		return this == MPBBlocks.topaz_ore ? MPBItems.topaz_stone : 
-			   this == MPBBlocks.pyrite_ore ? MPBItems.pyrite_shard : Item.getItemFromBlock(this);
+		return this == MPBBlocks.topaz_ore ? MPBItems.topaz_stone : Item.getItemFromBlock(this);
 	}
 	
 	public int quantityDropped(Random random) {

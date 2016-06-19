@@ -54,7 +54,7 @@ public class MPBItems {
 	public static Item pyrite_ingot;
 	
 	//Shards
-	public static Item pyrite_shard;
+	//public static Item pyrite_shard;
 	
 	//Ore
 	public static Item topaz_stone;
@@ -80,7 +80,7 @@ public class MPBItems {
 		nickel_ingot = createIngot(MPBMaterial.nickel);
 		
 		//Shards
-		pyrite_shard = createShard(MPBMaterial.pyrite);
+		//pyrite_shard = createShard(MPBMaterial.pyrite);
 		
 		//Gems
 		topaz_stone = createGem(MPBMaterial.topaz);
