@@ -1,9 +1,16 @@
 package com.squaresuits.magicalpotionsandbrews.items;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.squaresuits.magicalpotionsandbrews.Main;
+import com.squaresuits.magicalpotionsandbrews.registry.FlaskRecipe;
+import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,14 +31,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MPBItemPotionFlask extends Item{
-	
-	private boolean isEmpty;
+public class ItemPotionFlask extends Item implements IColorItem{
 	private String material;
-	public MPBItemPotionFlask()
+	public ItemPotionFlask()
     {
         this.setMaxStackSize(1);
-        isEmpty = true;
         material = "none";
         //this.setCreativeTab(CreativeTabs.BREWING);
     }
@@ -47,12 +51,12 @@ public class MPBItemPotionFlask extends Item{
     @Nullable
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
     {
-    	if(!isEmpty){
+    	if(!stack.getTagCompound().getBoolean("isEmpty")){
         EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer)entityLiving : null;
 
         if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
         {
-            --stack.stackSize;
+            stack.getTagCompound().setInteger("uses",stack.getTagCompound().getInteger("uses") - 1);
         }
 
         if (!worldIn.isRemote)
@@ -70,14 +74,11 @@ public class MPBItemPotionFlask extends Item{
 
         if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
         {
-            if (stack.stackSize <= 0)
+            if (stack.getTagCompound().getInteger("uses") <= 0)
             {
-                return new ItemStack(Items.GLASS_BOTTLE);
-            }
-
-            if (entityplayer != null)
-            {
-                entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
+            	stack.getTagCompound().setInteger("uses",0);
+            	stack.getTagCompound().setBoolean("isEmpty", true);
+            	stack.getTagCompound().setString("Potion","minecraft:empty");
             }
         }
     	}
@@ -90,7 +91,7 @@ public class MPBItemPotionFlask extends Item{
      */
     public int getMaxItemUseDuration(ItemStack stack)
     {
-    	if(!isEmpty){
+    	if(!stack.getTagCompound().getBoolean("isEmpty")){
     		return 32;
     	} else {
     		return 0;
@@ -103,7 +104,7 @@ public class MPBItemPotionFlask extends Item{
      */
     public EnumAction getItemUseAction(ItemStack stack)
     {
-    	if(!isEmpty){
+    	if(!stack.getTagCompound().getBoolean("isEmpty")){
     		return EnumAction.DRINK;
     	} else {
     		return EnumAction.NONE;
@@ -112,7 +113,7 @@ public class MPBItemPotionFlask extends Item{
 
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
-    	if(!isEmpty){
+    	if(!itemStackIn.getTagCompound().getBoolean("isEmpty")){
     		playerIn.setActiveHand(hand);
         	return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
     	} else {
@@ -135,20 +136,47 @@ public class MPBItemPotionFlask extends Item{
     	if(stack.hasTagCompound()) {
     		tooltip.add("Material: " + stack.getTagCompound().getString("flaskComponent"));
     		tooltip.add("Glass: " + stack.getTagCompound().getString("infusedGlass"));
-    	}
-    	if(!isEmpty){
-    		PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
-    	} else {
-    		
-    		tooltip.add(TextFormatting.GRAY + material);
+    		tooltip.add(stack.getTagCompound().getInteger("uses") + "/" + stack.getTagCompound().getInteger("maxUses"));
+    		if(!stack.getTagCompound().getBoolean("isEmpty")){
+        		PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
+        	} else {
+        		
+        		tooltip.add(TextFormatting.GRAY + "Empty");
 
+        	}
     	}
+    	
     }
 
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
         return !PotionUtils.getEffectsFromStack(stack).isEmpty();
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IItemColor getColor(){
+        return new IItemColor(){
+            @Override
+            public int getColorFromItemstack(ItemStack stack, int pass){
+            	if(!stack.hasTagCompound()){
+            		pass = -1;
+            	}
+            	switch(pass){
+            	case 0: //Glass
+            		return FlaskRecipe.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
+				case 1: //Fluid
+            		return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
+				case 2: //Metal
+            		return FlaskRecipe.materialColor.get(stack.getTagCompound().getString("flaskComponent"));
+				default:
+            		return 0xFFFFFF;
+            	}
+
+               //pass > 0 ? (stack.getItemDamage() >= ALL_JAMS.length ? 0xFFFFFF : ALL_JAMS[stack.getItemDamage()].color) : 0xFFFFFF;
+            }
+        };
     }
 
     /**

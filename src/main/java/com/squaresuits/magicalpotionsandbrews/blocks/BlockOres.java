@@ -2,9 +2,9 @@ package com.squaresuits.magicalpotionsandbrews.blocks;
 
 import java.util.Random;
 
-import com.squaresuits.magicalpotionsandbrews.init.MPBBlocks;
-import com.squaresuits.magicalpotionsandbrews.init.MPBItems;
-import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
+import com.squaresuits.magicalpotionsandbrews.init.Blocks;
+import com.squaresuits.magicalpotionsandbrews.init.Items;
+import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 
 import net.minecraft.block.BlockOre;
@@ -14,12 +14,12 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class MPBBlockOre extends BlockOre implements MPBOreDictionaryEntry {
+public class BlockOres extends BlockOre implements MPBOreDictionaryEntry {
 	
-	protected final MPBResourceMaterial metal;
+	protected final ResourceMaterial metal;
 	private final String oreDict;
 	
-	public MPBBlockOre(MPBResourceMaterial metal) {
+	public BlockOres(ResourceMaterial metal) {
 		//super();
 		this.setSoundType(SoundType.STONE);
 		this.metal = metal;
@@ -39,19 +39,19 @@ public class MPBBlockOre extends BlockOre implements MPBOreDictionaryEntry {
 	public String getOreDictionaryName() {
 		return oreDict;
 	}
-	public MPBResourceMaterial getMetalMaterial(){
+	public ResourceMaterial getMetalMaterial(){
 		return metal;
 	}
 	
 	public Item getItemDropped(IBlockState state, Random rand, int fortune){
-		return this == MPBBlocks.topaz_ore ? MPBItems.topaz_stone : Item.getItemFromBlock(this);
+		return this == Blocks.topaz_ore ? Items.topaz_stone : Item.getItemFromBlock(this);
 	}
 	
 	public int quantityDropped(Random random) {
-		return this == MPBBlocks.pyrite_ore ? 3 + random.nextInt(3) : 1;
+		return this == Blocks.pyrite_ore ? 3 + random.nextInt(3) : 1;
 	}
 	
-	public MPBResourceMaterial getMetal(){
+	public ResourceMaterial getMetal(){
 		return metal;
 	}
 }

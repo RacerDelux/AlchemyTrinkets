@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockBlock;
-import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockOre;
-import com.squaresuits.magicalpotionsandbrews.blocks.MPBGlassBlock;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemInfusedGlass;
-import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockBlock;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockOres;
+import com.squaresuits.magicalpotionsandbrews.blocks.GlassBlock;
+import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlass;
+import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 
 import net.minecraft.block.Block;
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class MPBBlocks {
+public class Blocks {
 	private static final Map<String,Block> allBlocks = new HashMap<>();
 	
 	
@@ -40,19 +40,24 @@ public class MPBBlocks {
 	public static Block pyrite_block;
 	public static Block pyrite_glass_block;
 	
+	//Items
+	public static Block copper_cauldron;
+	
 	public static void initBlocks(){
 		
 		
 		
-		copper_ore = createOre(MPBMaterial.copper);
+		copper_ore = createOre(Materials.copper);
 		
-		nickel_ore = createOre(MPBMaterial.nickel);
+		nickel_ore = createOre(Materials.nickel);
 		
-		topaz_ore = createOre(MPBMaterial.topaz);
+		topaz_ore = createOre(Materials.topaz);
 		
-		pyrite_ore = createOre(MPBMaterial.pyrite);
-		pyrite_block = createBlock(MPBMaterial.pyrite);
-		pyrite_glass_block = createGlasBlock(MPBMaterial.pyrite, false);
+		pyrite_ore = createOre(Materials.pyrite);
+		pyrite_block = createBlock(Materials.pyrite);
+		pyrite_glass_block = createGlasBlock(Materials.pyrite, false);
+		
+		//copper_cauldron = createCauldron(MPBMaterial.copper, false);
 		
 
 		for(Block b : allBlocks.values()){
@@ -61,20 +66,24 @@ public class MPBBlocks {
 		}
 	}
 	
-	private static Block createGlasBlock(MPBResourceMaterial metal, boolean ignoreSimilarity){
-		return regBlock(new MPBGlassBlock(metal,ignoreSimilarity),metal.getName()+"_glass_block");
+	private static Block createGlasBlock(ResourceMaterial metal, boolean ignoreSimilarity){
+		return regBlock(new GlassBlock(metal,ignoreSimilarity),metal.getName()+"_glass_block");
 	}
 	
-	private static Block createBlock(MPBResourceMaterial metal){
+	private static Block createBlock(ResourceMaterial metal){
 		return createBlock(metal,false);
 	}
 
-	private static Block createBlock(MPBResourceMaterial metal, boolean glow){
-		return regBlock(new MPBBlockBlock(metal,glow),metal.getName()+"_block");
+	private static Block createBlock(ResourceMaterial metal, boolean glow){
+		return regBlock(new BlockBlock(metal,glow),metal.getName()+"_block");
 	}
 	
-	private static Block createOre(MPBResourceMaterial metal){
-		return regBlock(new MPBBlockOre(metal),metal.getName()+"_ore");
+	private static Block createCauldron(ResourceMaterial metal, boolean glow){
+		return regBlock(new BlockBlock(metal,glow),metal.getName()+"_cauldron");
+	}
+	
+	private static Block createOre(ResourceMaterial metal){
+		return regBlock(new BlockOres(metal),metal.getName()+"_ore");
 	}
 	
 	private static Block regBlock(Block block, String name){

@@ -1,6 +1,6 @@
 package com.squaresuits.magicalpotionsandbrews.blocks;
 
-import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
+import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 
 import net.minecraft.block.Block;
@@ -13,12 +13,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class MPBGlassBlock extends BlockGlass implements MPBOreDictionaryEntry{
+public class GlassBlock extends BlockGlass implements MPBOreDictionaryEntry{
 
-	protected final MPBResourceMaterial metal;
+	protected final ResourceMaterial metal;
 	private final String oreDict;
 	
-	public MPBGlassBlock(MPBResourceMaterial metal, boolean ignoreSimilarity) {
+	public GlassBlock(ResourceMaterial metal, boolean ignoreSimilarity) {
 		super(Material.GLASS, ignoreSimilarity);
 		this.fullBlock = true;
 		//this.lightOpacity = 255;

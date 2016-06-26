@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockLiquidFluid;
-import com.squaresuits.magicalpotionsandbrews.blocks.MPBBlockMoltenFluid;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockLiquidFluid;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockMoltenFluid;
 import com.squaresuits.magicalpotionsandbrews.fluids.CustomFluid;
 
 import net.minecraft.block.state.IBlockState;
@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class MPBFluids {
+public class Fluids {
 	static {
 		FluidRegistry.enableUniversalBucket();
 	}
@@ -46,14 +46,12 @@ public class MPBFluids {
 	public static void initFluids() {
 
 		// fluids
-		fluidPyrite = newFluid(MPBGlobal.MOD_ID, "pyrite", 2000,10000,330,10, 0xFFEBAA56);
+		fluidPyrite = newFluid(MPBGlobal.MOD_ID, "pyrite", 2000,10000,330,10, 0xFFC4B012);
 		fluidPotion = newFluid(MPBGlobal.MOD_ID, "potion", 500,3000,60,3, 0x996868FF);
 
-		
-
 		// fluid blocks
-		fluidBlockPyrite = registerFluidBlock(fluidPyrite, new MPBBlockMoltenFluid(fluidPyrite),"pyrite");
-		fluidBlockPotion = registerFluidBlock(fluidPotion, new MPBBlockLiquidFluid(fluidPotion),"potion");
+		fluidBlockPyrite = registerFluidBlock(fluidPyrite, new BlockMoltenFluid(fluidPyrite),"pyrite");
+		fluidBlockPotion = registerFluidBlock(fluidPotion, new BlockLiquidFluid(fluidPotion),"potion");
 		
 	}
 

@@ -1,7 +1,7 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "blocks/copper_cauldron",
+        "0": "magicpab:blocks/copper_cauldron",
         "1": "blocks/Glass_Diamond"
     },
     "elements": [

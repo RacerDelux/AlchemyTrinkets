@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemInfusedGlass;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemFlaskComponent;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemGem;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemIngot;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemPotionFlask;
-import com.squaresuits.magicalpotionsandbrews.items.MPBItemShard;
+import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlass;
+import com.squaresuits.magicalpotionsandbrews.items.ItemFlaskComponent;
+import com.squaresuits.magicalpotionsandbrews.items.ItemGem;
+import com.squaresuits.magicalpotionsandbrews.items.ItemIngot;
+import com.squaresuits.magicalpotionsandbrews.items.ItemMock;
+import com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask;
+import com.squaresuits.magicalpotionsandbrews.items.ItemShard;
 import com.squaresuits.magicalpotionsandbrews.items.tools.MPBCopperPickaxe;
-import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
+import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 
 import net.minecraft.block.Block;
@@ -31,13 +32,17 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import scala.Console;
 
-public class MPBItems {
+public class Items {
 	
 	private static Map<Item,String> itemMPBRegistry = new HashMap<>();
 	private static Map<String,Item> allMPBItems = new HashMap<>();
 	
 	//Flask
 	public static Item potion_flask;
+	
+	//mock
+	public static Item potion_mock;
+	public static Item component_mock;
 	
 	//Tools
 	public static ToolMaterial COPPERTOOLS = EnumHelper.addToolMaterial("COPPERTOOLS", 2, 350, 5.0F, 2.2F, 15);
@@ -71,28 +76,32 @@ public class MPBItems {
 		
 		//Flask
 		potion_flask = createPotionFlask();
+		
+		//Mock
+		potion_mock = createMockItem("potion");
+		component_mock = createMockItem("component");
 		//Tools
 		//GameRegistry.registerItem(copperPickaxe = new MPBCopperPickaxe("copperPickaxe", COPPERTOOLS), "copperPickaxe");
 		
 		//Ingot
-		pyrite_ingot = createIngot(MPBMaterial.pyrite);
-		copper_ingot = createIngot(MPBMaterial.copper);
-		nickel_ingot = createIngot(MPBMaterial.nickel);
+		pyrite_ingot = createIngot(Materials.pyrite);
+		copper_ingot = createIngot(Materials.copper);
+		nickel_ingot = createIngot(Materials.nickel);
 		
 		//Shards
 		//pyrite_shard = createShard(MPBMaterial.pyrite);
 		
 		//Gems
-		topaz_stone = createGem(MPBMaterial.topaz);
+		topaz_stone = createGem(Materials.topaz);
 		
 		//Flask Components
-		copper_flask_component = createFlaskComponent(MPBMaterial.copper);
-		iron_flask_component = createFlaskComponent(MPBMaterial.vanilla_iron);
-		gold_flask_component = createFlaskComponent(MPBMaterial.vanilla_gold);
+		copper_flask_component = createFlaskComponent(Materials.copper);
+		iron_flask_component = createFlaskComponent(Materials.vanilla_iron);
+		gold_flask_component = createFlaskComponent(Materials.vanilla_gold);
 		
 		if (Loader.isModLoaded("basemetals")) {
             try {
-            	starsteel_flask_component = createFlaskComponent(MPBMaterial.starsteel);
+            	starsteel_flask_component = createFlaskComponent(Materials.starsteel);
                 Console.out().println("Base Metals found - recipes added!");
             }
             catch (Exception e) {
@@ -108,32 +117,35 @@ public class MPBItems {
 		}
 		
 	}
+	private static Item createMockItem(String item){
+		return regItem(new ItemMock(), item+"_mock", null, MPBGlobal.MyCrTab);
+	}
 	
 	private static Item createPotionFlask(){
-		return regFlask(new MPBItemPotionFlask(), "potion_flask", MPBGlobal.MyCrTab);
+		return regFlask(new ItemPotionFlask(), "potion_flask", MPBGlobal.MyCrTab);
 	}
 	
-	private static Item createInfusedGlass(MPBResourceMaterial metal){
-		return regItem(new MPBItemInfusedGlass(metal), metal.getName()+"_infused_glass", metal, MPBGlobal.MyCrTab);
+	private static Item createInfusedGlass(ResourceMaterial metal){
+		return regItem(new ItemInfusedGlass(metal), metal.getName()+"_infused_glass", metal, MPBGlobal.MyCrTab);
 	}
 	
-	private static Item createFlaskComponent(MPBResourceMaterial metal){
-		return regItem(new MPBItemFlaskComponent(metal), metal.getName()+"_flask_component", metal, MPBGlobal.MyCrTab);
+	private static Item createFlaskComponent(ResourceMaterial metal){
+		return regItem(new ItemFlaskComponent(metal), metal.getName()+"_flask_component", metal, MPBGlobal.MyCrTab);
 	}
 	
-	private static Item createIngot(MPBResourceMaterial metal){
-		return regItem(new MPBItemIngot(metal), metal.getName()+"_"+"ingot", metal, MPBGlobal.MyCrTab);
+	private static Item createIngot(ResourceMaterial metal){
+		return regItem(new ItemIngot(metal), metal.getName()+"_"+"ingot", metal, MPBGlobal.MyCrTab);
 	}
 	
-	private static Item createShard(MPBResourceMaterial metal){
-		return regItem(new MPBItemShard(metal), metal.getName()+"_"+"shard", metal, MPBGlobal.MyCrTab);
+	private static Item createShard(ResourceMaterial metal){
+		return regItem(new ItemShard(metal), metal.getName()+"_"+"shard", metal, MPBGlobal.MyCrTab);
 	}
 	
-	private static Item createGem(MPBResourceMaterial metal){
-		return regItem(new MPBItemGem(metal), metal.getName()+"_"+"gem", metal, MPBGlobal.MyCrTab);
+	private static Item createGem(ResourceMaterial metal){
+		return regItem(new ItemGem(metal), metal.getName()+"_"+"gem", metal, MPBGlobal.MyCrTab);
 	}
 	
-	private static Item regItem(Item item, String name, MPBResourceMaterial metal, CreativeTabs tab){
+	private static Item regItem(Item item, String name, ResourceMaterial metal, CreativeTabs tab){
 		item.setRegistryName(MPBGlobal.MOD_ID, name);
 		item.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
 		GameRegistry.register(item); 

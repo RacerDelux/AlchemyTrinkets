@@ -1,16 +1,16 @@
 package com.squaresuits.magicalpotionsandbrews.items;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
+import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 
 import net.minecraft.item.Item;
 
-public class MPBItemIngot extends Item implements MPBOreDictionaryEntry{
-	protected final MPBResourceMaterial metal;
+public class ItemIngot extends Item implements MPBOreDictionaryEntry{
+	protected final ResourceMaterial metal;
 	private final String oreDict;
 	
-	public MPBItemIngot(MPBResourceMaterial metal) {
+	public ItemIngot(ResourceMaterial metal) {
 		//super();
 		this.metal = metal;
 		this.oreDict = "ingot"+metal.getCapitalizedName();
@@ -21,7 +21,7 @@ public class MPBItemIngot extends Item implements MPBOreDictionaryEntry{
 	public String getOreDictionaryName() {
 		return oreDict;
 	}
-	public MPBResourceMaterial getMetalMaterial(){
+	public ResourceMaterial getMetalMaterial(){
 		return metal;
 	}
 }

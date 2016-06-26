@@ -2,7 +2,7 @@ package com.squaresuits.magicalpotionsandbrews.material;
 
 import java.util.Locale;
 
-public class MPBResourceMaterial {
+public class ResourceMaterial {
 	
 	/** hardness on a scale from 0 to 10 (or more), where 0 is non-solid and 
 	 * diamond is 10. For reference, wood is 3, stone is 5, iron is 8, diamond is 10.
@@ -29,7 +29,7 @@ public class MPBResourceMaterial {
 	
 	final String titleName;
 	
-	public MPBResourceMaterial(String name, float hardness, float strength, float magic){
+	public ResourceMaterial(String name, float hardness, float strength, float magic){
 		this.hardness = hardness;
 		this.strength = strength;
 		this.magicAffinity = magic;

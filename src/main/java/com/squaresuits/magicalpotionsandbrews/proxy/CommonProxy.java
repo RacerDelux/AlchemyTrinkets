@@ -10,12 +10,12 @@ import java.util.HashSet;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.Main;
-import com.squaresuits.magicalpotionsandbrews.crafting.MPBRecipes;
-import com.squaresuits.magicalpotionsandbrews.crafting.MPBSmelting;
-import com.squaresuits.magicalpotionsandbrews.init.MPBBlocks;
-import com.squaresuits.magicalpotionsandbrews.init.MPBFluids;
-import com.squaresuits.magicalpotionsandbrews.init.MPBItems;
-import com.squaresuits.magicalpotionsandbrews.init.MPBMaterial;
+import com.squaresuits.magicalpotionsandbrews.crafting.Recipes;
+import com.squaresuits.magicalpotionsandbrews.crafting.Smelting;
+import com.squaresuits.magicalpotionsandbrews.init.Blocks;
+import com.squaresuits.magicalpotionsandbrews.init.Fluids;
+import com.squaresuits.magicalpotionsandbrews.init.Items;
+import com.squaresuits.magicalpotionsandbrews.init.Materials;
 import com.squaresuits.magicalpotionsandbrews.init.tconPlugin;
 
 import net.minecraftforge.common.config.Configuration;
@@ -76,12 +76,12 @@ public class CommonProxy {
 		config.save();
 		
 		
-		MPBMaterial.initMaterial();
-		MPBItems.initItems();
-		MPBBlocks.initBlocks();
-		MPBFluids.initFluids();
-		MPBRecipes.initRecipes();
-		MPBSmelting.initSmelting();
+		Materials.initMaterial();
+		Items.initItems();
+		Blocks.initBlocks();
+		Fluids.initFluids();
+		Recipes.initRecipes();
+		Smelting.initSmelting();
 		//Plugins
 		if(Loader.isModLoaded("tconstruct")) {
 			tconPlugin.initTconPlugin();

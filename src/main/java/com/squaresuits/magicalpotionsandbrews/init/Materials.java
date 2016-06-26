@@ -1,24 +1,24 @@
 package com.squaresuits.magicalpotionsandbrews.init;
 
-import com.squaresuits.magicalpotionsandbrews.material.MPBResourceMaterial;
+import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 
 import net.minecraftforge.fml.common.Loader;
 import scala.Console;
 
-public abstract class MPBMaterial {
-	public static MPBResourceMaterial pyrite;
-	public static MPBResourceMaterial copper;
-	public static MPBResourceMaterial nickel;
-	public static MPBResourceMaterial topaz;
+public abstract class Materials {
+	public static ResourceMaterial pyrite;
+	public static ResourceMaterial copper;
+	public static ResourceMaterial nickel;
+	public static ResourceMaterial topaz;
 	
 	// vanilla imports
-		public static MPBResourceMaterial vanilla_wood;
-		public static MPBResourceMaterial vanilla_stone;
-		public static MPBResourceMaterial vanilla_iron;
-		public static MPBResourceMaterial vanilla_gold;
-		public static MPBResourceMaterial vanilla_diamond;
+		public static ResourceMaterial vanilla_wood;
+		public static ResourceMaterial vanilla_stone;
+		public static ResourceMaterial vanilla_iron;
+		public static ResourceMaterial vanilla_gold;
+		public static ResourceMaterial vanilla_diamond;
 		
-		public static MPBResourceMaterial starsteel;
+		public static ResourceMaterial starsteel;
 	
 	public static void initMaterial(){
 		
@@ -46,8 +46,8 @@ public abstract class MPBMaterial {
         }
 	}
 	
-	private static MPBResourceMaterial addMaterial(String name, double hardness, double strength, double magic){
-		MPBResourceMaterial m = new MPBResourceMaterial(name,(float)hardness,(float)strength,(float)magic);
+	private static ResourceMaterial addMaterial(String name, double hardness, double strength, double magic){
+		ResourceMaterial m = new ResourceMaterial(name,(float)hardness,(float)strength,(float)magic);
 		//registerMaterial(name, m);
 		return m;
 	}

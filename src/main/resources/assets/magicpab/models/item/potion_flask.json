@@ -1,6 +1,8 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "magicpab:items/potion_flask"
+        "layer0": "magicpab:items/potion_flask",
+        "layer1": "magicpab:items/potion_fluid_overlay",
+        "layer2": "magicpab:items/potion_metal_overlay"
     }
 }

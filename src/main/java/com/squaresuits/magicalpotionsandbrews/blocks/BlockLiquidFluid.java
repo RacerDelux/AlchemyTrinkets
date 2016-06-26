@@ -7,8 +7,8 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
-public class MPBBlockLiquidFluid extends BlockFluidClassic{
-	public MPBBlockLiquidFluid(Fluid fluid) {
+public class BlockLiquidFluid extends BlockFluidClassic{
+	public BlockLiquidFluid(Fluid fluid) {
 		super(fluid, Material.WATER);
 
 //		setCreativeTab(TinkerRegistry.tabSmeltery);
