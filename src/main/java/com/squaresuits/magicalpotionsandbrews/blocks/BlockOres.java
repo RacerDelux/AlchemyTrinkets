@@ -48,7 +48,7 @@ public class BlockOres extends BlockOre implements MPBOreDictionaryEntry {
 	}
 	
 	public int quantityDropped(Random random) {
-		return this == Blocks.pyrite_ore ? 3 + random.nextInt(3) : 1;
+		return /*this == Blocks.pyrite_ore ? 3 + random.nextInt(3) :*/ 1;
 	}
 	
 	public ResourceMaterial getMetal(){

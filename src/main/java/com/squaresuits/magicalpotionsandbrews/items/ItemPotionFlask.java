@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.registry.FlaskRecipe;
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
+import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -165,11 +166,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
             	}
             	switch(pass){
             	case 0: //Glass
-            		return FlaskRecipe.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
+            		return flaskUtil.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
 				case 1: //Fluid
             		return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
 				case 2: //Metal
-            		return FlaskRecipe.materialColor.get(stack.getTagCompound().getString("flaskComponent"));
+            		return flaskUtil.materialColor.get(stack.getTagCompound().getString("flaskComponent"));
 				default:
             		return 0xFFFFFF;
             	}
