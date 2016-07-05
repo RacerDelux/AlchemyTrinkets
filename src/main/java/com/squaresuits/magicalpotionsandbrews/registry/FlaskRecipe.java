@@ -30,8 +30,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
 	private String material = "";
 	public FlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
     public FlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
-    public FlaskRecipe(ItemStack result, Object... recipe){ 
-    	super(result, recipe); }
+    public FlaskRecipe(ItemStack result, Object... recipe){ super(result, recipe); }
     
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
@@ -55,12 +54,14 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	tmp.getTagCompound().setString("infusedGlass", getNameOfItem(infusedGlassUsed.getUnlocalizedName()));
     	tmp.getTagCompound().setBoolean("isEmpty", true);
     	tmp.getTagCompound().setInteger("uses", 0);
-    	tmp.getTagCompound().setInteger("maxUses", flaskUtil.materialUses.get(tmp.getTagCompound().getString("flaskComponent")));
+    	tmp.getTagCompound().setInteger("maxUses", flaskUtil.materialUses.get(material));
+    	
     	
     	//MPBItemPotionFlask  hi = (MPBItemPotionFlask) tmp.getItem();
     	//hi.setMaterials(input[1].toString());
     	return tmp;//new ItemStack(hi);
     }
+    
     
     @Override
     public boolean matches(InventoryCrafting inv, World world)
@@ -91,5 +92,6 @@ public class FlaskRecipe extends ShapedOreRecipe{
     }
     private String getNameOfItem(String str){
     	return str.split(Pattern.quote("."), 3)[2].split("_", 2)[0];
+ 
     }
 }
