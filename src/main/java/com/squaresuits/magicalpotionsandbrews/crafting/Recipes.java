@@ -3,11 +3,14 @@ package com.squaresuits.magicalpotionsandbrews.crafting;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.registry.FlaskRecipe;
+import com.squaresuits.magicalpotionsandbrews.registry.PABShapedOreRecipe;
 import com.squaresuits.magicalpotionsandbrews.registry.PotionAdditionFlaskRecipe;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import scala.Console;
 
@@ -21,7 +24,7 @@ public class Recipes {
 						"xo ",
 						"   ",
 						"   ",
-						'o', net.minecraft.init.Items.POTIONITEM,
+						'o', new ItemStack(net.minecraft.init.Items.POTIONITEM,1,OreDictionary.WILDCARD_VALUE),
 						'x', Items.potion_flask
 				}));
 		//Pyrite Block
@@ -47,7 +50,7 @@ public class Recipes {
 				Blocks.pyrite_block
 				});
 		// Flask Component
-    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.iron_flask_component),
+    	GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "iron",
 				new Object [] {
 						" o ",
 						"oxo",
@@ -55,12 +58,20 @@ public class Recipes {
 						'o', "ingotIron",
 						'x', "ingotPyrite"
 				}));
-    	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.gold_flask_component),
+    	GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "gold",
 				new Object [] {
 						" o ",
 						"oxo",
 						"   ",
 						'o', "ingotGold",
+						'x', "ingotPyrite"
+				}));
+    	GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "diamond",
+				new Object [] {
+						" o ",
+						"oxo",
+						"   ",
+						'o', "gemDiamond",
 						'x', "ingotPyrite"
 				}));
     	
@@ -70,21 +81,13 @@ public class Recipes {
 						" o ",
 						"x x",
 						"xxx",
-						'o', Items.iron_flask_component,
-						'x', Blocks.pyrite_glass_block
-				}));
-    	GameRegistry.addRecipe(new FlaskRecipe(new ItemStack(Items.potion_flask),
-				new Object [] {
-						" o ",
-						"x x",
-						"xxx",
-						'o', Items.gold_flask_component,
+						'o', new ItemStack(Items.flask_component,1,OreDictionary.WILDCARD_VALUE),
 						'x', Blocks.pyrite_glass_block
 				}));
 		 if (Loader.isModLoaded("basemetals")) {
 	            try {
 	            	//Copper Flask Component
-	            	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.copper_flask_component),
+	            	GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "copper",
 	        				new Object [] {
 	        						" o ",
 	        						"oxo",
@@ -92,31 +95,14 @@ public class Recipes {
 	        						'o', "ingotCopper",
 	        						'x', "ingotPyrite"
 	        				}));
-	            	//Copper Flask Component
-	            	GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.starsteel_flask_component),
+	            	//starsteel Flask Component
+	            	GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "starsteel",
 	        				new Object [] {
 	        						" o ",
 	        						"oxo",
 	        						"   ",
 	        						'o', "ingotStarsteel",
 	        						'x', "ingotPyrite"
-	        				}));
-	            	
-	            	GameRegistry.addRecipe(new FlaskRecipe(new ItemStack(Items.potion_flask),
-	        				new Object [] {
-	        						" o ",
-	        						"x x",
-	        						"xxx",
-	        						'o', Items.copper_flask_component,
-	        						'x', Blocks.pyrite_glass_block
-	        				}));
-	            	GameRegistry.addRecipe(new FlaskRecipe(new ItemStack(Items.potion_flask),
-	        				new Object [] {
-	        						" o ",
-	        						"x x",
-	        						"xxx",
-	        						'o', Items.starsteel_flask_component,
-	        						'x', Blocks.pyrite_glass_block
 	        				}));
 	                Console.out().println("Base Metals found - recipes added!");
 	            }

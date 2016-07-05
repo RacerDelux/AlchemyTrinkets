@@ -1,0 +1,36 @@
+
+{
+    "parent": "item/generated",
+    "overrides": [
+        {
+            "predicate": {
+                "sword": 0
+            },
+            "model": "magicpab:item/copper_flask_component"
+        },
+        {
+            "predicate": {
+                "sword": 1
+            },
+            "model": "magicpab:item/iron_flask_component"
+        },
+        {
+            "predicate": {
+                "sword": 2
+            },
+            "model": "magicpab:item/gold_flask_component"
+        },
+        {
+            "predicate": {
+                "sword": 3
+            },
+            "model": "magicpab:item/diamond_flask_component"
+        },
+        {
+            "predicate": {
+                "sword": 4
+            },
+            "model": "magicpab:item/starsteel_flask_component"
+        }
+    ]
+}

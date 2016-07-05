@@ -1,0 +1,7 @@
+
+{
+    "parent": "builtin/generated",
+    "textures": {
+        "layer0": "magicpab:items/copper_flask_component"
+    }
+}

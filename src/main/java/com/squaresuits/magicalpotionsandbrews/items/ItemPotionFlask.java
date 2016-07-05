@@ -122,6 +122,10 @@ public class ItemPotionFlask extends Item implements IColorItem{
     	}
     }
 
+    /*
+     * Returns the display name of the flask.
+     * @see net.minecraft.item.Item#getItemStackDisplayName(net.minecraft.item.ItemStack)
+     */
     public String getItemStackDisplayName(ItemStack stack)
     {
         return "Flask";

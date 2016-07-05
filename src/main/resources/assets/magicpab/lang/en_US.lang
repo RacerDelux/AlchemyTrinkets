@@ -23,5 +23,7 @@ fluid.magicpab.pyrite=Molten Pyrite
 item.magicpab.copper_flask_component.name=Copper Flask Component
 item.magicpab.iron_flask_component.name=Iron Flask Component
 item.magicpab.gold_flask_component.name=Gold Flask Component
+item.magicpab.diamond_flask_component.name=Diamond Flask Component
+item.magicpab.starsteel_flask_component.name=Starsteel Flask Component
 
 itemGroup.ngCreativeTab=Magical Potions and Brews

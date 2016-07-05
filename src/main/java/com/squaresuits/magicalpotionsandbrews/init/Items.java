@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
+import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.items.ItemFlaskComponent;
 import com.squaresuits.magicalpotionsandbrews.items.ItemGem;
@@ -14,14 +15,17 @@ import com.squaresuits.magicalpotionsandbrews.items.ItemShard;
 import com.squaresuits.magicalpotionsandbrews.items.tools.MPBCopperPickaxe;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
+import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -65,11 +69,7 @@ public class Items {
 	public static Item topaz_stone;
 	
 	//Flask Components
-	public static Item copper_flask_component;
-	public static Item iron_flask_component;
-	public static Item gold_flask_component;
-	
-	public static Item starsteel_flask_component;
+	public static Item flask_component;
 	
 	public static void initItems(){
 		
@@ -95,13 +95,13 @@ public class Items {
 		topaz_stone = createGem(Materials.topaz);
 		
 		//Flask Components
-		copper_flask_component = createFlaskComponent(Materials.copper);
-		iron_flask_component = createFlaskComponent(Materials.vanilla_iron);
-		gold_flask_component = createFlaskComponent(Materials.vanilla_gold);
+		flask_component = createFlaskComponent(Materials.copper);
+		//iron_flask_component = createFlaskComponent(Materials.vanilla_iron);
+		//gold_flask_component = createFlaskComponent(Materials.vanilla_gold);
 		
 		if (Loader.isModLoaded("basemetals")) {
             try {
-            	starsteel_flask_component = createFlaskComponent(Materials.starsteel);
+            	//starsteel_flask_component = createFlaskComponent(Materials.starsteel);
                 Console.out().println("Base Metals found - recipes added!");
             }
             catch (Exception e) {
@@ -130,7 +130,7 @@ public class Items {
 	}
 	
 	private static Item createFlaskComponent(ResourceMaterial metal){
-		return regItem(new ItemFlaskComponent(metal), metal.getName()+"_flask_component", metal, MPBGlobal.MyCrTab);
+		return regItem(new ItemFlaskComponent(metal), "flask_component", metal, MPBGlobal.MyCrTab);
 	}
 	
 	private static Item createIngot(ResourceMaterial metal){
@@ -168,11 +168,17 @@ public class Items {
 	
 	@SideOnly(Side.CLIENT)
 	public static void regItemRenders(FMLInitializationEvent event){
+		
 		for(Item i : itemMPBRegistry.keySet()){
+
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 			.register(i, 0, 
 				new ModelResourceLocation(MPBGlobal.MOD_ID+":"+itemMPBRegistry.get(i), "inventory"));
+
 		}
+		
+
+		
 	}
 	
 	public static Item getMPBItemByName(String name){
