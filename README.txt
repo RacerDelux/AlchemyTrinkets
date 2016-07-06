@@ -39,7 +39,7 @@ Should it still not work,
 Refer to #ForgeGradle on EsperNet for more information about the gradle environment.
 
 Tip:
-If you do not care about seeing Minecraft's source code you can replace "setupDecompWorkspace" with one of the followimagicpab:
+If you do not care about seeing Minecraft's source code you can replace "setupDecompWorkspace" with one of the following:
 "setupDevWorkspace": Will patch, deobfusicated, and gather required assets to run minecraft, but will not generated human readable source code.
 "setupCIWorkspace": Same as Dev but will not download any assets. This is useful in build servers as it is the fastest because it does the least work.
 

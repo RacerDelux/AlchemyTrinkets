@@ -168,7 +168,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
             	}
             	switch(pass){
             	case 0: //Glass
-            		return flaskUtil.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
+            		return 0xFFFFFF; //flaskUtil.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
 				case 1: //Fluid
             		return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
 				case 2: //Metal
