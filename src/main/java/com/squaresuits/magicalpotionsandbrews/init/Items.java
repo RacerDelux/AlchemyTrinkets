@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.items.ItemFlaskComponent;
 import com.squaresuits.magicalpotionsandbrews.items.ItemGem;
@@ -12,20 +11,13 @@ import com.squaresuits.magicalpotionsandbrews.items.ItemIngot;
 import com.squaresuits.magicalpotionsandbrews.items.ItemMock;
 import com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask;
 import com.squaresuits.magicalpotionsandbrews.items.ItemShard;
-import com.squaresuits.magicalpotionsandbrews.items.tools.MPBCopperPickaxe;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
-import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
-
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -33,7 +25,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import scala.Console;
 
 public class Items {

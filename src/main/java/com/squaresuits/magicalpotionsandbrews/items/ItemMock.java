@@ -1,8 +1,6 @@
 package com.squaresuits.magicalpotionsandbrews.items;
 
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
-import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
-
 import net.minecraft.item.Item;
 
 public class ItemMock extends Item {

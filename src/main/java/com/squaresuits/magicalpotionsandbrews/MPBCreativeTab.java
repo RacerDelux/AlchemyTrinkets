@@ -12,6 +12,7 @@ public class MPBCreativeTab extends CreativeTabs{
 		
 	}
 	
+	@Override
 	public Item getTabIconItem() {
 		return Items.potion_mock;
 	}

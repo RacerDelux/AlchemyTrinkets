@@ -1,11 +1,8 @@
 package com.squaresuits.magicalpotionsandbrews.init;
 
-import com.squaresuits.magicalpotionsandbrews.Main;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 

@@ -7,7 +7,6 @@ import com.squaresuits.magicalpotionsandbrews.registry.PABShapedOreRecipe;
 import com.squaresuits.magicalpotionsandbrews.registry.PotionAdditionFlaskRecipe;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;

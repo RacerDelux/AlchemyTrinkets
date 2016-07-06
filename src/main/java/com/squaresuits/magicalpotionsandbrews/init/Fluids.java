@@ -65,6 +65,7 @@ public class Fluids {
             ModelBakery.registerItemVariants(item);
 			ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition()
 			{
+				@Override
 				public ModelResourceLocation getModelLocation(ItemStack stack)
 				{
 					return fluidModelLocation;
@@ -72,6 +73,7 @@ public class Fluids {
 			});
 			ModelLoader.setCustomStateMapper(block, new StateMapperBase()
 			{
+				@Override
 				protected ModelResourceLocation getModelResourceLocation(IBlockState state)
 				{
 					return fluidModelLocation;

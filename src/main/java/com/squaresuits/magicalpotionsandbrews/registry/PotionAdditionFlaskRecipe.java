@@ -3,19 +3,13 @@ package com.squaresuits.magicalpotionsandbrews.registry;
 import java.util.regex.Pattern;
 
 import com.squaresuits.magicalpotionsandbrews.Main;
-import com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
 	

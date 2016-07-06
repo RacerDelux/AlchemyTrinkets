@@ -27,17 +27,17 @@ public class Main {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent preEvent){
 		logger = preEvent.getModLog();
-		this.proxy.preInit(preEvent);
+		Main.proxy.preInit(preEvent);
 		
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event){
-		this.proxy.init(event);
+		Main.proxy.init(event);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent postEvent){
-		this.proxy.postInit(postEvent);
+		Main.proxy.postInit(postEvent);
 	}
 }

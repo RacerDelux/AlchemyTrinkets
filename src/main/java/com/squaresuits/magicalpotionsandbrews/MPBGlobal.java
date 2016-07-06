@@ -1,7 +1,5 @@
 package com.squaresuits.magicalpotionsandbrews;
 
-import net.minecraft.creativetab.CreativeTabs;
-
 public class MPBGlobal {
 	public  static final String MOD_ID = "magicpab";
 	public static final String MOD_NAME = "Magical Potions And Brews";

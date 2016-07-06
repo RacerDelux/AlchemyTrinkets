@@ -10,7 +10,6 @@ import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,9 +28,10 @@ public class ItemFlaskComponent extends Item{
 		this.setHasSubtypes(true);
 		this.metal = metal;
 		//this.setCreativeTab(CreativeTabs.MATERIALS);
-		this.addPropertyOverride(new ResourceLocation("sword"), new IItemPropertyGetter()
+		this.addPropertyOverride(new ResourceLocation("material"), new IItemPropertyGetter()
 		{
-		    @SideOnly(Side.CLIENT)
+		    @Override
+			@SideOnly(Side.CLIENT)
 		    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
 		    {
 		    	if(stack.hasTagCompound()){
@@ -50,7 +50,8 @@ public class ItemFlaskComponent extends Item{
      * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have
      * different names based on their damage or NBT.
      */
-    public String getUnlocalizedName(ItemStack stack)
+    @Override
+	public String getUnlocalizedName(ItemStack stack)
     {
     	if(stack.hasTagCompound()){
         return setName( super.getUnlocalizedName(), stack.getTagCompound().getString("material"));
@@ -64,7 +65,8 @@ public class ItemFlaskComponent extends Item{
 	/**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
     {
         for (int i = 0; i < flaskUtil.flaskMaterials.length; ++i)

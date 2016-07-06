@@ -1,33 +1,24 @@
 package com.squaresuits.magicalpotionsandbrews.items;
 
 import java.util.List;
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
-import com.squaresuits.magicalpotionsandbrews.Main;
-import com.squaresuits.magicalpotionsandbrews.registry.FlaskRecipe;
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -49,7 +40,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
      * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
      * the Item before the action is complete.
      */
-    @Nullable
+    @Override
+	@Nullable
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
     {
     	if(!stack.getTagCompound().getBoolean("isEmpty")){
@@ -90,7 +82,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
     /**
      * How long it takes to use or consume an item
      */
-    public int getMaxItemUseDuration(ItemStack stack)
+    @Override
+	public int getMaxItemUseDuration(ItemStack stack)
     {
     	if(!stack.getTagCompound().getBoolean("isEmpty")){
     		return 32;
@@ -103,7 +96,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
     /**
      * returns the action that specifies what animation to play when the items is being used
      */
-    public EnumAction getItemUseAction(ItemStack stack)
+    @Override
+	public EnumAction getItemUseAction(ItemStack stack)
     {
     	if(!stack.getTagCompound().getBoolean("isEmpty")){
     		return EnumAction.DRINK;
@@ -112,7 +106,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
     	}
     }
 
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+    @Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
     	if(!itemStackIn.getTagCompound().getBoolean("isEmpty")){
     		playerIn.setActiveHand(hand);
@@ -126,7 +121,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
      * Returns the display name of the flask.
      * @see net.minecraft.item.Item#getItemStackDisplayName(net.minecraft.item.ItemStack)
      */
-    public String getItemStackDisplayName(ItemStack stack)
+    @Override
+	public String getItemStackDisplayName(ItemStack stack)
     {
         return "Flask";
     	//return I18n.translateToLocal(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
@@ -135,7 +131,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
     /**
      * allows items to add custom lines of information to the mouseover description
      */
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
     {
     	if(stack.hasTagCompound()) {
@@ -153,7 +150,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
     	
     }
 
-    @SideOnly(Side.CLIENT)
+    @Override
+	@SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack)
     {
         return !PotionUtils.getEffectsFromStack(stack).isEmpty();

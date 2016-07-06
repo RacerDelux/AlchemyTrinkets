@@ -43,10 +43,12 @@ public class BlockOres extends BlockOre implements MPBOreDictionaryEntry {
 		return metal;
 	}
 	
+	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune){
 		return this == Blocks.topaz_ore ? Items.topaz_stone : Item.getItemFromBlock(this);
 	}
 	
+	@Override
 	public int quantityDropped(Random random) {
 		return /*this == Blocks.pyrite_ore ? 3 + random.nextInt(3) :*/ 1;
 	}

@@ -1,6 +1,5 @@
 package com.squaresuits.magicalpotionsandbrews.crafting;
 
-import com.squaresuits.magicalpotionsandbrews.blocks.BlockOres;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
 

@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.crafting.Recipes;
 import com.squaresuits.magicalpotionsandbrews.crafting.Smelting;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
