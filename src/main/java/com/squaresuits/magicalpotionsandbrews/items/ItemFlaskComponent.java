@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
-import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
+import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,7 +35,7 @@ public class ItemFlaskComponent extends Item{
 		    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
 		    {
 		    	if(stack.hasTagCompound()){
-		        return flaskUtil.materialInt.get(stack.getTagCompound().getString("material"));
+		        return FlaskUtil.flaskMaterialInfo.get(stack.getTagCompound().getString("material"))[FlaskUtil.MATINT];
 		    	}
 		    	return 0;
 		    }
@@ -69,9 +69,9 @@ public class ItemFlaskComponent extends Item{
 	@SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
     {
-        for (int i = 0; i < flaskUtil.flaskMaterials.length; ++i)
+        for (int i = 0; i < FlaskUtil.flaskMaterials.length; ++i)
         {
-            subItems.add(setComponentNBT(new ItemStack(itemIn), flaskUtil.flaskMaterials[i]));
+            subItems.add(setComponentNBT(new ItemStack(itemIn), FlaskUtil.flaskMaterials[i]));
         }
     }
     private ItemStack setComponentNBT(ItemStack itemIn, String string) {

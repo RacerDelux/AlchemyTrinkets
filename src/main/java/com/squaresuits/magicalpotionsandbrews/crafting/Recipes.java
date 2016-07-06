@@ -65,14 +65,6 @@ public class Recipes {
 						'o', "ingotGold",
 						'x', "ingotPyrite"
 				}));
-    	GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "diamond",
-				new Object [] {
-						" o ",
-						"oxo",
-						"   ",
-						'o', "gemDiamond",
-						'x', "ingotPyrite"
-				}));
     	
     	//Potion Flask
     	GameRegistry.addRecipe(new FlaskRecipe(new ItemStack(Items.potion_flask),

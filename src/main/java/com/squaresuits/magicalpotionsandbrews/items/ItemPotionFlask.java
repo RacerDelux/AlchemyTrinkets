@@ -4,7 +4,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
-import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
+import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
 
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
@@ -172,7 +172,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
 				case 1: //Fluid
             		return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
 				case 2: //Metal
-            		return flaskUtil.materialColor.get(stack.getTagCompound().getString("flaskComponent"));
+            		return FlaskUtil.flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[FlaskUtil.MATCOLOR];
 				default:
             		return 0xFFFFFF;
             	}

@@ -3,7 +3,7 @@ package com.squaresuits.magicalpotionsandbrews.registry;
 import java.util.regex.Pattern;
 
 import com.squaresuits.magicalpotionsandbrews.Main;
-import com.squaresuits.magicalpotionsandbrews.util.flaskUtil;
+import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
@@ -41,7 +41,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	tmp.getTagCompound().setString("infusedGlass", getNameOfItem(infusedGlassUsed.getUnlocalizedName()));
     	tmp.getTagCompound().setBoolean("isEmpty", true);
     	tmp.getTagCompound().setInteger("uses", 0);
-    	tmp.getTagCompound().setInteger("maxUses", flaskUtil.materialUses.get(material));
+    	tmp.getTagCompound().setInteger("maxUses", FlaskUtil.flaskMaterialInfo.get(material)[FlaskUtil.MATUSE]);
     	
     	
     	//MPBItemPotionFlask  hi = (MPBItemPotionFlask) tmp.getItem();
@@ -53,7 +53,6 @@ public class FlaskRecipe extends ShapedOreRecipe{
     @Override
     public boolean matches(InventoryCrafting inv, World world)
     {
-    	
     	ItemStack component = inv.getStackInSlot(1);
     	if(component != null && component.hasTagCompound()){
     		material = component.getTagCompound().getString("material");
