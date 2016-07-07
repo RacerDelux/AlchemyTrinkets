@@ -121,15 +121,8 @@ public class Blocks {
 		
 		allBlocks.put(name, block);
 		
-		Item itemBlockVariants = GameRegistry.findItem("magicpab", "infused_glass_block");
+		createCustomModels();
 		
-		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("magicpab:diamond_infused_glass_block", "inventory");
-		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.DIAMOND.getMetadata(), itemModelResourceLocation);
-	    
-	    itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
-	    ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
-
-	    
 		return block;
 	}
 	
@@ -140,6 +133,19 @@ public class Blocks {
 			.register(net.minecraft.item.Item.getItemFromBlock(allBlocks.get(name)), 0, 
 				new ModelResourceLocation(MPBGlobal.MOD_ID+":"+name, "inventory"));
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private static void createCustomModels(){
+		Item itemBlockVariants = GameRegistry.findItem("magicpab", "infused_glass_block");
+		
+		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("magicpab:diamond_infused_glass_block", "inventory");
+		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.DIAMOND.getMetadata(), itemModelResourceLocation);
+	    
+	    itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
+	    ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
+
+	    
 	}
 	
 }
