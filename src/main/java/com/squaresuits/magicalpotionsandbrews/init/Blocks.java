@@ -119,7 +119,7 @@ public class Blocks {
 		
 		block.setCreativeTab(MPBGlobal.MyCrTab);
 		
-		allBlocks.put(name, block);
+		//allBlocks.put(name, block);
 		
 		createCustomModels();
 		
@@ -145,7 +145,6 @@ public class Blocks {
 	    itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
 	    ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
 
-	    
 	}
 	
 }

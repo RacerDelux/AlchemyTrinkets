@@ -15,6 +15,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class FlaskRecipe extends ShapedOreRecipe{
 	private String material = "";
+	private String glass = "";
 	public FlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
     public FlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
     public FlaskRecipe(ItemStack result, Object... recipe){ super(result, recipe); }
@@ -26,7 +27,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
     		if(input[i] != null){
     			ItemStack thestack = (ItemStack) input[i];
     			
-    			Main.logger.info(i + ": " + thestack.getItem().getClass().getName());
+    			//Main.logger.info(i + ": " + thestack.getItem().getClass().getName());
     		}
     	}
     	ItemStack tmp = output.copy();
@@ -38,7 +39,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	tmp.setTagCompound(new NBTTagCompound());
     	
     	tmp.getTagCompound().setString("flaskComponent", material);
-    	tmp.getTagCompound().setString("infusedGlass", getNameOfItem(infusedGlassUsed.getUnlocalizedName()));
+    	tmp.getTagCompound().setString("infusedGlass", glass);
     	tmp.getTagCompound().setBoolean("isEmpty", true);
     	tmp.getTagCompound().setInteger("uses", 0);
     	tmp.getTagCompound().setInteger("maxUses", FlaskUtil.flaskMaterialInfo.get(material)[FlaskUtil.MATUSE]);
@@ -56,6 +57,10 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	ItemStack component = inv.getStackInSlot(1);
     	if(component != null && component.hasTagCompound()){
     		material = component.getTagCompound().getString("material");
+    	}
+    	ItemStack glassUsed = inv.getStackInSlot(3);
+    	if(glassUsed != null){
+    		glass = getNameOfItem(glassUsed.getUnlocalizedName());
     	}
     	
         for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)

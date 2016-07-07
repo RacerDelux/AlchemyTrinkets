@@ -1,5 +1,6 @@
 package com.squaresuits.magicalpotionsandbrews.crafting;
 
+import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.registry.FlaskRecipe;
@@ -11,13 +12,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import scala.Console;
 
 public class Recipes {
 
 	public static void initRecipes(){
-
+		RecipeSorter.register(MPBGlobal.MOD_ID + ":flaskShapedRecipe", FlaskRecipe.class, RecipeSorter.Category.SHAPED, "");
+		RecipeSorter.register(MPBGlobal.MOD_ID + ":pabShapedRecipe", PABShapedOreRecipe.class, RecipeSorter.Category.SHAPED, "");
+		RecipeSorter.register(MPBGlobal.MOD_ID + ":potionAdditionShaped", PotionAdditionFlaskRecipe.class, RecipeSorter.Category.SHAPED, "");
 		//Potion add to flask
 		GameRegistry.addRecipe(new PotionAdditionFlaskRecipe(new ItemStack(Items.potion_flask),
 				new Object [] {
