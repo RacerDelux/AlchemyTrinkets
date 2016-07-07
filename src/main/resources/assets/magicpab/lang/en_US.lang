@@ -13,7 +13,9 @@ tile.magicpab.nickel_ore.name=Nickel Ore
 tile.magicpab.pyrite_ore.name=Pyrite Ore
 tile.magicpab.topaz_ore.name=Topaz Ore
 tile.magicpab.pyrite_block.name=Pyrite Block
-tile.magicpab.pyrite_glass_block.name=Pyrite Infused Glass
+
+tile.magicpab.pyrite_infused_glass_block.name=Pyrite Infused Glass
+tile.magicpab.diamond_infused_glass_block.name=Diamond Infused Glass
 
 
 
@@ -25,5 +27,7 @@ item.magicpab.iron_flask_component.name=Iron Flask Component
 item.magicpab.gold_flask_component.name=Gold Flask Component
 item.magicpab.diamond_flask_component.name=Diamond Flask Component
 item.magicpab.starsteel_flask_component.name=Starsteel Flask Component
+item.magicpab.fyrestone_flask_component.name=Fyrestone Flask Component
+item.magicpab.earthstone_flask_component.name=Earthstone Flask Component
 
 itemGroup.ngCreativeTab=Magical Potions and Brews

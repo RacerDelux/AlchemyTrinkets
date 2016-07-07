@@ -4,16 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
+import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockBlock;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockOres;
 import com.squaresuits.magicalpotionsandbrews.blocks.GlassBlock;
+import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlassBlock;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,7 +40,7 @@ public class Blocks {
 	
 	//Blocks
 	public static Block pyrite_block;
-	public static Block pyrite_glass_block;
+	public static Block infused_glass_block;
 	
 	//Items
 	public static Block copper_cauldron;
@@ -52,7 +57,8 @@ public class Blocks {
 		
 		pyrite_ore = createOre(Materials.pyrite);
 		pyrite_block = createBlock(Materials.pyrite);
-		pyrite_glass_block = createGlasBlock(Materials.pyrite, false);
+		
+		infused_glass_block = createInfusedGlasBlock(false);
 		
 		//copper_cauldron = createCauldron(MPBMaterial.copper, false);
 		
@@ -61,6 +67,10 @@ public class Blocks {
 			if(b instanceof MPBOreDictionaryEntry){
 				OreDictionary.registerOre(((MPBOreDictionaryEntry)b).getOreDictionaryName(), b);}
 		}
+	}
+	
+	private static Block createInfusedGlasBlock(boolean ignoreSimilarity){
+		return regInfusedBlock(new BlockInfusedGlass(ignoreSimilarity),"infused_glass_block");
 	}
 	
 	private static Block createGlasBlock(ResourceMaterial metal, boolean ignoreSimilarity){
@@ -95,6 +105,31 @@ public class Blocks {
 		block.setCreativeTab(MPBGlobal.MyCrTab);
 		
 		allBlocks.put(name, block);
+		return block;
+	}
+	
+	private static Block regInfusedBlock(Block block, String name){
+		block.setRegistryName(MPBGlobal.MOD_ID, name);
+		block.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
+		GameRegistry.register(block);
+		
+		ItemInfusedGlassBlock itemBlock = new ItemInfusedGlassBlock(block);
+		itemBlock.setRegistryName(MPBGlobal.MOD_ID, name);
+		GameRegistry.register(itemBlock);
+		
+		block.setCreativeTab(MPBGlobal.MyCrTab);
+		
+		allBlocks.put(name, block);
+		
+		Item itemBlockVariants = GameRegistry.findItem("magicpab", "infused_glass_block");
+		
+		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("magicpab:diamond_infused_glass_block", "inventory");
+		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.DIAMOND.getMetadata(), itemModelResourceLocation);
+	    
+	    itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
+	    ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
+
+	    
 		return block;
 	}
 	

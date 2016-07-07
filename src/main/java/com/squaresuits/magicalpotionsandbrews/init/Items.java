@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.items.ItemFlaskComponent;
 import com.squaresuits.magicalpotionsandbrews.items.ItemGem;
 import com.squaresuits.magicalpotionsandbrews.items.ItemIngot;
@@ -86,9 +85,7 @@ public class Items {
 		topaz_stone = createGem(Materials.topaz);
 		
 		//Flask Components
-		flask_component = createFlaskComponent(Materials.copper);
-		//iron_flask_component = createFlaskComponent(Materials.vanilla_iron);
-		//gold_flask_component = createFlaskComponent(Materials.vanilla_gold);
+		flask_component = createFlaskComponent();
 		
 		if (Loader.isModLoaded("basemetals")) {
             try {
@@ -116,12 +113,8 @@ public class Items {
 		return regFlask(new ItemPotionFlask(), "potion_flask", MPBGlobal.MyCrTab);
 	}
 	
-	private static Item createInfusedGlass(ResourceMaterial metal){
-		return regItem(new ItemInfusedGlass(metal), metal.getName()+"_infused_glass", metal, MPBGlobal.MyCrTab);
-	}
-	
-	private static Item createFlaskComponent(ResourceMaterial metal){
-		return regItem(new ItemFlaskComponent(metal), "flask_component", metal, MPBGlobal.MyCrTab);
+	private static Item createFlaskComponent(){
+		return regItem(new ItemFlaskComponent(), "flask_component", null, MPBGlobal.MyCrTab);
 	}
 	
 	private static Item createIngot(ResourceMaterial metal){

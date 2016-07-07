@@ -26,11 +26,23 @@
             },
             "model": "magicpab:item/diamond_flask_component"
         },
-        {
-            "predicate": {
-                "material": 4
-            },
-            "model": "magicpab:item/starsteel_flask_component"
-        }
+      {
+        "predicate": {
+          "material": 4
+        },
+        "model": "magicpab:item/starsteel_flask_component"
+      },
+      {
+        "predicate": {
+          "material": 5
+        },
+        "model": "magicpab:item/fyrestone_flask_component"
+      },
+      {
+        "predicate": {
+          "material": 6
+        },
+        "model": "magicpab:item/earthstone_flask_component"
+      }
     ]
 }
