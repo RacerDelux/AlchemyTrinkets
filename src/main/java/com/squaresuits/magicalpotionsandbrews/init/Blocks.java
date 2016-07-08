@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -137,7 +138,9 @@ public class Blocks {
 	
 	@SideOnly(Side.CLIENT)
 	private static void createCustomModels(){
-		Item itemBlockVariants = GameRegistry.findItem("magicpab", "infused_glass_block");
+		ResourceLocation test = new ResourceLocation("magicpab:infused_glass_block");
+		Item itemBlockVariants = Item.REGISTRY.getObject(test);
+				//GameRegistry.findItem("magicpab", "infused_glass_block");
 		
 		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("magicpab:diamond_infused_glass_block", "inventory");
 		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.DIAMOND.getMetadata(), itemModelResourceLocation);

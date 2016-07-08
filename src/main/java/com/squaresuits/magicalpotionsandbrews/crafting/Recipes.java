@@ -1,5 +1,8 @@
 package com.squaresuits.magicalpotionsandbrews.crafting;
 
+import com.skidsdev.fyrestone.utils.RitualRecipe;
+import com.skidsdev.fyrestone.utils.RitualRecipeManager;
+import com.skidsdev.fyrestone.item.ItemRegister;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
@@ -9,6 +12,7 @@ import com.squaresuits.magicalpotionsandbrews.registry.PotionAdditionFlaskRecipe
 import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -121,26 +125,14 @@ public class Recipes {
 		}
 		if (Loader.isModLoaded("fyrestone")) {
 			try {
+				
 				//Fyrestone Flask Component
-				GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "copper",
-						new Object [] {
-								" o ",
-								"oxo",
-								"   ",
-								'o', "ingotFyrestone",
-								'x', "ingotPyrite"
-				}));
+				RitualRecipeManager.RegisterRecipe(new RitualRecipe(addNBT(new ItemStack(Items.flask_component),"fyrestone"), 0, new ItemStack(Items.pyrite_ingot), new ItemStack(ItemRegister.itemFyrestoneIngot, 3)));
 				FlaskUtil.flaskMaterials.add("fyrestone");
 				//Earthstone Flask Component
-				GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "starsteel",
-						new Object [] {
-								" o ",
-								"oxo",
-								"   ",
-								'o', "ingotEarthstone",
-								'x', "ingotPyrite"
-				}));
+				RitualRecipeManager.RegisterRecipe(new RitualRecipe(addNBT(new ItemStack(Items.flask_component),"earthstone"), 0, new ItemStack(Items.pyrite_ingot), new ItemStack(ItemRegister.itemEarthstoneIngot, 3), new ItemStack(ItemRegister.itemMysticalOrb)));
 				FlaskUtil.flaskMaterials.add("earthstone");
+				
 				Console.out().println("Fyrestone found - recipes added!");
 			}
 			catch (Exception e) {
@@ -148,6 +140,13 @@ public class Recipes {
 				e.printStackTrace(System.err);
 			}
 		}
+	}
+	
+	private static ItemStack addNBT(ItemStack item, String material){
+		NBTTagCompound mat = new NBTTagCompound();
+		mat.setString("material", material);
+		item.setTagCompound(mat);
+		return item;
 	}
 
 }
