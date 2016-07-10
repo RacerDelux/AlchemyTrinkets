@@ -15,6 +15,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
@@ -45,12 +46,12 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
 
+		if (!world.isRemote){
+			
+			switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
 
+			case STARSTEEL:
 
-		switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
-
-		case STARSTEEL:
-			if (!world.isRemote){
 				if(slot <= 8){
 					if (entity.ticksExisted % 1200 == 0 && entity.ticksExisted != 0){  //replace 20 with whatever tick number
 						NBTTagCompound tag = stack.getTagCompound();
@@ -59,27 +60,43 @@ public class ItemPotionFlask extends Item implements IColorItem{
 						}
 						int timer = tag.getInteger("matCD");
 						if(timer >= 14){
-							callme(entity, slot, tag, stack);
+							starsteelAbility(entity, slot, tag, stack);
 							return;
 						} else {
 							increaseCD(tag, timer);
 							return;
 						}
 					}
-				}
-			}
-			break;
 
-		default:
-			break;
+				}
+				break;
+			
+			case GOLD:
+				/*if (entity.ticksExisted % 500 == 0 && entity.ticksExisted != 0){  //replace 20 with whatever tick number
+					if(entity instanceof EntityPlayer) {
+						EntityPlayer player = (EntityPlayer) entity;
+						//player.addPotionEffect(new PotionEffect(Potion.getPotionById(21),10000, 0));
+						//player.heal(3);
+						//player.getMaxHealth();
+					}
+				}*/
+				break;
+				
+			default:
+				break;
+			}
 		}
 	}
-
-	private void hello(){
-		Main.logger.info("hi I was triggered");
+	
+	private void ironAbility(){
+		
+	}
+	
+	private void goldAbility(){
+		
 	}
 
-	private void callme(Entity entity, int slot, NBTTagCompound tag, ItemStack stack){
+	private void starsteelAbility(Entity entity, int slot, NBTTagCompound tag, ItemStack stack){
 		Main.logger.info("I was activated! " + entity.ticksExisted + ". I am in slot " + slot);
 		int current = tag.getInteger("uses");
 		Main.logger.info("The current number of uses: " + current + ". The max number of uses: " + tag.getInteger("maxUses"));
@@ -195,7 +212,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		if(stack.hasTagCompound()) {
-			tooltip.add("Material: " + stack.getTagCompound().getString("flaskComponent"));
+			if(effectName.get(stack.getTagCompound().getString("flaskComponent")).equals("")){
+				tooltip.add("Material: " + stack.getTagCompound().getString("flaskComponent"));
+			} else {
+				tooltip.add(effectName.get(stack.getTagCompound().getString("flaskComponent")));
+			}
 			tooltip.add("Glass: " + stack.getTagCompound().getString("infusedGlass"));
 			tooltip.add(stack.getTagCompound().getInteger("uses") + "/" + stack.getTagCompound().getInteger("maxUses"));
 			if(!stack.getTagCompound().getBoolean("isEmpty")){

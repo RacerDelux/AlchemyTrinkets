@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import static java.util.Arrays.asList;
 import java.util.LinkedHashMap;
 
+import net.minecraft.util.text.TextFormatting;
+
 public class FlaskUtil {
 	//Material constants//
 	public static final int COPPER 			= 0;
@@ -37,6 +39,17 @@ public class FlaskUtil {
 		//								META
 		put("pyrite",new Integer[] 		{0});
 		put("diamond",new Integer[] 	{1});
+	}};
+	public static LinkedHashMap<String, String> effectName = new LinkedHashMap<String, String>(){{
+
+		put("copper", "");
+		put("iron", "");
+		put("gold", "");
+		put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentyful");
+		put("fyrestone", "");
+		put("earthstone", "");
+		put("pyrite", "");
+		put("diamond","");
 	}};
 	
 	public static String getNameFromMeta(int meta){
