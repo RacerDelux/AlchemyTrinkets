@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import com.squaresuits.magicalpotionsandbrews.Main;
-import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
+
 import static com.squaresuits.magicalpotionsandbrews.util.FlaskUtil.*;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
@@ -17,7 +17,6 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
@@ -30,17 +29,15 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemPotionFlask extends Item implements IColorItem{
-	private String material;
+
 	public ItemPotionFlask()
 	{
 		this.setMaxStackSize(1);
-		material = "none";
+
 		//this.setCreativeTab(CreativeTabs.BREWING);
 	}
 
-	public void setMaterials(String string){
-		material = string;
-	}
+
 
 	/**
 	 * Called every tick
@@ -92,11 +89,13 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	// ABILITIES //
 
 	private void ironAbility(){
-
+        //TODO Add ability here...
+        Main.logger.info("No ability for IRON");
 	}
 
 	private void goldAbility(){
-
+        //TODO Add ability here...
+        Main.logger.info("No ability for GOLD");
 	}
 
 	private void starsteelAbility(Entity entity, int slot, NBTTagCompound tag, ItemStack stack){
@@ -220,14 +219,13 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
-		if(!itemStackIn.getTagCompound().getBoolean("isEmpty")){
-			playerIn.setActiveHand(hand);
-			return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
-		} else {
-			return new ActionResult(EnumActionResult.PASS, itemStackIn);
-		}
-	}
-
+        if (!itemStackIn.getTagCompound().getBoolean("isEmpty")) {
+            playerIn.setActiveHand(hand);
+            return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
+        } else {
+            return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
+        }
+    }
 	/*
 	 * Returns the display name of the flask.
 	 * @see net.minecraft.item.Item#getItemStackDisplayName(net.minecraft.item.ItemStack)
