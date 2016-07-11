@@ -272,30 +272,27 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		return !PotionUtils.getEffectsFromStack(stack).isEmpty();
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IItemColor getColor(){
-		return new IItemColor(){
-			@Override
-			public int getColorFromItemstack(ItemStack stack, int pass){
-				if(!stack.hasTagCompound()){
-					pass = -1;
-				}
-				switch(pass){
-				case 0: //Glass
-					return 0xFFFFFF; //flaskUtil.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
-				case 1: //Fluid
-					return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
-				case 2: //Metal
-					return flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATCOLOR];
-				default:
-					return 0xFFFFFF;
-				}
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IItemColor getColor(){
+        return (stack, pass) -> {
+            if(!stack.hasTagCompound()){
+                pass = -1;
+            }
+            switch(pass){
+                case 0: //Glass
+                    return 0xFFFFFF; //flaskUtil.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
+                case 1: //Fluid
+                    return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
+                case 2: //Metal
+                    return flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATCOLOR];
+                default:
+                    return 0xFFFFFF;
+            }
 
-				//pass > 0 ? (stack.getItemDamage() >= ALL_JAMS.length ? 0xFFFFFF : ALL_JAMS[stack.getItemDamage()].color) : 0xFFFFFF;
-			}
-		};
-	}
+            //pass > 0 ? (stack.getItemDamage() >= ALL_JAMS.length ? 0xFFFFFF : ALL_JAMS[stack.getItemDamage()].color) : 0xFFFFFF;
+        };
+    }
 
 	/**
 	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
