@@ -1,6 +1,8 @@
 package com.squaresuits.magicalpotionsandbrews.items;
 
 import java.util.List;
+import java.util.Random;
+
 import javax.annotation.Nullable;
 
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
@@ -47,7 +49,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
 
 		if (!world.isRemote){
-			
+
 			switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
 
 			case STARSTEEL:
@@ -70,8 +72,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
 
 				}
 				break;
-			
-			case GOLD:
+
+				//case GOLD:
 				/*if (entity.ticksExisted % 500 == 0 && entity.ticksExisted != 0){  //replace 20 with whatever tick number
 					if(entity instanceof EntityPlayer) {
 						EntityPlayer player = (EntityPlayer) entity;
@@ -80,20 +82,21 @@ public class ItemPotionFlask extends Item implements IColorItem{
 						//player.getMaxHealth();
 					}
 				}*/
-				break;
-				
+				//break;
+
 			default:
 				break;
 			}
 		}
 	}
-	
+	// ABILITIES //
+
 	private void ironAbility(){
-		
+
 	}
-	
+
 	private void goldAbility(){
-		
+
 	}
 
 	private void starsteelAbility(Entity entity, int slot, NBTTagCompound tag, ItemStack stack){
@@ -106,6 +109,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		stack.setTagCompound(tag);
 		tag.setInteger("matCD", 0);
 	}
+
+	// END ABILITIES //
 
 	private void increaseCD(NBTTagCompound tag, int timer){
 		int test = timer + 1;
@@ -120,38 +125,68 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	@Nullable
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
 	{
-		if(!stack.getTagCompound().getBoolean("isEmpty")){
-			EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer)entityLiving : null;
+		if (!worldIn.isRemote)
+		{
+			if(!stack.getTagCompound().getBoolean("isEmpty")){
+				EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer)entityLiving : null;
 
-			if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
-			{
-				stack.getTagCompound().setInteger("uses",stack.getTagCompound().getInteger("uses") - 1);
-			}
-
-			if (!worldIn.isRemote)
-			{
 				for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack))
 				{
-					entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+					switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
+					case COPPER:
+						int duration = potioneffect.getDuration();
+						if(duration != 1){
+							for(int i = 0; i < Math.abs(stack.getTagCompound().getInteger("uses") - 4); i++){
+								duration += 400;
+							}
+						}
+						entityLiving.addPotionEffect(new PotionEffect(potioneffect.getPotion(), duration, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
+						break;
+					default:
+						entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+						break;
+					}
 				}
-			}
 
-			if (entityplayer != null)
-			{
-				entityplayer.addStat(StatList.getObjectUseStats(this));
-			}
-
-			if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
-			{
-				if (stack.getTagCompound().getInteger("uses") <= 0)
+				if (entityplayer != null)
 				{
-					stack.getTagCompound().setInteger("uses",0);
-					stack.getTagCompound().setBoolean("isEmpty", true);
-					stack.getTagCompound().setString("Potion","minecraft:empty");
+					entityplayer.addStat(StatList.getObjectUseStats(this));
+				}
+
+
+				if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
+				{
+					switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
+					case GOLD:
+						Random ran = new Random();
+						if(ran.nextInt((100) + 1) < 50){
+							Main.logger.info("Flask was not used!");
+						} else {
+							stack.getTagCompound().setInteger("uses",stack.getTagCompound().getInteger("uses") - 1);
+						}
+						if (stack.getTagCompound().getInteger("uses") <= 0)
+						{
+							stack.getTagCompound().setInteger("uses",0);
+							stack.getTagCompound().setBoolean("isEmpty", true);
+							stack.getTagCompound().setString("Potion","minecraft:empty");
+						}
+						break;
+					default:
+						stack.getTagCompound().setInteger("uses",stack.getTagCompound().getInteger("uses") - 1);
+
+						if (stack.getTagCompound().getInteger("uses") <= 0)
+						{
+							stack.getTagCompound().setInteger("uses",0);
+							stack.getTagCompound().setBoolean("isEmpty", true);
+							stack.getTagCompound().setString("Potion","minecraft:empty");
+						}
+						break;
+					}
 				}
 			}
-		}
 
+			return stack;
+		}
 		return stack;
 	}
 

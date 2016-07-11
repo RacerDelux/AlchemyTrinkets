@@ -44,7 +44,7 @@ public class CommonProxy {
 				"If false, then Base Metals will not require DrCyano's Ore Spawn mod. \n" +
 						"Set to false if using another mod to manually handle ore generation.");
 		
-		if(requireOreSpawn) {
+		if(!requireOreSpawn) {
 			if(!net.minecraftforge.fml.common.Loader.isModLoaded("orespawn")){
 				HashSet<ArtifactVersion> orespawnMod = new HashSet<>();
 				orespawnMod.add(new DefaultArtifactVersion("1.0.0"));

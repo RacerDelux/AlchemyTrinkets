@@ -44,7 +44,7 @@ public class FlaskUtil {
 
 		put("copper", "");
 		put("iron", "");
-		put("gold", "");
+		put("gold", TextFormatting.GREEN + "Lucky");
 		put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentyful");
 		put("fyrestone", "");
 		put("earthstone", "");

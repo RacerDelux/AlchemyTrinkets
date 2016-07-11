@@ -1,1 +1,1 @@
-gradlew setupDecompworkspace
+gradlew setupDecompworkspace pause
