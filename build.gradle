@@ -19,9 +19,9 @@ archivesBaseName = "magicalpotionsandbrews"
 sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
-    version = "1.10.2-12.18.0.2002-1.10.0"
+    version = "1.10.2-12.18.0.2010"
     runDir = "minecraft"
-    mappings = "snapshot_20160628"
+    mappings = "snapshot_20160711"
 }
 
 repositories {

@@ -20,3 +20,9 @@ build
 # other
 eclipse
 run
+
+/README.txt
+/forge-*-changelog.txt
+gradle.properties
+
+minecraft
