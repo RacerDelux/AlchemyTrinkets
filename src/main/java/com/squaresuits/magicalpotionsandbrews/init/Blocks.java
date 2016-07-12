@@ -121,9 +121,9 @@ public class Blocks {
 		block.setCreativeTab(MPBGlobal.MyCrTab);
 		
 		//allBlocks.put(name, block);
-		
-		createCustomModels();
-		
+
+
+
 		return block;
 	}
 	
@@ -134,6 +134,7 @@ public class Blocks {
 			.register(net.minecraft.item.Item.getItemFromBlock(allBlocks.get(name)), 0, 
 				new ModelResourceLocation(MPBGlobal.MOD_ID+":"+name, "inventory"));
 		}
+		createCustomModels();
 	}
 	
 	@SideOnly(Side.CLIENT)
