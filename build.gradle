@@ -24,17 +24,6 @@ minecraft {
     mappings = "snapshot_20160711"
 }
 
-repositories {
-	mavenCentral()
-	maven {
-		name = "ilexiconn"
-		url = "http://maven.ilexiconn.net"
-	}
-}
-
-dependencies {
-    compile "net.ilexiconn:llibrary:$llibrary_version-1.10.2:dev"
-}
 
 processResources {
     inputs.property "version", project.version

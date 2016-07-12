@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = MPBGlobal.MOD_ID, name = MPBGlobal.MOD_NAME, version = MPBGlobal.VERSION, dependencies = "required-after:llibrary@[1.0.0,);after:tconstruct;after:basemetals;after:fyrestone;before:orespawn")
+@Mod(modid = MPBGlobal.MOD_ID, name = MPBGlobal.MOD_NAME, version = MPBGlobal.VERSION, dependencies = "after:tconstruct;after:basemetals;after:fyrestone;before:orespawn")
 public class Main {
 	
 	public static Logger logger;
