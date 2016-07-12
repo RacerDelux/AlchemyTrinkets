@@ -21,6 +21,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -129,16 +130,18 @@ public class Blocks {
 	
 	@SideOnly(Side.CLIENT)
 	public static void regBlockRenders(FMLInitializationEvent event){
+
+
 		for(String name : allBlocks.keySet()){
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 			.register(net.minecraft.item.Item.getItemFromBlock(allBlocks.get(name)), 0, 
 				new ModelResourceLocation(MPBGlobal.MOD_ID+":"+name, "inventory"));
 		}
-		createCustomModels();
+
 	}
 	
 	@SideOnly(Side.CLIENT)
-	private static void createCustomModels(){
+	public static void createCustomModels(){
 		ResourceLocation test = new ResourceLocation("magicpab:infused_glass_block");
 		Item itemBlockVariants = Item.REGISTRY.getObject(test);
 				//GameRegistry.findItem("magicpab", "infused_glass_block");

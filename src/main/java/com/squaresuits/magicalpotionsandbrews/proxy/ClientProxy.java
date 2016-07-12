@@ -16,8 +16,8 @@ public class ClientProxy extends CommonProxy{
 		super.preInit(preEvent);
 		
 		Fluids.bakeModels(MPBGlobal.MOD_ID);
-		
-		
+
+		Blocks.createCustomModels();
 	}
 	
 	@Override

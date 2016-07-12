@@ -41,54 +41,58 @@ public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
     @Override
     public boolean matches(InventoryCrafting inv, World world)
     {
-    	currenttag = new NBTTagCompound();
-    	ItemStack flask = inv.getStackInSlot(0);
-    	
-    	ItemStack potion = inv.getStackInSlot(1);
-    	if(flask != null && potion != null){
-    	if(flask.getTagCompound() != null){
-    		currenttag.setString("flaskComponent", flask.getTagCompound().getString("flaskComponent"));
-    		currenttag.setString("infusedGlass", flask.getTagCompound().getString("infusedGlass"));
-    		currenttag.setBoolean("isEmpty", flask.getTagCompound().getBoolean("isEmpty"));
-    		currenttag.setInteger("uses", flask.getTagCompound().getInteger("uses"));
-    		currenttag.setInteger("maxUses", flask.getTagCompound().getInteger("maxUses"));
-    		Main.logger.info("Flask has NBT: " + flask.getTagCompound());
-    	}
-    	if(potion.getTagCompound() != null){
-    		if(!currenttag.getBoolean("isEmpty")){
-    			if(currenttag.getInteger("uses") == currenttag.getInteger("maxUses") 
-    					|| !flask.getTagCompound().getString("Potion").equals(potion.getTagCompound().getString("Potion"))){
-    				return false;
-    			}
-    			currenttag.setString("Potion", flask.getTagCompound().getString("Potion"));
-    			currenttag.setInteger("uses", currenttag.getInteger("uses") + 1);
-    		} else {
-    			currenttag.setString("Potion", potion.getTagCompound().getString("Potion"));
-    			currenttag.setBoolean("isEmpty", false);
-    			currenttag.setInteger("uses", 1);
-    		}
-    		Main.logger.info("Potion has NBT: " + potion.getTagCompound());
-    	}
-    	}
+
         for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
         {
             for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y)
             {
                 if (checkMatch(inv, x, y, false))
                 {
-                    return true;
+                    return customMatches(inv);
                 }
 
                 if (mirrored && checkMatch(inv, x, y, true))
                 {
-                    return true;
+                    return customMatches(inv);
                 }
             }
         }
 
         return false;
     }
-    
+
+	private boolean customMatches(InventoryCrafting inv){
+		currenttag = new NBTTagCompound();
+		ItemStack flask = inv.getStackInSlot(0);
+
+		ItemStack potion = inv.getStackInSlot(1);
+		if(flask != null && potion != null){
+			if(flask.getTagCompound() != null){
+				currenttag.setString("flaskComponent", flask.getTagCompound().getString("flaskComponent"));
+				currenttag.setString("infusedGlass", flask.getTagCompound().getString("infusedGlass"));
+				currenttag.setBoolean("isEmpty", flask.getTagCompound().getBoolean("isEmpty"));
+				currenttag.setInteger("uses", flask.getTagCompound().getInteger("uses"));
+				currenttag.setInteger("maxUses", flask.getTagCompound().getInteger("maxUses"));
+				Main.logger.info("Flask has NBT: " + flask.getTagCompound());
+			}
+			if(potion.getTagCompound() != null){
+				if(!currenttag.getBoolean("isEmpty")){
+					if(currenttag.getInteger("uses") == currenttag.getInteger("maxUses")
+							|| !flask.getTagCompound().getString("Potion").equals(potion.getTagCompound().getString("Potion"))){
+						return false;
+					}
+					currenttag.setString("Potion", flask.getTagCompound().getString("Potion"));
+					currenttag.setInteger("uses", currenttag.getInteger("uses") + 1);
+				} else {
+					currenttag.setString("Potion", potion.getTagCompound().getString("Potion"));
+					currenttag.setBoolean("isEmpty", false);
+					currenttag.setInteger("uses", 1);
+				}
+				Main.logger.info("Potion has NBT: " + potion.getTagCompound());
+			}
+		}
+		return true;
+	}
     private String getNameOfItem(String str){
     	return str.split(Pattern.quote("."), 3)[2].split("_", 2)[0];
     }
