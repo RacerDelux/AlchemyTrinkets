@@ -1,5 +1,7 @@
 package com.squaresuits.magicalpotionsandbrews.items;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -8,7 +10,8 @@ import javax.annotation.Nullable;
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import com.squaresuits.magicalpotionsandbrews.Main;
 
-import static com.squaresuits.magicalpotionsandbrews.util.FlaskUtil.*;
+import static java.util.Arrays.asList;
+
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,13 +33,58 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemPotionFlask extends Item implements IColorItem{
 
+    //Material constants//
+    public static final int COPPER 			= 0;
+    public static final int IRON 			= 1;
+    public static final int GOLD 			= 2;
+    public static final int DIAMOND 		= 3;
+    public static final int STARSTEEL 		= 4;
+    public static final int FYRESTONE 		= 5;
+    public static final int EARTHSTONE 		= 6;
+
+
+    public static final int MATINT = 0;
+    public static final int MATUSE = 1;
+    public static final int MATCOLOR = 2;
+
+    public static final int GLASSMETA = 0;
+
+    public ArrayList<String> flaskMaterials = new ArrayList<>(asList("iron", "gold"));
+    public ArrayList<String> glassMaterials = new ArrayList<>(asList("pyrite", "diamond"));
+    public LinkedHashMap<String, Integer[]> flaskMaterialInfo = new LinkedHashMap<String, Integer[]>(){{
+        //								INT 			USE	Color
+        put("copper",new Integer[] 		{COPPER		,	4,	0xEDA726});
+        put("iron",new Integer[] 		{IRON		,	5,	0xB0B0B0});
+        put("gold",new Integer[] 		{GOLD		,	10,	0xE8DA10});
+        put("diamond",new Integer[]		{DIAMOND	, 	15, 0x1BDEBD}); //Legacy
+        put("starsteel",new Integer[] 	{STARSTEEL	,	25,	0x1C1C1C});
+        put("fyrestone", new Integer[]	{FYRESTONE	,	 6,	0xDB4725});
+        put("earthstone", new Integer[]	{EARTHSTONE	, 	15, 0xA8840C});
+    }};
+    public LinkedHashMap<String, Integer[]> flaskGlassInfo = new LinkedHashMap<String, Integer[]>(){{
+        //								META
+        put("pyrite",new Integer[] 		{0});
+        put("diamond",new Integer[] 	{1});
+    }};
+    public LinkedHashMap<String, String> effectName = new LinkedHashMap<String, String>(){{
+
+        put("copper", "");
+        put("iron", "");
+        put("gold", TextFormatting.GREEN + "Lucky");
+        put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentyful");
+        put("fyrestone", "");
+        put("earthstone", "");
+        put("pyrite", "");
+        put("diamond","");
+    }};
+
+
 	public ItemPotionFlask()
 	{
 		this.setMaxStackSize(1);
 
 		//this.setCreativeTab(CreativeTabs.BREWING);
 	}
-
 
 
 	/**
@@ -88,6 +136,16 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	}
 	// ABILITIES //
 
+	private void copperAbility(PotionEffect potioneffect, ItemStack stack, EntityLivingBase entityLiving){
+        int duration = potioneffect.getDuration();
+        if(duration != 1){
+            for(int i = 0; i < Math.abs(stack.getTagCompound().getInteger("uses") - 4); i++){
+                duration += 400;
+            }
+        }
+        entityLiving.addPotionEffect(new PotionEffect(potioneffect.getPotion(), duration, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
+    }
+
 	private void ironAbility(){
         //TODO Add ability here...
         Main.logger.info("No ability for IRON");
@@ -133,13 +191,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
 				{
 					switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
 					case COPPER:
-						int duration = potioneffect.getDuration();
-						if(duration != 1){
-							for(int i = 0; i < Math.abs(stack.getTagCompound().getInteger("uses") - 4); i++){
-								duration += 400;
-							}
-						}
-						entityLiving.addPotionEffect(new PotionEffect(potioneffect.getPotion(), duration, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
+						copperAbility(potioneffect, stack, entityLiving);
 						break;
 					default:
 						entityLiving.addPotionEffect(new PotionEffect(potioneffect));
@@ -290,6 +342,17 @@ public class ItemPotionFlask extends Item implements IColorItem{
 
             //pass > 0 ? (stack.getItemDamage() >= ALL_JAMS.length ? 0xFFFFFF : ALL_JAMS[stack.getItemDamage()].color) : 0xFFFFFF;
         };
+    }
+
+    public static String getNameFromMeta(int meta){
+        switch(meta){
+            case 0:
+                return "pyrite";
+            case 1:
+                return "diamond";
+            default:
+                return "none";
+        }
     }
 
 	/**

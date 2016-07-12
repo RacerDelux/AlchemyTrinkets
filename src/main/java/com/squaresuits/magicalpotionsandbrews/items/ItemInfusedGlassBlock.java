@@ -2,9 +2,8 @@ package com.squaresuits.magicalpotionsandbrews.items;
 
 import java.util.regex.Pattern;
 
-import com.squaresuits.magicalpotionsandbrews.Main;
+
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockInfusedGlass;
-import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;

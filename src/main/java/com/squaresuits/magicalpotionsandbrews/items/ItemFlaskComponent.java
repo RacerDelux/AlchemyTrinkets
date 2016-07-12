@@ -5,8 +5,9 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
-import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
-import static com.squaresuits.magicalpotionsandbrews.util.FlaskUtil.MATINT;
+
+import com.squaresuits.magicalpotionsandbrews.init.Items;
+import static com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask.MATINT;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.IItemPropertyGetter;
@@ -33,7 +34,7 @@ public class ItemFlaskComponent extends Item{
 		    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
 		    {
 		    	if(stack.hasTagCompound()){
-		        return FlaskUtil.flaskMaterialInfo.get(stack.getTagCompound().getString("material"))[MATINT];
+		        return ((ItemPotionFlask)Items.potion_flask).flaskMaterialInfo.get(stack.getTagCompound().getString("material"))[MATINT];
 		    	}
 		    	return 0;
 		    }
@@ -63,9 +64,9 @@ public class ItemFlaskComponent extends Item{
 	@SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
     {
-        for (int i = 0; i < FlaskUtil.flaskMaterials.size(); ++i)
+        for (int i = 0; i < ((ItemPotionFlask)Items.potion_flask).flaskMaterials.size(); ++i)
         {
-            subItems.add(setComponentNBT(new ItemStack(itemIn), FlaskUtil.flaskMaterials.get(i)));
+            subItems.add(setComponentNBT(new ItemStack(itemIn), ((ItemPotionFlask)Items.potion_flask).flaskMaterials.get(i)));
         }
     }
     private ItemStack setComponentNBT(ItemStack itemIn, String string) {

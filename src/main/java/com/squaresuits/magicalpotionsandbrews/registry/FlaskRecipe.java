@@ -2,8 +2,10 @@ package com.squaresuits.magicalpotionsandbrews.registry;
 
 import java.util.regex.Pattern;
 
-import com.squaresuits.magicalpotionsandbrews.Main;
-import com.squaresuits.magicalpotionsandbrews.util.FlaskUtil;
+
+import com.squaresuits.magicalpotionsandbrews.init.Items;
+import com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask;
+import static com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask.MATUSE;
 
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
@@ -42,7 +44,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	tmp.getTagCompound().setString("infusedGlass", glass);
     	tmp.getTagCompound().setBoolean("isEmpty", true);
     	tmp.getTagCompound().setInteger("uses", 0);
-    	tmp.getTagCompound().setInteger("maxUses", FlaskUtil.flaskMaterialInfo.get(material)[FlaskUtil.MATUSE]);
+    	tmp.getTagCompound().setInteger("maxUses", ((ItemPotionFlask) Items.potion_flask).flaskMaterialInfo.get(material)[MATUSE]);
     	
     	
     	//MPBItemPotionFlask  hi = (MPBItemPotionFlask) tmp.getItem();
