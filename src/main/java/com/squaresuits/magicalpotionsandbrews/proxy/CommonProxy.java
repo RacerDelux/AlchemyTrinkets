@@ -11,12 +11,14 @@ import java.util.HashSet;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.crafting.Recipes;
 import com.squaresuits.magicalpotionsandbrews.crafting.Smelting;
+import com.squaresuits.magicalpotionsandbrews.event.MPBEventHandler;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Fluids;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.init.Materials;
 import com.squaresuits.magicalpotionsandbrews.init.tconPlugin;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
@@ -89,7 +91,7 @@ public class CommonProxy {
 	}
 	
 	public void init(FMLInitializationEvent event){
-		
+		MinecraftForge.EVENT_BUS.register(new MPBEventHandler());
 	}
 
 	public void postInit(FMLPostInitializationEvent postEvent){

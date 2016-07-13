@@ -6,28 +6,37 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import com.squaresuits.magicalpotionsandbrews.Main;
 
 import static java.util.Arrays.asList;
 
+import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -65,17 +74,19 @@ public class ItemPotionFlask extends Item implements IColorItem{
         //								META
         put("pyrite",new Integer[] 		{0});
         put("diamond",new Integer[] 	{1});
+        put("emerald",new Integer[]     {2});
     }};
     public LinkedHashMap<String, String> effectName = new LinkedHashMap<String, String>(){{
 
-        put("copper", "");
-        put("iron", "");
+        put("copper", TextFormatting.DARK_BLUE + "Frugal");
+        put("iron", TextFormatting.YELLOW + "Defensive");
         put("gold", TextFormatting.GREEN + "Lucky");
-        put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentyful");
-        put("fyrestone", "");
-        put("earthstone", "");
+        put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentiful");
+        put("fyrestone", TextFormatting.RED + "Fiery");
+        put("earthstone", TextFormatting.DARK_GREEN + "Steadfast");
         put("pyrite", "");
         put("diamond","");
+        put("emerald","");
     }};
 
 
@@ -86,10 +97,74 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		//this.setCreativeTab(CreativeTabs.BREWING);
 	}
 
+    /**
+     * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
+     * the Item before the action is complete.
+     */
+    @Override
+    @Nullable
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+    {
+        if (!worldIn.isRemote)
+        {
+            if(stack.hasTagCompound()) {
+                if (!stack.getTagCompound().getBoolean("isEmpty")) {
+                    EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
 
-	/**
-	 * Called every tick
-	 */
+                    for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
+                        switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
+                            case COPPER:
+                                copperAbility(potioneffect, stack, entityLiving);
+                                break;
+                            case IRON:
+                                ironAbility(potioneffect, entityLiving);
+                                break;
+                            case FYRESTONE:
+                                fyrestoneAbility(potioneffect, entityLiving);
+                                break;
+                            default:
+                                entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+                                break;
+                        }
+                    }
+
+                    if (entityplayer != null) {
+                        entityplayer.addStat(StatList.getObjectUseStats(this));
+                    }
+
+
+                    if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
+                        switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
+                            case GOLD:
+                                goldAbility(stack);
+                                break;
+                            default:
+                                stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
+
+                                if (stack.getTagCompound().getInteger("uses") <= 0) {
+                                    stack.getTagCompound().setInteger("uses", 0);
+                                    stack.getTagCompound().setBoolean("isEmpty", true);
+                                    stack.getTagCompound().setString("Potion", "minecraft:empty");
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            return stack;
+        }
+        return stack;
+    }
+
+
+    /**
+     * Called every tick - used for flask abilities.
+     * @param stack
+     * @param world
+     * @param entity
+     * @param slot
+     * @param selected
+     */
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
 
@@ -119,23 +194,34 @@ public class ItemPotionFlask extends Item implements IColorItem{
                         }
                         break;
 
-                    //case GOLD:
-				/*if (entity.ticksExisted % 500 == 0 && entity.ticksExisted != 0){  //replace 20 with whatever tick number
-					if(entity instanceof EntityPlayer) {
-						EntityPlayer player = (EntityPlayer) entity;
-						//player.addPotionEffect(new PotionEffect(Potion.getPotionById(21),10000, 0));
-						//player.heal(3);
-						//player.getMaxHealth();
-					}
-				}*/
-                    //break;
-
                     default:
                         break;
                 }
             }
         }
 	}
+
+    public void onDamageEventActivated(LivingHurtEvent event, ItemStack stack){
+            switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
+
+                case EARTHSTONE:
+                    Main.logger.info("There is a earthstone flask that activated!");
+                    if(event.getSource().getEntity() instanceof EntityLiving){
+                        EntityLiving source = (EntityLiving) event.getSource().getEntity();
+                        Main.logger.info("The damage source was from " + source.getName());
+                        source.addPotionEffect(new PotionEffect(Potion.getPotionById(2), 100));
+                        Vec3d a = event.getEntity().getPositionVector();
+                        Vec3d b = source.getPositionVector();
+                        Vec3d motion = (a.subtract(b)).normalize();
+                        source.knockBack(event.getEntity(),0.7f,motion.xCoord,motion.zCoord);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+    }
+
 	// ABILITIES //
 
 	private void copperAbility(PotionEffect potioneffect, ItemStack stack, EntityLivingBase entityLiving){
@@ -148,15 +234,29 @@ public class ItemPotionFlask extends Item implements IColorItem{
         entityLiving.addPotionEffect(new PotionEffect(potioneffect.getPotion(), duration, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
     }
 
-	private void ironAbility(){
-        //TODO Add ability here...
-        Main.logger.info("No ability for IRON");
+	private void ironAbility(PotionEffect potioneffect, EntityLivingBase entityLiving){
+        entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+        entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(22), 600));
 	}
 
-	private void goldAbility(){
-        //TODO Add ability here...
-        Main.logger.info("No ability for GOLD");
+	private void goldAbility(ItemStack stack){
+        Random ran = new Random();
+        if (ran.nextInt((100) + 1) < 50) {
+            Main.logger.info("Flask was not used!");
+        } else {
+            stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
+        }
+        if (stack.getTagCompound().getInteger("uses") <= 0) {
+            stack.getTagCompound().setInteger("uses", 0);
+            stack.getTagCompound().setBoolean("isEmpty", true);
+            stack.getTagCompound().setString("Potion", "minecraft:empty");
+        }
 	}
+
+    private void fyrestoneAbility(PotionEffect potioneffect, EntityLivingBase entityLiving) {
+        entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+        entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(12), 600));
+    }
 
 	private void starsteelAbility(Entity entity, int slot, NBTTagCompound tag, ItemStack stack){
 		Main.logger.info("I was activated! " + entity.ticksExisted + ". I am in slot " + slot);
@@ -176,68 +276,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		tag.setInteger("matCD", test);
 	}
 
-	/**
-	 * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
-	 * the Item before the action is complete.
-	 */
-	@Override
-	@Nullable
-	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
-	{
-		if (!worldIn.isRemote)
-		{
-            if(stack.hasTagCompound()) {
-                if (!stack.getTagCompound().getBoolean("isEmpty")) {
-                    EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
 
-                    for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
-                        switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
-                            case COPPER:
-                                copperAbility(potioneffect, stack, entityLiving);
-                                break;
-                            default:
-                                entityLiving.addPotionEffect(new PotionEffect(potioneffect));
-                                break;
-                        }
-                    }
-
-                    if (entityplayer != null) {
-                        entityplayer.addStat(StatList.getObjectUseStats(this));
-                    }
-
-
-                    if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-                        switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
-                            case GOLD:
-                                Random ran = new Random();
-                                if (ran.nextInt((100) + 1) < 50) {
-                                    Main.logger.info("Flask was not used!");
-                                } else {
-                                    stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
-                                }
-                                if (stack.getTagCompound().getInteger("uses") <= 0) {
-                                    stack.getTagCompound().setInteger("uses", 0);
-                                    stack.getTagCompound().setBoolean("isEmpty", true);
-                                    stack.getTagCompound().setString("Potion", "minecraft:empty");
-                                }
-                                break;
-                            default:
-                                stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
-
-                                if (stack.getTagCompound().getInteger("uses") <= 0) {
-                                    stack.getTagCompound().setInteger("uses", 0);
-                                    stack.getTagCompound().setBoolean("isEmpty", true);
-                                    stack.getTagCompound().setString("Potion", "minecraft:empty");
-                                }
-                                break;
-                        }
-                    }
-                }
-            }
-			return stack;
-		}
-		return stack;
-	}
 
 	/**
 	 * How long it takes to use or consume an item
@@ -284,10 +323,12 @@ public class ItemPotionFlask extends Item implements IColorItem{
             return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
         }
     }
-	/*
-	 * Returns the display name of the flask.
-	 * @see net.minecraft.item.Item#getItemStackDisplayName(net.minecraft.item.ItemStack)
-	 */
+
+    /**
+     * Returns the display name of the flask
+     * @param stack
+     * @return
+     */
 	@Override
 	public String getItemStackDisplayName(ItemStack stack)
 	{
