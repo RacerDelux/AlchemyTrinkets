@@ -20,23 +20,23 @@ public class FlaskRecipe extends ShapedOreRecipe{
 	private String glass = "";
 	public FlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
     public FlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
-    public FlaskRecipe(ItemStack result, Object... recipe){ super(result, recipe); }
+    public FlaskRecipe(ItemStack result, Object... recipe){
+        super(result, recipe);
+        output.setTagCompound(result.getTagCompound());
+    }
     
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
-    	for(int i = 0; i < input.length; i++){
+    	//for(int i = 0; i < input.length; i++){
     		
-    		if(input[i] != null){
-    			ItemStack thestack = (ItemStack) input[i];
+    		//if(input[i] != null){
+    			//ItemStack thestack = (ItemStack) input[i];
     			
     			//Main.logger.info(i + ": " + thestack.getItem().getClass().getName());
-    		}
-    	}
+    		//}
+    	//}
     	ItemStack tmp = output.copy();
-    	ItemStack flaskComponentUsed = ((ItemStack) input[1]);
-    	ItemStack infusedGlassUsed = ((ItemStack) input[3]);
-    	//NBTTagCompound hi = null;
-    	
+
     	tmp.setStackDisplayName("Flask");
     	tmp.setTagCompound(new NBTTagCompound());
     	
@@ -50,6 +50,21 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	//MPBItemPotionFlask  hi = (MPBItemPotionFlask) tmp.getItem();
     	//hi.setMaterials(input[1].toString());
     	return tmp;//new ItemStack(hi);
+    }
+
+    @Override
+    public ItemStack getRecipeOutput(){
+        //ItemStack out = output.copy();
+        /*if(!output.hasTagCompound()){
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setString("flaskComponent", "copper");
+            tag.setString("infusedGlass", "pyrite");
+            tag.setBoolean("isEmpty", true);
+            tag.setInteger("uses", 0);
+            tag.setInteger("maxUses", 4);
+            output.setTagCompound(tag);
+        }*/
+        return output;
     }
     
     

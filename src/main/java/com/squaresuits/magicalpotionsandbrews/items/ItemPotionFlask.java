@@ -93,32 +93,33 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
 
-		if (!world.isRemote){
+		if (!world.isRemote) {
 
-			switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
+            if (stack.hasTagCompound()) {
+                switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
 
-			case STARSTEEL:
+                    case STARSTEEL:
 
-				if(slot <= 8){
-					if (entity.ticksExisted % 1200 == 0 && entity.ticksExisted != 0){  //replace 20 with whatever tick number
-						NBTTagCompound tag = stack.getTagCompound();
-						if(tag == null){
-							tag = new NBTTagCompound();
-						}
-						int timer = tag.getInteger("matCD");
-						if(timer >= 14){
-							starsteelAbility(entity, slot, tag, stack);
-							return;
-						} else {
-							increaseCD(tag, timer);
-							return;
-						}
-					}
+                        if (slot <= 8) {
+                            if (entity.ticksExisted % 1200 == 0 && entity.ticksExisted != 0) {  //replace 20 with whatever tick number
+                                NBTTagCompound tag = stack.getTagCompound();
+                                if (tag == null) {
+                                    tag = new NBTTagCompound();
+                                }
+                                int timer = tag.getInteger("matCD");
+                                if (timer >= 14) {
+                                    starsteelAbility(entity, slot, tag, stack);
+                                    return;
+                                } else {
+                                    increaseCD(tag, timer);
+                                    return;
+                                }
+                            }
 
-				}
-				break;
+                        }
+                        break;
 
-				//case GOLD:
+                    //case GOLD:
 				/*if (entity.ticksExisted % 500 == 0 && entity.ticksExisted != 0){  //replace 20 with whatever tick number
 					if(entity instanceof EntityPlayer) {
 						EntityPlayer player = (EntityPlayer) entity;
@@ -127,12 +128,13 @@ public class ItemPotionFlask extends Item implements IColorItem{
 						//player.getMaxHealth();
 					}
 				}*/
-				//break;
+                    //break;
 
-			default:
-				break;
-			}
-		}
+                    default:
+                        break;
+                }
+            }
+        }
 	}
 	// ABILITIES //
 
@@ -184,58 +186,54 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	{
 		if (!worldIn.isRemote)
 		{
-			if(!stack.getTagCompound().getBoolean("isEmpty")){
-				EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer)entityLiving : null;
+            if(stack.hasTagCompound()) {
+                if (!stack.getTagCompound().getBoolean("isEmpty")) {
+                    EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
 
-				for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack))
-				{
-					switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
-					case COPPER:
-						copperAbility(potioneffect, stack, entityLiving);
-						break;
-					default:
-						entityLiving.addPotionEffect(new PotionEffect(potioneffect));
-						break;
-					}
-				}
+                    for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
+                        switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
+                            case COPPER:
+                                copperAbility(potioneffect, stack, entityLiving);
+                                break;
+                            default:
+                                entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+                                break;
+                        }
+                    }
 
-				if (entityplayer != null)
-				{
-					entityplayer.addStat(StatList.getObjectUseStats(this));
-				}
+                    if (entityplayer != null) {
+                        entityplayer.addStat(StatList.getObjectUseStats(this));
+                    }
 
 
-				if (entityplayer == null || !entityplayer.capabilities.isCreativeMode)
-				{
-					switch(flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]){
-					case GOLD:
-						Random ran = new Random();
-						if(ran.nextInt((100) + 1) < 50){
-							Main.logger.info("Flask was not used!");
-						} else {
-							stack.getTagCompound().setInteger("uses",stack.getTagCompound().getInteger("uses") - 1);
-						}
-						if (stack.getTagCompound().getInteger("uses") <= 0)
-						{
-							stack.getTagCompound().setInteger("uses",0);
-							stack.getTagCompound().setBoolean("isEmpty", true);
-							stack.getTagCompound().setString("Potion","minecraft:empty");
-						}
-						break;
-					default:
-						stack.getTagCompound().setInteger("uses",stack.getTagCompound().getInteger("uses") - 1);
+                    if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
+                        switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
+                            case GOLD:
+                                Random ran = new Random();
+                                if (ran.nextInt((100) + 1) < 50) {
+                                    Main.logger.info("Flask was not used!");
+                                } else {
+                                    stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
+                                }
+                                if (stack.getTagCompound().getInteger("uses") <= 0) {
+                                    stack.getTagCompound().setInteger("uses", 0);
+                                    stack.getTagCompound().setBoolean("isEmpty", true);
+                                    stack.getTagCompound().setString("Potion", "minecraft:empty");
+                                }
+                                break;
+                            default:
+                                stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
 
-						if (stack.getTagCompound().getInteger("uses") <= 0)
-						{
-							stack.getTagCompound().setInteger("uses",0);
-							stack.getTagCompound().setBoolean("isEmpty", true);
-							stack.getTagCompound().setString("Potion","minecraft:empty");
-						}
-						break;
-					}
-				}
-			}
-
+                                if (stack.getTagCompound().getInteger("uses") <= 0) {
+                                    stack.getTagCompound().setInteger("uses", 0);
+                                    stack.getTagCompound().setBoolean("isEmpty", true);
+                                    stack.getTagCompound().setString("Potion", "minecraft:empty");
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
 			return stack;
 		}
 		return stack;
@@ -261,19 +259,27 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack)
 	{
-		if(!stack.getTagCompound().getBoolean("isEmpty")){
-			return EnumAction.DRINK;
-		} else {
-			return EnumAction.NONE;
-		}
+        if(stack.hasTagCompound()) {
+            if (!stack.getTagCompound().getBoolean("isEmpty")) {
+                return EnumAction.DRINK;
+            } else {
+                return EnumAction.NONE;
+            }
+        } else {
+            return EnumAction.NONE;
+        }
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
-        if (!itemStackIn.getTagCompound().getBoolean("isEmpty")) {
-            playerIn.setActiveHand(hand);
-            return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
+        if(itemStackIn.hasTagCompound()) {
+            if (!itemStackIn.getTagCompound().getBoolean("isEmpty")) {
+                playerIn.setActiveHand(hand);
+                return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
+            } else {
+                return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
+            }
         } else {
             return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
         }

@@ -75,7 +75,7 @@ public class Recipes {
 				'x', "ingotPyrite"));
 
 		//Potion Flask
-		GameRegistry.addRecipe(new FlaskRecipe(new ItemStack(Items.potion_flask),
+		GameRegistry.addRecipe(new FlaskRecipe(addDefaultNBT(new ItemStack(Items.potion_flask)),
 				" o ",
 				"x x",
 				"xxx",
@@ -124,7 +124,18 @@ public class Recipes {
 			}
 		}
 	}
-	
+
+	private static ItemStack addDefaultNBT(ItemStack itemStack) {
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString("flaskComponent", "copper");
+		tag.setString("infusedGlass", "pyrite");
+		tag.setBoolean("isEmpty", true);
+		tag.setInteger("uses", 0);
+		tag.setInteger("maxUses", 4);
+		itemStack.setTagCompound(tag);
+		return itemStack;
+	}
+
 	private static ItemStack addNBT(ItemStack item, String material){
 		NBTTagCompound mat = new NBTTagCompound();
 		mat.setString("material", material);

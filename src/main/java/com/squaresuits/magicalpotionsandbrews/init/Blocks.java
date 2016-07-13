@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.Main;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockBlock;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockOres;
@@ -21,7 +20,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -63,12 +61,10 @@ public class Blocks {
 		infused_glass_block = createInfusedGlasBlock(false);
 		
 		//copper_cauldron = createCauldron(MPBMaterial.copper, false);
-		
 
-		for(Block b : allBlocks.values()){
-			if(b instanceof MPBOreDictionaryEntry){
-				OreDictionary.registerOre(((MPBOreDictionaryEntry)b).getOreDictionaryName(), b);}
-		}
+
+		allBlocks.values().stream().filter(block -> block instanceof MPBOreDictionaryEntry).forEach(b ->
+				OreDictionary.registerOre(((MPBOreDictionaryEntry) b).getOreDictionaryName(), b));
 	}
 	
 	private static Block createInfusedGlasBlock(boolean ignoreSimilarity){
