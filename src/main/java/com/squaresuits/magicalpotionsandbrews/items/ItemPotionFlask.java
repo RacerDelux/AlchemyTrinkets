@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import com.squaresuits.magicalpotionsandbrews.Main;
 
 import static java.util.Arrays.asList;
 
+import mcp.MethodsReturnNonnullByDefault;
+import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -27,8 +31,12 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -74,8 +82,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
         put("iron", TextFormatting.YELLOW + "Defensive");
         put("gold", TextFormatting.GREEN + "Lucky");
         put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentiful");
-        put("fyrestone", "");
-        put("earthstone", "");
+        put("fyrestone", TextFormatting.RED + "Fiery");
+        put("earthstone", TextFormatting.DARK_GREEN + "Steadfast");
         put("pyrite", "");
         put("diamond","");
         put("emerald","");
@@ -111,6 +119,9 @@ public class ItemPotionFlask extends Item implements IColorItem{
                             case IRON:
                                 ironAbility(potioneffect, entityLiving);
                                 break;
+                            case FYRESTONE:
+                                fyrestoneAbility(potioneffect, entityLiving);
+                                break;
                             default:
                                 entityLiving.addPotionEffect(new PotionEffect(potioneffect));
                                 break;
@@ -144,6 +155,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
         }
         return stack;
     }
+
 
     /**
      * Called every tick - used for flask abilities.
@@ -188,6 +200,28 @@ public class ItemPotionFlask extends Item implements IColorItem{
             }
         }
 	}
+
+    public void onDamageEventActivated(LivingHurtEvent event, ItemStack stack){
+            switch (flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATINT]) {
+
+                case EARTHSTONE:
+                    Main.logger.info("There is a earthstone flask that activated!");
+                    if(event.getSource().getEntity() instanceof EntityLiving){
+                        EntityLiving source = (EntityLiving) event.getSource().getEntity();
+                        Main.logger.info("The damage source was from " + source.getName());
+                        source.addPotionEffect(new PotionEffect(Potion.getPotionById(2), 100));
+                        Vec3d a = event.getEntity().getPositionVector();
+                        Vec3d b = source.getPositionVector();
+                        Vec3d motion = (a.subtract(b)).normalize();
+                        source.knockBack(event.getEntity(),0.7f,motion.xCoord,motion.zCoord);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+    }
+
 	// ABILITIES //
 
 	private void copperAbility(PotionEffect potioneffect, ItemStack stack, EntityLivingBase entityLiving){
@@ -218,6 +252,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
             stack.getTagCompound().setString("Potion", "minecraft:empty");
         }
 	}
+
+    private void fyrestoneAbility(PotionEffect potioneffect, EntityLivingBase entityLiving) {
+        entityLiving.addPotionEffect(new PotionEffect(potioneffect));
+        entityLiving.addPotionEffect(new PotionEffect(Potion.getPotionById(12), 600));
+    }
 
 	private void starsteelAbility(Entity entity, int slot, NBTTagCompound tag, ItemStack stack){
 		Main.logger.info("I was activated! " + entity.ticksExisted + ". I am in slot " + slot);
