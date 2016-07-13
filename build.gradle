@@ -12,8 +12,8 @@ buildscript {
 }
 apply plugin: "net.minecraftforge.gradle.forge"
 
-version = "0.1.6"
-def llibrary_version = "1.4.0"
+version = "0.1.5"
+def llibrary_version = "1.4.1"
 group = "com.squaresuits"
 archivesBaseName = "magicalpotionsandbrews"
 sourceCompatibility = targetCompatibility = "1.8"
