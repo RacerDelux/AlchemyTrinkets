@@ -5,22 +5,22 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
+import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import com.squaresuits.magicalpotionsandbrews.Main;
 
 import static java.util.Arrays.asList;
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.client.renderer.Vector3d;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,12 +31,11 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.Optional;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,11 +45,14 @@ public class ItemPotionFlask extends Item implements IColorItem{
     public static final int COPPER 			= 0;
     public static final int IRON 			= 1;
     public static final int GOLD 			= 2;
-    public static final int DIAMOND 		= 3;
+    public static final int DIAMONDM 		= 3;
     public static final int STARSTEEL 		= 4;
     public static final int FYRESTONE 		= 5;
     public static final int EARTHSTONE 		= 6;
 
+    public static final int PYRITE          = 0;
+    public static final int DIAMOND         = 1;
+    public static final int EMERALD         = 2;
 
     public static final int MATINT = 0;
     public static final int MATUSE = 1;
@@ -61,20 +63,20 @@ public class ItemPotionFlask extends Item implements IColorItem{
     public ArrayList<String> flaskMaterials = new ArrayList<>(asList("iron", "gold"));
     public ArrayList<String> glassMaterials = new ArrayList<>(asList("pyrite", "diamond"));
     public LinkedHashMap<String, Integer[]> flaskMaterialInfo = new LinkedHashMap<String, Integer[]>(){{
-        //								INT 			USE	Color
-        put("copper",new Integer[] 		{COPPER		,	4,	0xEDA726});
-        put("iron",new Integer[] 		{IRON		,	5,	0xB0B0B0});
-        put("gold",new Integer[] 		{GOLD		,	10,	0xE8DA10});
-        put("diamond",new Integer[]		{DIAMOND	, 	15, 0x1BDEBD}); //Legacy
-        put("starsteel",new Integer[] 	{STARSTEEL	,	25,	0x1C1C1C});
-        put("fyrestone", new Integer[]	{FYRESTONE	,	 6,	0xDB4725});
-        put("earthstone", new Integer[]	{EARTHSTONE	, 	15, 0xA8840C});
+        //								INT 			USE	    Color
+        put("copper",new Integer[] 		{COPPER		,	4   ,	0xEDA726});
+        put("iron",new Integer[] 		{IRON		,	5   ,	0xB0B0B0});
+        put("gold",new Integer[] 		{GOLD		,	10  ,	0xE8DA10});
+        put("diamond",new Integer[]		{DIAMONDM	, 	15  ,   0x1BDEBD}); //Legacy
+        put("starsteel",new Integer[] 	{STARSTEEL	,	25  ,	0x1C1C1C});
+        put("fyrestone", new Integer[]	{FYRESTONE	,	6   ,	0xDB4725});
+        put("earthstone", new Integer[]	{EARTHSTONE	, 	15  ,   0xA8840C});
     }};
     public LinkedHashMap<String, Integer[]> flaskGlassInfo = new LinkedHashMap<String, Integer[]>(){{
-        //								META
-        put("pyrite",new Integer[] 		{0});
-        put("diamond",new Integer[] 	{1});
-        put("emerald",new Integer[]     {2});
+        //								META            #POTION HELD
+        put("pyrite",new Integer[] 		{PYRITE     ,   2});
+        put("diamond",new Integer[] 	{DIAMOND    ,   4});
+        put("emerald",new Integer[]     {EMERALD    ,   6});
     }};
     public LinkedHashMap<String, String> effectName = new LinkedHashMap<String, String>(){{
 
@@ -95,6 +97,18 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		this.setMaxStackSize(1);
 
 		//this.setCreativeTab(CreativeTabs.BREWING);
+        this.addPropertyOverride(new ResourceLocation("infusedGlass"), new IItemPropertyGetter()
+        {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public float apply(@Nonnull ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+            {
+                if(stack.hasTagCompound()){
+                    return ((ItemPotionFlask) Items.potion_flask).flaskGlassInfo.get(stack.getTagCompound().getString("infusedGlass"))[MATINT];
+                }
+                return 0;
+            }
+        });
 	}
 
     /**
@@ -159,11 +173,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
 
     /**
      * Called every tick - used for flask abilities.
-     * @param stack
-     * @param world
-     * @param entity
-     * @param slot
-     * @param selected
+     * @param stack The ItemStack which is called the update.
+     * @param world World the player is in.
+     * @param entity Entity that owns the item.
+     * @param slot Slot the item is in.
+     * @param selected Is the item selected?
      */
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean selected){
@@ -326,8 +340,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
 
     /**
      * Returns the display name of the flask
-     * @param stack
-     * @return
+     * @param stack ItemStack of the item to be names.
+     * @return Returns the display name.
      */
 	@Override
 	public String getItemStackDisplayName(ItemStack stack)

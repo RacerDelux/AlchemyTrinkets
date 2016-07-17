@@ -3,6 +3,7 @@ package com.squaresuits.magicalpotionsandbrews.items;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
@@ -31,7 +32,7 @@ public class ItemFlaskComponent extends Item{
 		{
 		    @Override
 			@SideOnly(Side.CLIENT)
-		    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
+		    public float apply(@Nonnull ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
 		    {
 		    	if(stack.hasTagCompound()){
 		        return ((ItemPotionFlask)Items.potion_flask).flaskMaterialInfo.get(stack.getTagCompound().getString("material"))[MATINT];

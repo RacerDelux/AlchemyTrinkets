@@ -1,9 +1,23 @@
 {
-    "parent": "item/generated",
-    "textures": {
-      "layer0": "magicpab:items/potion_flask",
-      "layer1": "magicpab:items/potion_fluid_overlay",
-      "layer2": "magicpab:items/potion_metal_overlay"
-        
+  "parent": "item/generated",
+  "overrides": [
+    {
+      "predicate": {
+        "infusedGlass": 0
+      },
+      "model": "magicpab:item/flask/pyrite_flask"
+    },
+    {
+      "predicate": {
+        "infusedGlass": 1
+      },
+      "model": "magicpab:item/flask/diamond_flask"
+    },
+    {
+      "predicate": {
+        "infusedGlass": 2
+      },
+      "model": "magicpab:item/flask/emerald_flask"
     }
+  ]
 }
