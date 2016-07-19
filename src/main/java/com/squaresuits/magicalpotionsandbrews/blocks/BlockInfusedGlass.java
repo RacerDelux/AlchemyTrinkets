@@ -5,7 +5,6 @@ import net.minecraft.block.BlockGlass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -19,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 public class BlockInfusedGlass extends BlockGlass{
 
@@ -41,7 +42,7 @@ public class BlockInfusedGlass extends BlockGlass{
 	// - the "metadata" value of the block is set to the materials metadata
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List list)
 	{
 		EnumMat[] allMaterials = EnumMat.values();
 		for (EnumMat material : allMaterials) {
@@ -61,6 +62,7 @@ public class BlockInfusedGlass extends BlockGlass{
 
 	///// OVERRIDE OF ALL METHODS THAT DEPEND ON BLOCK MATERIAL: /////
 	@Override
+    @Nonnull
 	public MapColor getMapColor(final IBlockState p_getMapColor_1_) {
 		return MapColor.IRON;
 	}
@@ -87,6 +89,7 @@ public class BlockInfusedGlass extends BlockGlass{
 	// - lower two bits = facing direction (i.e. 0, 1, 2, 3)
 	// - upper two bits = material (i.e. 0, 4, 8, 12)
 	@Override
+    @Nonnull
 	public IBlockState getStateFromMeta(int meta)
 	{
 		EnumMat material = EnumMat.byMetadata(meta);
@@ -98,8 +101,7 @@ public class BlockInfusedGlass extends BlockGlass{
 	{
 		EnumMat material = (EnumMat)state.getValue(PROPERTYNAME);
 
-		int materialbits = material.getMetadata();
-		return materialbits;
+        return material.getMetadata();
 	}
 
 	/*// this method isn't required if your properties only depend on the stored metadata.
@@ -115,14 +117,16 @@ public class BlockInfusedGlass extends BlockGlass{
 	// necessary to define which properties your blocks use
 	  // will also affect the variants listed in the blockstates model file
 	  @Override
+      @Nonnull
 	  protected BlockStateContainer createBlockState()
 	  {
-	    return new BlockStateContainer(this, new IProperty[] {PROPERTYNAME});
+	    return new BlockStateContainer(this, PROPERTYNAME);
 	  }
 
 	// when the block is placed, set the appropriate facing direction based on which way the player is looking
 	// the material of block is contained in meta, it corresponds to the values we used for getSubBlocks
 	@Override
+    @Nonnull
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing blockFaceClickedOn, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{
 		EnumMat material = EnumMat.byMetadata(meta);
@@ -131,10 +135,11 @@ public class BlockInfusedGlass extends BlockGlass{
 
 	// create a new enum for our four materials, with some supporting methods to convert to & from metadata, and to get
 	//  human-readable names.
-	public static enum EnumMat implements IStringSerializable
+	public enum EnumMat implements IStringSerializable
 	{
 		PYRITE(0, "pyrite"),
-		DIAMOND(1, "diamond");
+		DIAMOND(1, "diamond"),
+		EMERALD(2, "emerald");
 
 		private final int meta;
 		private final String name;
@@ -146,7 +151,7 @@ public class BlockInfusedGlass extends BlockGlass{
 			}
 		}
 
-		private EnumMat(int i_meta, String i_name)
+        EnumMat(int i_meta, String i_name)
 		{
 			this.meta = i_meta;
 			this.name = i_name;
@@ -174,6 +179,7 @@ public class BlockInfusedGlass extends BlockGlass{
 		}
 
 		@Override
+        @Nonnull
 		public String getName()
 		{
 			return this.name;

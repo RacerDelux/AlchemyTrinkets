@@ -18,6 +18,9 @@ import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.init.Materials;
 import com.squaresuits.magicalpotionsandbrews.init.tconPlugin;
 
+import com.squaresuits.magicalpotionsandbrews.packet.PacketHandler;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.FMLLog;
@@ -28,8 +31,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
-public class CommonProxy {
+public class CommonProxy implements MPBProxy {
 
 	/** if true, then this mod will require the orespawn mod */
 	private static boolean requireOreSpawn = true;
@@ -88,6 +92,8 @@ public class CommonProxy {
 		if(Loader.isModLoaded("tconstruct")) {
 			tconPlugin.initTconPlugin();
 		}
+
+		PacketHandler.preInit();
 	}
 	
 	public void init(FMLInitializationEvent event){
@@ -96,5 +102,15 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent postEvent){
 	
+	}
+
+	@Override
+	public EntityPlayer getPlayer() {
+		return null;
+	}
+
+	@Override
+	public World getWorld() {
+		return FMLServerHandler.instance().getServer().getEntityWorld();
 	}
 }

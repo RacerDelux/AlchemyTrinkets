@@ -68,12 +68,13 @@ public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
 		ItemStack potion = inv.getStackInSlot(1);
 		if(flask != null && potion != null){
 			if(flask.getTagCompound() != null){
-				currenttag.setString("flaskComponent", flask.getTagCompound().getString("flaskComponent"));
+				currenttag = flask.getTagCompound().copy();
+				/*currenttag.setString("flaskComponent", flask.getTagCompound().getString("flaskComponent"));
 				currenttag.setString("infusedGlass", flask.getTagCompound().getString("infusedGlass"));
 				currenttag.setBoolean("isEmpty", flask.getTagCompound().getBoolean("isEmpty"));
 				currenttag.setInteger("uses", flask.getTagCompound().getInteger("uses"));
 				currenttag.setInteger("maxUses", flask.getTagCompound().getInteger("maxUses"));
-				Main.logger.info("Flask has NBT: " + flask.getTagCompound());
+				Main.logger.info("Flask has NBT: " + flask.getTagCompound());*/
 			}
 			if(potion.getTagCompound() != null){
 				if(!currenttag.getBoolean("isEmpty")){

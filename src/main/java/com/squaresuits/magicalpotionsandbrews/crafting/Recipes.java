@@ -50,13 +50,21 @@ public class Recipes {
 				'#', "blockGlass",
 				'@', "ingotPyrite"));
 		//Diamond Infused Glass
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 1),
-						"#%#",
-						"#@#",
-						"#%#",
-						'#', "blockGlass",
-						'@', "ingotPyrite",
-						'%', "gemDiamond"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 1),
+                "#%#",
+                "#@#",
+                "#%#",
+                '#', "blockGlass",
+                '@', "ingotPyrite",
+                '%', "gemDiamond"));
+        //Emerald Infused Glass
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 2),
+                "#%#",
+                "#@#",
+                "#%#",
+                '#', "blockGlass",
+                '@', "ingotPyrite",
+                '%', "gemEmerald"));
 		//Pyrite Ingot
 		GameRegistry.addShapelessRecipe(new ItemStack(Items.pyrite_ingot, 9),
 				Blocks.pyrite_block);

@@ -6,11 +6,13 @@ import com.squaresuits.magicalpotionsandbrews.init.Fluids;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.util.IColorItem;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class ClientProxy extends CommonProxy{
+public class ClientProxy extends CommonProxy implements MPBProxy{
 	@Override
 	public void preInit(FMLPreInitializationEvent preEvent){
 		super.preInit(preEvent);
@@ -37,4 +39,15 @@ public class ClientProxy extends CommonProxy{
 	public void postInit(FMLPostInitializationEvent postEvent){
 		super.postInit(postEvent);
 	}
+
+
+    @Override
+    public EntityPlayer getPlayer() {
+        return Minecraft.getMinecraft().thePlayer;
+    }
+
+    @Override
+    public World getWorld() {
+        return Minecraft.getMinecraft().theWorld;
+    }
 }

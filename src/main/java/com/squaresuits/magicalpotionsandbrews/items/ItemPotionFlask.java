@@ -35,6 +35,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -59,9 +60,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
     public static final int MATCOLOR = 2;
 
     public static final int GLASSMETA = 0;
+    public static final int POTIONHELD = 1;
 
     public ArrayList<String> flaskMaterials = new ArrayList<>(asList("iron", "gold"));
-    public ArrayList<String> glassMaterials = new ArrayList<>(asList("pyrite", "diamond"));
+    public ArrayList<String> glassMaterials = new ArrayList<>(asList("pyrite", "diamond", "emerald"));
+
     public LinkedHashMap<String, Integer[]> flaskMaterialInfo = new LinkedHashMap<String, Integer[]>(){{
         //								INT 			USE	    Color
         put("copper",new Integer[] 		{COPPER		,	4   ,	0xEDA726});
@@ -80,15 +83,15 @@ public class ItemPotionFlask extends Item implements IColorItem{
     }};
     public LinkedHashMap<String, String> effectName = new LinkedHashMap<String, String>(){{
 
-        put("copper", TextFormatting.DARK_BLUE + "Frugal");
-        put("iron", TextFormatting.YELLOW + "Defensive");
-        put("gold", TextFormatting.GREEN + "Lucky");
-        put("starsteel", TextFormatting.LIGHT_PURPLE + "Plentiful");
-        put("fyrestone", TextFormatting.RED + "Fiery");
-        put("earthstone", TextFormatting.DARK_GREEN + "Steadfast");
-        put("pyrite", "");
-        put("diamond","");
-        put("emerald","");
+        put("copper"        , TextFormatting.DARK_BLUE      + "Frugal");
+        put("iron"          , TextFormatting.YELLOW         + "Defensive");
+        put("gold"          , TextFormatting.GREEN          + "Lucky");
+        put("starsteel"     , TextFormatting.LIGHT_PURPLE   + "Plentiful");
+        put("fyrestone"     , TextFormatting.RED            + "Fiery");
+        put("earthstone"    , TextFormatting.DARK_GREEN     + "Steadfast");
+        put("pyrite"        , "");
+        put("diamond"       , "");
+        put("emerald"       , "");
     }};
 
 
@@ -117,7 +120,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
      */
     @Override
     @Nullable
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving)
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityLiving)
     {
         if (!worldIn.isRemote)
         {
@@ -310,6 +313,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	 * returns the action that specifies what animation to play when the items is being used
 	 */
 	@Override
+    @Nonnull
 	public EnumAction getItemUseAction(ItemStack stack)
 	{
         if(stack.hasTagCompound()) {
@@ -324,7 +328,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+    @Nonnull
+	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
 	{
         if(itemStackIn.hasTagCompound()) {
             if (!itemStackIn.getTagCompound().getBoolean("isEmpty")) {
@@ -344,7 +349,8 @@ public class ItemPotionFlask extends Item implements IColorItem{
      * @return Returns the display name.
      */
 	@Override
-	public String getItemStackDisplayName(ItemStack stack)
+    @Nonnull
+	public String getItemStackDisplayName(@Nonnull ItemStack stack)
 	{
 		return "Flask";
 		//return I18n.translateToLocal(PotionUtils.getPotionFromItem(stack).getNamePrefixed("potion.effect."));
@@ -358,14 +364,30 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
 	{
 		if(stack.hasTagCompound()) {
-			if(effectName.get(stack.getTagCompound().getString("flaskComponent")).equals("")){
-				tooltip.add("Material: " + stack.getTagCompound().getString("flaskComponent"));
+		    NBTTagCompound tag = stack.getTagCompound();
+			if(effectName.get(tag.getString("flaskComponent")).equals("")){
+				tooltip.add("Material: " + tag.getString("flaskComponent"));
 			} else {
-				tooltip.add(effectName.get(stack.getTagCompound().getString("flaskComponent")));
+				tooltip.add(effectName.get(tag.getString("flaskComponent")));
 			}
-			tooltip.add("Glass: " + stack.getTagCompound().getString("infusedGlass"));
-			tooltip.add(stack.getTagCompound().getInteger("uses") + "/" + stack.getTagCompound().getInteger("maxUses"));
-			if(!stack.getTagCompound().getBoolean("isEmpty")){
+            String selected = "";
+            for(int i = 0; i < flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD]; i++){
+                if(i == tag.getInteger("potionSelected")){
+                    if(tag.getString("Potion" + Integer.toString(i)).equals("") && !tag.getBoolean("isEmpty")){
+                        tag.setString("Potion" + Integer.toString(i),tag.getString("Potion"));
+                    }
+                    selected += (TextFormatting.DARK_RED + "\u25CF");
+                } else {
+                    if(tag.getString("Potion" + Integer.toString(i)).equals("")) {
+                        selected += (TextFormatting.WHITE + "\u25CB");
+                    } else {
+                        selected += (TextFormatting.WHITE + Character.toString('\u25CF'));
+                    }
+                }
+            }
+            tooltip.add(selected);
+			tooltip.add(tag.getInteger("uses") + "/" + tag.getInteger("maxUses"));
+			if(!tag.getBoolean("isEmpty")){
 				PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
 			} else {
 
@@ -375,6 +397,30 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		}
 
 	}
+
+	public static void setPotion(int next, ItemStack stack){
+	    NBTTagCompound tag = stack.getTagCompound();
+        int previous = tag.getInteger("potionSelected");
+
+        Main.logger.info("The previous slot was: " + previous);
+        Main.logger.info("Sent to server, change to slot: " + next);
+        Main.logger.info("The selected potion is: " + stack.getTagCompound().getString("Potion"));
+
+        tag.setString("Potion" + Integer.toString(previous), tag.getString("Potion"));
+        tag.setInteger("PotionUses" + Integer.toString(previous), tag.getInteger("uses"));
+        tag.setString("Potion", tag.getString("Potion" + Integer.toString(next)));
+        tag.setInteger("uses", tag.getInteger("PotionUses" + Integer.toString(next)));
+        tag.setInteger("potionSelected", next);
+        if(tag.getString("Potion").equals("")){
+            tag.setBoolean("isEmpty", true);
+        } else {
+            tag.setBoolean("isEmpty",false);
+        }
+        Main.logger.info("-----------------");
+        Main.logger.info("The previous potion was: " + stack.getTagCompound().getString("Potion" + Integer.toString(previous)));
+        Main.logger.info("The current potion is: " + stack.getTagCompound().getString("Potion" + Integer.toString(next)));
+        Main.logger.info("It should match: " + stack.getTagCompound().getString("Potion"));
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -416,9 +462,9 @@ public class ItemPotionFlask extends Item implements IColorItem{
         }
     }
 
-	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
-	 */
+	// /**
+	// * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+	// */
 	/*@SideOnly(Side.CLIENT)
     public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
     {

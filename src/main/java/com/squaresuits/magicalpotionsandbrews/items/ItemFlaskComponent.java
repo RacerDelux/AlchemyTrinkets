@@ -47,6 +47,7 @@ public class ItemFlaskComponent extends Item{
      * different names based on their damage or NBT.
      */
     @Override
+	@Nonnull
 	public String getUnlocalizedName(ItemStack stack)
     {
     	if(stack.hasTagCompound()){
@@ -54,16 +55,13 @@ public class ItemFlaskComponent extends Item{
     	}
     	return "None";
     }
-	
-	/**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
-     */
+
 	/**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
     @Override
 	@SideOnly(Side.CLIENT)
-    public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
     {
         for (int i = 0; i < ((ItemPotionFlask)Items.potion_flask).flaskMaterials.size(); ++i)
         {

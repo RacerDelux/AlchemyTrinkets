@@ -7,7 +7,6 @@ import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockBlock;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockOres;
-import com.squaresuits.magicalpotionsandbrews.blocks.GlassBlock;
 import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlassBlock;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
@@ -71,9 +70,9 @@ public class Blocks {
 		return regInfusedBlock(new BlockInfusedGlass(ignoreSimilarity),"infused_glass_block");
 	}
 	
-	private static Block createGlasBlock(ResourceMaterial metal, boolean ignoreSimilarity){
+	/*private static Block createGlasBlock(ResourceMaterial metal, boolean ignoreSimilarity){
 		return regBlock(new GlassBlock(metal,ignoreSimilarity),metal.getName()+"_glass_block");
-	}
+	}*/
 	
 	private static Block createBlock(ResourceMaterial metal){
 		return createBlock(metal,false);
@@ -83,9 +82,9 @@ public class Blocks {
 		return regBlock(new BlockBlock(metal,glow),metal.getName()+"_block");
 	}
 	
-	private static Block createCauldron(ResourceMaterial metal, boolean glow){
+	/*private static Block createCauldron(ResourceMaterial metal, boolean glow){
 		return regBlock(new BlockBlock(metal,glow),metal.getName()+"_cauldron");
-	}
+	}*/
 	
 	private static Block createOre(ResourceMaterial metal){
 		return regBlock(new BlockOres(metal),metal.getName()+"_ore");
@@ -147,6 +146,9 @@ public class Blocks {
 	    
 	    itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
 	    ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
+
+		itemModelResourceLocation = new ModelResourceLocation("magicpab:emerald_infused_glass_block", "inventory");
+		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.EMERALD.getMetadata(), itemModelResourceLocation);
 
 	}
 	
