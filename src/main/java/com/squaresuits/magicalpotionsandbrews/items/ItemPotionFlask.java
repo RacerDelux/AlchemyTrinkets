@@ -376,7 +376,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
                     if(tag.getString("Potion" + Integer.toString(i)).equals("") && !tag.getBoolean("isEmpty")){
                         tag.setString("Potion" + Integer.toString(i),tag.getString("Potion"));
                     }
-                    selected += (TextFormatting.DARK_RED + "\u25CF");
+                    if(tag.getString("Potion" + Integer.toString(i)).equals("")) {
+                        selected += (TextFormatting.DARK_RED + "\u25CB");
+                    } else {
+                        selected += (TextFormatting.DARK_RED + Character.toString('\u25CF'));
+                    }
                 } else {
                     if(tag.getString("Potion" + Integer.toString(i)).equals("")) {
                         selected += (TextFormatting.WHITE + "\u25CB");
