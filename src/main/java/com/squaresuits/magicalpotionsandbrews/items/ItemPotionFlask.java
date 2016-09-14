@@ -159,9 +159,14 @@ public class ItemPotionFlask extends Item implements IColorItem{
                                 stack.getTagCompound().setInteger("uses", stack.getTagCompound().getInteger("uses") - 1);
 
                                 if (stack.getTagCompound().getInteger("uses") <= 0) {
-                                    stack.getTagCompound().setInteger("uses", 0);
-                                    stack.getTagCompound().setBoolean("isEmpty", true);
-                                    stack.getTagCompound().setString("Potion", "minecraft:empty");
+                                    NBTTagCompound tag = stack.getTagCompound();
+                                    tag.setInteger("uses", 0);
+                                    tag.setBoolean("isEmpty", true);
+                                    tag.setString("Potion", "");
+
+                                    int current = tag.getInteger("potionSelected");
+                                    tag.setInteger("uses" + Integer.toString(current), 0);
+                                    tag.setString("Potion" + Integer.toString(current), "");
                                 }
                                 break;
                         }
@@ -401,6 +406,20 @@ public class ItemPotionFlask extends Item implements IColorItem{
 		}
 
 	}
+
+    /**
+     * Adds some flask information to the displayName.
+     * @param item
+     * @param displayName
+     * @return
+     */
+    public String getHighlightTip( ItemStack item, String displayName )
+    {
+        NBTTagCompound tag = item.getTagCompound();
+        Integer current = tag.getInteger("potionSelected");
+        Integer capacity = flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD];
+        return displayName + " [" + (current + 1) + "/" + capacity + "]";
+    }
 
 	public static void setPotion(int next, ItemStack stack){
 	    NBTTagCompound tag = stack.getTagCompound();
