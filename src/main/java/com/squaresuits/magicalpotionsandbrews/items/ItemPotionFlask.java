@@ -272,6 +272,11 @@ public class ItemPotionFlask extends Item implements IColorItem{
             stack.getTagCompound().setInteger("uses", 0);
             stack.getTagCompound().setBoolean("isEmpty", true);
             stack.getTagCompound().setString("Potion", "minecraft:empty");
+
+            NBTTagCompound tag = stack.getTagCompound();
+            int current = tag.getInteger("potionSelected");
+            tag.setInteger("uses" + Integer.toString(current), 0);
+            tag.setString("Potion" + Integer.toString(current), "");
         }
 	}
 
