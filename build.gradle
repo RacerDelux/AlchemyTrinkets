@@ -13,13 +13,13 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 
 version = "0.1.7"
-def llibrary_version = "1.4.1"
+def llibrary_version = "1.6.0"
 group = "com.squaresuits"
 archivesBaseName = "magicalpotionsandbrews"
 sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
-    version = "1.10.2-12.18.0.2010"
+    version = "12.18.1.2086"
     runDir = "minecraft"
     mappings = "snapshot_20160711"
 }
