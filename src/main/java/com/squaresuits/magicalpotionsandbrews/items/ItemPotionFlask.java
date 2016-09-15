@@ -35,7 +35,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -420,10 +419,12 @@ public class ItemPotionFlask extends Item implements IColorItem{
      */
     public String getHighlightTip( ItemStack item, String displayName )
     {
-        NBTTagCompound tag = item.getTagCompound();
-        Integer current = tag.getInteger("potionSelected");
-        Integer capacity = flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD];
-        return displayName + " [" + (current + 1) + "/" + capacity + "]";
+        if(item.hasTagCompound()) {
+            NBTTagCompound tag = item.getTagCompound();
+            Integer current = tag.getInteger("potionSelected");
+            Integer capacity = flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD];
+            return displayName + " [" + (current + 1) + "/" + capacity + "]";
+        }
     }
 
 	public static void setPotion(int next, ItemStack stack){
