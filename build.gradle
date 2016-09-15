@@ -32,7 +32,7 @@ processResources {
 
     from (sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
-        expand "version": project.version, "mcversion": project.minecraft.version, "llibrary_version": llibrary_version
+        //expand "version": project.version, "mcversion": project.minecraft.version, "llibrary_version": llibrary_version
     }
         
     from (sourceSets.main.resources.srcDirs) {
