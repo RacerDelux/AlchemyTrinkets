@@ -35,6 +35,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -218,6 +219,14 @@ public class ItemPotionFlask extends Item implements IColorItem{
                     default:
                         break;
                 }
+            } else {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setString("flaskComponent", "copper");
+                tag.setString("infusedGlass", "pyrite");
+                tag.setBoolean("isEmpty", true);
+                tag.setInteger("uses", 0);
+                tag.setInteger("maxUses", ((ItemPotionFlask) Items.potion_flask).flaskMaterialInfo.get("copper")[MATUSE]);
+                stack.setTagCompound(tag);
             }
         }
 	}
@@ -425,6 +434,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
             Integer capacity = flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD];
             return displayName + " [" + (current + 1) + "/" + capacity + "]";
         }
+        return displayName;
     }
 
 	public static void setPotion(int next, ItemStack stack){
