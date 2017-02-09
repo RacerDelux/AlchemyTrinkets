@@ -13,22 +13,22 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 
 version = "0.1.8.1"
-def llibrary_version = "1.6.0"
+//def llibrary_version = "1.6.0"
 group = "com.squaresuits"
 archivesBaseName = "magicalpotionsandbrews"
 sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
-    version = "12.18.1.2086"
+    version = "12.18.3.2185"
     runDir = "minecraft"
-    mappings = "snapshot_20160711"
+    mappings = "stable_29"
 }
 
 
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-    inputs.property "llibrary_version", llibrary_version
+    //inputs.property "llibrary_version", llibrary_version
 
     from (sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
