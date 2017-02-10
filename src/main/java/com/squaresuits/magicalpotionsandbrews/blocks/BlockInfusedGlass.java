@@ -125,7 +125,7 @@ public class BlockInfusedGlass extends BlockGlass{
 
 	// when the block is placed, set the appropriate facing direction based on which way the player is looking
 	// the material of block is contained in meta, it corresponds to the values we used for getSubBlocks
-	@Override
+
     @Nonnull
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing blockFaceClickedOn, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
 	{

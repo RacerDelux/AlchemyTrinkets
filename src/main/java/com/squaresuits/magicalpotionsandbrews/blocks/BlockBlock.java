@@ -49,7 +49,7 @@ public class BlockBlock extends Block implements MPBOreDictionaryEntry {
         return true;
     }
     
-	@Override
+
 	public boolean isVisuallyOpaque() {
         return true;
     }

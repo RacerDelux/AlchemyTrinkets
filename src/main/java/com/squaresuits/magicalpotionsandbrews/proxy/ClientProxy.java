@@ -43,11 +43,11 @@ public class ClientProxy extends CommonProxy implements MPBProxy{
 
     @Override
     public EntityPlayer getPlayer() {
-        return Minecraft.getMinecraft().thePlayer;
+        return Minecraft.getMinecraft().player;
     }
 
     @Override
     public World getWorld() {
-        return Minecraft.getMinecraft().theWorld;
+        return Minecraft.getMinecraft().world;
     }
 }

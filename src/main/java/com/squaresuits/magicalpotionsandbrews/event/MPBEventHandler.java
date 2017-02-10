@@ -25,7 +25,7 @@ public class MPBEventHandler {
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event) {
         //Main.logger.info("You were hurt");
-        if (!event.getEntity().worldObj.isRemote && event.getEntity() instanceof EntityPlayer) {
+        if (!event.getEntity().getEntityWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntity();
             InventoryPlayer inventory = player.inventory;
             for(int i = 0; i < 8; i++){
