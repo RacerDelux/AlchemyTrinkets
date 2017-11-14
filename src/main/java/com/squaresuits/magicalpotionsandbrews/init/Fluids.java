@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
-import com.squaresuits.magicalpotionsandbrews.blocks.BlockLiquidFluid;
-import com.squaresuits.magicalpotionsandbrews.blocks.BlockMoltenFluid;
 import com.squaresuits.magicalpotionsandbrews.fluids.CustomFluid;
 
 import net.minecraft.block.state.IBlockState;

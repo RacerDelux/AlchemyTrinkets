@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "magicpab:blocks/emerald_glass_block"
+  }
+}

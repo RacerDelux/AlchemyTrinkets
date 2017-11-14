@@ -1,0 +1,23 @@
+{
+  "parent": "item/generated",
+  "overrides": [
+    {
+      "predicate": {
+        "infusedGlass": 0
+      },
+      "model": "magicpab:item/flask/pyrite_flask"
+    },
+    {
+      "predicate": {
+        "infusedGlass": 1
+      },
+      "model": "magicpab:item/flask/diamond_flask"
+    },
+    {
+      "predicate": {
+        "infusedGlass": 2
+      },
+      "model": "magicpab:item/flask/emerald_flask"
+    }
+  ]
+}

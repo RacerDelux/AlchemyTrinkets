@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "minecraft:cube",
+        "transform": "forge:default-block",
+        "textures": {
+            "particle": "#all",
+            "down": "#all",
+            "up": "#all",
+            "south": "#all",
+            "north": "#all",
+            "east": "#all",
+            "west": "#all"
+        }
+    },
+    "variants": {
+            "material=pyrite": [{ "textures": { "all": "magicpab:blocks/pyrite_glass_block" } }],
+            "material=diamond": [{ "textures": { "all": "magicpab:blocks/diamond_glass_block" } }],
+            "material=emerald": [{ "textures": { "all": "magicpab:blocks/emerald_glass_block" } }]
+    }
+}

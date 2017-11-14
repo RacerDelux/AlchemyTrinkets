@@ -1,8 +1,5 @@
 package com.squaresuits.magicalpotionsandbrews.crafting;
 
-import com.skidsdev.fyrestone.utils.RitualRecipe;
-import com.skidsdev.fyrestone.utils.RitualRecipeManager;
-import com.skidsdev.fyrestone.item.ItemRegister;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
