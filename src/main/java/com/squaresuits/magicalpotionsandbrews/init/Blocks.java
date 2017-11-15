@@ -9,7 +9,7 @@ import com.squaresuits.magicalpotionsandbrews.blocks.BlockInfusedGlass;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockOres;
 import com.squaresuits.magicalpotionsandbrews.items.ItemInfusedGlassBlock;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
-import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
+import com.squaresuits.magicalpotionsandbrews.recipes.MPBOreDictionaryEntry;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;

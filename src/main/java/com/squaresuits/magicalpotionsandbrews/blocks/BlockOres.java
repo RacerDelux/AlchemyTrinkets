@@ -5,7 +5,7 @@ import java.util.Random;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
-import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
+import com.squaresuits.magicalpotionsandbrews.recipes.MPBOreDictionaryEntry;
 
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.SoundType;

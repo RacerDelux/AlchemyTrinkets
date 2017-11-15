@@ -1,0 +1,20 @@
+{
+  "type": "magicpab:set_material",
+  "material": "gold",
+  "pattern": [
+    " o ",
+    "oxo",
+    "   "
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:ingotGold"
+    },
+    "x": {
+      "item": "magicpab:ingotPyrite"
+    }
+  },
+  "result": {
+    "item": "magicpab:flask_component"
+  }
+}

@@ -11,7 +11,7 @@ import com.squaresuits.magicalpotionsandbrews.items.ItemMock;
 import com.squaresuits.magicalpotionsandbrews.items.ItemPotionFlask;
 import com.squaresuits.magicalpotionsandbrews.items.ItemShard;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
-import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
+import com.squaresuits.magicalpotionsandbrews.recipes.MPBOreDictionaryEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,7 +20,6 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -88,7 +87,7 @@ public class Items {
 		//Flask Components
 		flask_component = createFlaskComponent();
 		
-		if (Loader.isModLoaded("basemetals")) {
+		/*if (Loader.isModLoaded("basemetals")) {
             try {
             	//starsteel_flask_component = createFlaskComponent(Materials.starsteel);
                 Console.out().println("Base Metals found - recipes added!");
@@ -97,7 +96,7 @@ public class Items {
             	Console.out().println("Base Metals not found!");
                 e.printStackTrace(System.err);
             }
-        }
+        }*/
 		
 		for(Item i : itemMPBRegistry.keySet()){
 			allMPBItems.put(itemMPBRegistry.get(i), i);
@@ -143,7 +142,7 @@ public class Items {
 	private static Item regFlask(Item item, String name, CreativeTabs tab){
 		item.setRegistryName(MPBGlobal.MOD_ID, name);
 		item.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
-		GameRegistry.register(item); 
+		GameRegistry.register(item);
 		itemMPBRegistry.put(item, name);
 		if(tab != null){
 			item.setCreativeTab(tab);

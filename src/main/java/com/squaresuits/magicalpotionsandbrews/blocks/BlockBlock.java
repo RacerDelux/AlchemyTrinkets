@@ -1,11 +1,10 @@
 package com.squaresuits.magicalpotionsandbrews.blocks;
 
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
-import com.squaresuits.magicalpotionsandbrews.registry.MPBOreDictionaryEntry;
+import com.squaresuits.magicalpotionsandbrews.recipes.MPBOreDictionaryEntry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
