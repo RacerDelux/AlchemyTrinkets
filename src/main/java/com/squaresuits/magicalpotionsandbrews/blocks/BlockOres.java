@@ -2,8 +2,10 @@ package com.squaresuits.magicalpotionsandbrews.blocks;
 
 import java.util.Random;
 
+import com.mcmoddev.lib.data.Names;
 import com.squaresuits.magicalpotionsandbrews.init.Blocks;
 import com.squaresuits.magicalpotionsandbrews.init.Items;
+import com.squaresuits.magicalpotionsandbrews.init.Materials;
 import com.squaresuits.magicalpotionsandbrews.material.ResourceMaterial;
 import com.squaresuits.magicalpotionsandbrews.recipes.MPBOreDictionaryEntry;
 
@@ -45,7 +47,7 @@ public class BlockOres extends BlockOre implements MPBOreDictionaryEntry {
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune){
-		return this == Blocks.topaz_ore ? Items.topaz_stone : Item.getItemFromBlock(this);
+		return this == Materials.getMaterialByName("topaz").getBlock(Names.ORE) ? Items.topaz_stone : Item.getItemFromBlock(this);
 	}
 	
 	@Override

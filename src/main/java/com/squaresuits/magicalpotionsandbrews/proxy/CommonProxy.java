@@ -60,10 +60,10 @@ public class CommonProxy implements MPBProxy {
 		config.save();
 		
 		
-		Materials.initMaterial();
-		Items.initItems();
-		Blocks.initBlocks();
-		Fluids.initFluids();
+		Materials.init();
+		Items.init();
+		Blocks.init();
+		Fluids.init();
 		Recipes.initRecipes();
 		Smelting.initSmelting();
 		//Plugins
