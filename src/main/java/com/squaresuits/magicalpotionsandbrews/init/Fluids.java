@@ -3,11 +3,9 @@ package com.squaresuits.magicalpotionsandbrews.init;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mcmoddev.lib.data.Names;
 import com.mcmoddev.lib.material.MMDMaterial;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockLiquidFluid;
-import com.squaresuits.magicalpotionsandbrews.blocks.BlockMoltenFluid;
 import com.squaresuits.magicalpotionsandbrews.fluids.CustomFluid;
 
 import net.minecraft.block.Block;
@@ -28,7 +26,6 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -51,8 +48,13 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 	private static final Map<BlockFluidBase,String> fluidBlockNames = new HashMap<>();
 
 	private static boolean initDone = false;
-	public static void initFluids() {
-
+	public static void init() {
+		if( initDone ) return;
+		
+		Materials.init();
+		Blocks.init();
+		Items.init();
+		
 		MMDMaterial pyrite = Materials.getMaterialByName("pyrite");
 		addFluid(pyrite.getName(), 2000, 10000, 769, 10);
 		addFluidBlock( pyrite.getName() );
@@ -65,6 +67,7 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 		//fluidBlockPyrite = registerFluidBlock(fluidPyrite, new BlockMoltenFluid(fluidPyrite),"pyrite");
 		fluidBlockPotion = registerFluidBlock(fluidPotion, new BlockLiquidFluid(fluidPotion),"potion");
 		
+		initDone = true;
 	}
 
 	@SideOnly(Side.CLIENT)
