@@ -16,7 +16,6 @@ public class tconPlugin {
 		
 //			registerFluid(MPBFluids.fluidAluminum); // TCon already has this
 //			registerFluid(MPBFluids.fluidAluminumBrass); // TCon already has this
-			registerFluid(Fluids.fluidPyrite);
 
 //			registerAlloy("aluminumbrass", 2, "aluminum", 1, "brass", 1); // TCon already has Aluminum Brass alloy
 

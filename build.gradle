@@ -29,6 +29,24 @@ minecraft {
     mappings = "snapshot_20170925"
 }
 
+repositories {
+    maven {
+        name 'MMD'
+        url 'https://maven.mcmoddev.com/'
+    }
+	maven { // CoFH
+    	name 'Covers Maven'
+    	url 'http://maven.covers1624.net'
+    }
+}
+
+dependencies {
+    compile "com.mcmoddev:OreSpawn:${mc_version}-${orespawn_version}:deobf"
+    compile "com.mcmoddev:BaseMetals:${mc_version}-${bme_version}:deobf"
+	compile ("cofh:CoFHCore:${mc_version}-${cofhcore_version}:deobf") {
+    	exclude group: 'mezz.jei'
+    }
+}
 
 processResources {
     inputs.property "version", project.version

@@ -3,6 +3,8 @@ package com.squaresuits.magicalpotionsandbrews.init;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mcmoddev.lib.data.Names;
+import com.mcmoddev.lib.material.MMDMaterial;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockLiquidFluid;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockMoltenFluid;
@@ -30,7 +32,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Fluids {
+public class Fluids extends com.mcmoddev.lib.init.Fluids{
 	static {
 		FluidRegistry.enableUniversalBucket();
 	}
@@ -38,10 +40,10 @@ public class Fluids {
 	private static Map<Block,String> fluidMPBRegistry = new HashMap<>();
 	private static Map<ItemBlock,String> fluidItemBlockMPBRegistry = new HashMap<>();
 
-	public static Fluid fluidPyrite = null;
+
 	public static Fluid fluidPotion = null;
 	
-	public static BlockFluidBase fluidBlockPyrite = null;
+
 	public static BlockFluidBase fluidBlockPotion = null;
 	
 
@@ -51,12 +53,16 @@ public class Fluids {
 	private static boolean initDone = false;
 	public static void initFluids() {
 
+		MMDMaterial pyrite = Materials.getMaterialByName("pyrite");
+		addFluid(pyrite.getName(), 2000, 10000, 769, 10);
+		addFluidBlock( pyrite.getName() );
+
 		// fluids
-		fluidPyrite = newFluid(MPBGlobal.MOD_ID, "pyrite", 2000,10000,330,10, 0xFFC4B012);
+		//fluidPyrite = newFluid(MPBGlobal.MOD_ID, "pyrite", 2000,10000,330,10, 0xFFC4B012);
 		fluidPotion = newFluid(MPBGlobal.MOD_ID, "potion", 500,3000,60,3, 0x996868FF);
 
 		// fluid blocks
-		fluidBlockPyrite = registerFluidBlock(fluidPyrite, new BlockMoltenFluid(fluidPyrite),"pyrite");
+		//fluidBlockPyrite = registerFluidBlock(fluidPyrite, new BlockMoltenFluid(fluidPyrite),"pyrite");
 		fluidBlockPotion = registerFluidBlock(fluidPotion, new BlockLiquidFluid(fluidPotion),"potion");
 		
 	}

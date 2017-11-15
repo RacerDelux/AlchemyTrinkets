@@ -1,0 +1,33 @@
+item.magicpab.copper_ingot.name=Copper Ingot
+item.magicpab.nickel_ingot.name=Nickel Ingot
+item.magicpab.pyrite_ingot.name=Pyrite Ingot
+item.magicpab.pyrite_shard.name=Pyrite Shard
+item.magicpab.topaz_gem.name=Topaz
+item.magicpab.potion_flask.name=Flask
+
+item.magicpab.potion_mock.name=Mock item: DO NOT Use
+item.magicpab.component_mock.name=Mock item: DO NOT Use
+
+tile.magicpab.copper_ore.name=Copper Ore
+tile.magicpab.nickel_ore.name=Nickel Ore
+tile.magicpab.pyrite_ore.name=Pyrite Ore
+tile.magicpab.topaz_ore.name=Topaz Ore
+tile.magicpab.pyrite_block.name=Pyrite Block
+
+tile.magicpab.pyrite_infused_glass_block.name=Pyrite Infused Glass
+tile.magicpab.diamond_infused_glass_block.name=Diamond Infused Glass
+
+
+
+fluid.magicpab.pyrite.name=Molten Pyrite
+fluid.magicpab.pyrite=Molten Pyrite
+
+item.magicpab.copper_flask_component.name=Copper Flask Component
+item.magicpab.iron_flask_component.name=Iron Flask Component
+item.magicpab.gold_flask_component.name=Gold Flask Component
+item.magicpab.diamond_flask_component.name=Diamond Flask Component
+item.magicpab.starsteel_flask_component.name=Starsteel Flask Component
+item.magicpab.fyrestone_flask_component.name=Fyrestone Flask Component
+item.magicpab.earthstone_flask_component.name=Earthstone Flask Component
+
+itemGroup.ngCreativeTab=Magical Potions and Brews

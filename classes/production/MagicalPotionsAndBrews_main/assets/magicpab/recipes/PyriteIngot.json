@@ -1,0 +1,11 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": {
+    {
+        "item": "magicpab:pyrite_block"
+    }
+  }
+  "result": {
+    "item": "magicpab:ingotPyrite",
+  }
+}

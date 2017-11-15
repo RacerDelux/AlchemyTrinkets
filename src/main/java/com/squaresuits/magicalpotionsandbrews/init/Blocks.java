@@ -3,6 +3,8 @@ package com.squaresuits.magicalpotionsandbrews.init;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mcmoddev.lib.data.Names;
+import com.mcmoddev.lib.material.MMDMaterial;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockBlock;
 import com.squaresuits.magicalpotionsandbrews.blocks.BlockInfusedGlass;
@@ -27,7 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class Blocks {
+public class Blocks extends com.mcmoddev.lib.init.Blocks{
 	private static final Map<String,Block> allBlocks = new HashMap<>();
 	private static Map<ItemBlock,String> allBlockItemMPBRegistry = new HashMap<>();
 	
@@ -35,20 +37,20 @@ public class Blocks {
 	//Ore
 	public static Block copper_ore;	
 	public static Block nickel_ore;
-	public static Block pyrite_ore;
 	
 	//Gems
 	public static Block topaz_ore;
 	
 	//Blocks
-	public static Block pyrite_block;
 	public static Block infused_glass_block;
 	
 	//Items
 	public static Block copper_cauldron;
 	
 	public static void initBlocks(){
-		
+		MMDMaterial pyrite = Materials.getMaterialByName("pyrite");
+		create(Names.BLOCK, pyrite, MPBGlobal.MyCrTab);
+		create(Names.ORE, pyrite, MPBGlobal.MyCrTab);
 		
 		
 		copper_ore = createOre(Materials.copper);
@@ -56,9 +58,6 @@ public class Blocks {
 		nickel_ore = createOre(Materials.nickel);
 		
 		topaz_ore = createOre(Materials.topaz);
-		
-		pyrite_ore = createOre(Materials.pyrite);
-		pyrite_block = createBlock(Materials.pyrite);
 		
 		infused_glass_block = createInfusedGlasBlock(false);
 		
@@ -128,17 +127,28 @@ public class Blocks {
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		for( MMDMaterial mat : Materials.getMaterialsByMod(MPBGlobal.MOD_ID) ) {
+			for( Block block : mat.getBlocks() ) {
+				if( block.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) ) {
+					event.getRegistry().register(block);
+				}
+			}
+		}
+	}
+	/*
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		for( String name : allBlocks.keySet() ) {
 			event.getRegistry().register(allBlocks.get(name));
 		}
 	}
-
-	@SubscribeEvent
+*/
+	/*@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		for( ItemBlock ib : allBlockItemMPBRegistry.keySet() ) {
 			event.getRegistry().register(ib);
 		}
-	}
+	}*/
 
 	@SideOnly(Side.CLIENT)
 	public static void regBlockRenders(FMLInitializationEvent event){

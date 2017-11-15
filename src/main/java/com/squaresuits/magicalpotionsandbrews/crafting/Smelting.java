@@ -11,6 +11,5 @@ public class Smelting {
 	public static void initSmelting(){
 		GameRegistry.addSmelting(Blocks.copper_ore, new ItemStack(Items.copper_ingot), 1);
 		GameRegistry.addSmelting(Blocks.nickel_ore, new ItemStack(Items.nickel_ingot), 1);
-		GameRegistry.addSmelting(Blocks.pyrite_ore, new ItemStack(Items.pyrite_ingot), 10);
 	}
 }

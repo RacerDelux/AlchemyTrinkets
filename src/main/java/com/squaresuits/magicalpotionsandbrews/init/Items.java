@@ -3,6 +3,9 @@ package com.squaresuits.magicalpotionsandbrews.init;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.mcmoddev.lib.data.Names;
+import com.mcmoddev.lib.material.MMDMaterial;
+import com.mcmoddev.lib.util.Oredicts;
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
 import com.squaresuits.magicalpotionsandbrews.items.ItemFlaskComponent;
 import com.squaresuits.magicalpotionsandbrews.items.ItemGem;
@@ -28,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import scala.Console;
 
-public class Items {
+public class Items extends com.mcmoddev.lib.init.Items{
 	
 	private static Map<Item,String> itemMPBRegistry = new HashMap<>();
 	private static Map<String,Item> allMPBItems = new HashMap<>();
@@ -40,19 +43,9 @@ public class Items {
 	public static Item potion_mock;
 	public static Item component_mock;
 	
-	//Tools
-	public static ToolMaterial COPPERTOOLS = EnumHelper.addToolMaterial("COPPERTOOLS", 2, 350, 5.0F, 2.2F, 15);
-	
-	public static Item copperPickaxe;
-	public static Item copperAxe;
-	public static Item copperSpade;
-	public static Item copperHoe;
-	public static Item copperSword;
-	
 	//Ingots
 	public static Item copper_ingot;
 	public static Item nickel_ingot;
-	public static Item pyrite_ingot;
 	
 	//Shards
 	//public static Item pyrite_shard;
@@ -64,8 +57,13 @@ public class Items {
 	public static Item flask_component;
 	
 	public static void initItems(){
-		
-		
+		MMDMaterial pyrite = Materials.getMaterialByName("pyrite");
+		create(Names.INGOT, pyrite, MPBGlobal.MyCrTab);
+		create(Names.PICKAXE, pyrite, MPBGlobal.MyCrTab);
+		create(Names.AXE, pyrite, MPBGlobal.MyCrTab);
+		create(Names.HOE, pyrite, MPBGlobal.MyCrTab);
+		create(Names.SWORD, pyrite, MPBGlobal.MyCrTab);
+
 		//Flask
 		potion_flask = createPotionFlask();
 		
@@ -76,7 +74,6 @@ public class Items {
 		//GameRegistry.registerItem(copperPickaxe = new MPBCopperPickaxe("copperPickaxe", COPPERTOOLS), "copperPickaxe");
 		
 		//Ingot
-		pyrite_ingot = createIngot(Materials.pyrite);
 		copper_ingot = createIngot(Materials.copper);
 		nickel_ingot = createIngot(Materials.nickel);
 		
@@ -99,13 +96,6 @@ public class Items {
                 e.printStackTrace(System.err);
             }
         }*/
-		
-		for(Item i : itemMPBRegistry.keySet()){
-			allMPBItems.put(itemMPBRegistry.get(i), i);
-			if(i instanceof MPBOreDictionaryEntry){
-				OreDictionary.registerOre(((MPBOreDictionaryEntry)i).getOreDictionaryName(), i);}
-		}
-		
 	}
 	private static Item createMockItem(String item){
 		return regItem(new ItemMock(), item+"_mock", null, MPBGlobal.MyCrTab);
@@ -143,9 +133,16 @@ public class Items {
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		for( Item item : itemMPBRegistry.keySet() ) {
-				event.getRegistry().register(item);
+		for( MMDMaterial mat : Materials.getMaterialsByMod(MPBGlobal.MOD_ID) ) {
+			for( Item item : mat.getItems() ) {
+				if( item.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) ) {
+					event.getRegistry().register(item);
+				}
+			}
 		}
+
+		Oredicts.registerItemOreDictionaryEntries();
+		Oredicts.registerBlockOreDictionaryEntries();
 	}
 	
 	@SideOnly(Side.CLIENT)

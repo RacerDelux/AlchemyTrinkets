@@ -51,33 +51,11 @@ public class CommonProxy implements MPBProxy {
 		/* location of ore-spawn files */
 		Path oreSpawnFolder;
 
-		if(!requireOreSpawn) {
-			if(net.minecraftforge.fml.common.Loader.isModLoaded("orespawn")){
-				HashSet<ArtifactVersion> orespawnMod = new HashSet<>();
-				orespawnMod.add(new DefaultArtifactVersion("1.0.0"));
-				throw new MissingModsException(orespawnMod, "orespawn", "DrCyano's Ore Spawn Mod");
-			}
-			oreSpawnFolder = Paths.get(preEvent.getSuggestedConfigurationFile().toPath().getParent().toString(), "orespawn");
-			Path oreSpawnFile = Paths.get(oreSpawnFolder.toString(), MPBGlobal.MOD_ID + ".json");
-			if (!Files.exists(oreSpawnFile)) {
-				try {
-					Files.createDirectories(oreSpawnFile.getParent());
-					Files.write(oreSpawnFile, Arrays.asList(MPBGlobal.defaultOreSpawnJSON.split("\n")), Charset.forName("UTF-8"));
-				} catch (IOException e) {
-					FMLLog.severe(MPBGlobal.MOD_ID + ": Error: Failed to write file " + oreSpawnFile);
-				}
-			}
-		} else {
-			oreSpawnFolder = Paths.get(preEvent.getSuggestedConfigurationFile().toPath().getParent().toString(), "orespawn");
-			Path oreSpawnFile = Paths.get(oreSpawnFolder.toString(), MPBGlobal.MOD_ID + ".json");
-			if (Files.exists(oreSpawnFile)) {
-				try {
-					Files.delete(oreSpawnFile.getParent());
-				} catch (IOException e) {
-					FMLLog.severe(MPBGlobal.MOD_ID + ": Error: Failed to delete file " + oreSpawnFile);
-				}
-			}
-		}
+		/*if (!Loader.isModLoaded("orespawn")) {
+			final HashSet<ArtifactVersion> orespawnMod = new HashSet<>();
+			orespawnMod.add(new DefaultArtifactVersion("3.2.0"));
+			throw new MissingModsException(orespawnMod, "orespawn", "MMD Ore Spawn Mod");
+		}*/
 		
 		config.save();
 		
@@ -90,8 +68,12 @@ public class CommonProxy implements MPBProxy {
 		Smelting.initSmelting();
 		//Plugins
 		if(Loader.isModLoaded("tconstruct")) {
-			tconPlugin.initTconPlugin();
+			//tconPlugin.initTconPlugin();
 		}
+
+		MinecraftForge.EVENT_BUS.register(com.squaresuits.magicalpotionsandbrews.init.Items.class);
+		MinecraftForge.EVENT_BUS.register(com.squaresuits.magicalpotionsandbrews.init.Blocks.class);
+		MinecraftForge.EVENT_BUS.register(com.squaresuits.magicalpotionsandbrews.init.Fluids.class);
 
 		PacketHandler.preInit();
 	}
