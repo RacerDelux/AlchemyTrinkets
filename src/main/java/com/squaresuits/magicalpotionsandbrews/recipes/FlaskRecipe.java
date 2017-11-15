@@ -18,10 +18,10 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class FlaskRecipe extends ShapedOreRecipe{
 	private String material = "";
 	private String glass = "";
-	public FlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
-    public FlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
+	//public FlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
+    //public FlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
     public FlaskRecipe(ItemStack result, Object... recipe){
-        super(result, recipe);
+        super(null, result, recipe);
         output.setTagCompound(result.getTagCompound());
     }
     

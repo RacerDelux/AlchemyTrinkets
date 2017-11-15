@@ -17,8 +17,11 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,7 +29,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class Blocks {
 	private static final Map<String,Block> allBlocks = new HashMap<>();
-	
+	private static Map<ItemBlock,String> allBlockItemMPBRegistry = new HashMap<>();
 	
 	
 	//Ore
@@ -93,27 +96,27 @@ public class Blocks {
 	private static Block regBlock(Block block, String name){
 		block.setRegistryName(MPBGlobal.MOD_ID, name);
 		block.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
-		GameRegistry.register(block);
 		
 		ItemBlock itemBlock = new ItemBlock(block);
 		itemBlock.setRegistryName(MPBGlobal.MOD_ID, name);
-		GameRegistry.register(itemBlock);
 		
 		block.setCreativeTab(MPBGlobal.MyCrTab);
 		
 		allBlocks.put(name, block);
+		allBlockItemMPBRegistry.put(itemBlock, name);
 		return block;
 	}
 	
 	private static Block regInfusedBlock(Block block, String name){
 		block.setRegistryName(MPBGlobal.MOD_ID, name);
 		block.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
-		GameRegistry.register(block);
 		
 		ItemInfusedGlassBlock itemBlock = new ItemInfusedGlassBlock(block);
 		itemBlock.setRegistryName(MPBGlobal.MOD_ID, name);
-		GameRegistry.register(itemBlock);
-		
+
+		allBlocks.put(name, block);
+		allBlockItemMPBRegistry.put(itemBlock, name);
+
 		block.setCreativeTab(MPBGlobal.MyCrTab);
 		
 		//allBlocks.put(name, block);
@@ -122,7 +125,21 @@ public class Blocks {
 
 		return block;
 	}
-	
+
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		for( String name : allBlocks.keySet() ) {
+			event.getRegistry().register(allBlocks.get(name));
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event) {
+		for( ItemBlock ib : allBlockItemMPBRegistry.keySet() ) {
+			event.getRegistry().register(ib);
+		}
+	}
+
 	@SideOnly(Side.CLIENT)
 	public static void regBlockRenders(FMLInitializationEvent event){
 
@@ -137,19 +154,23 @@ public class Blocks {
 	
 	@SideOnly(Side.CLIENT)
 	public static void createCustomModels(){
+
+
+	}
+
+	@SubscribeEvent
+	public void modelRegistryBits(ModelRegistryEvent ev) {
 		ResourceLocation test = new ResourceLocation("magicpab:infused_glass_block");
 		Item itemBlockVariants = Item.REGISTRY.getObject(test);
-				//GameRegistry.findItem("magicpab", "infused_glass_block");
-		
+		//GameRegistry.findItem("magicpab", "infused_glass_block");
+
 		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("magicpab:diamond_infused_glass_block", "inventory");
 		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.DIAMOND.getMetadata(), itemModelResourceLocation);
-	    
-	    itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
-	    ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
+
+		itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
+		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
 
 		itemModelResourceLocation = new ModelResourceLocation("magicpab:emerald_infused_glass_block", "inventory");
 		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.EMERALD.getMetadata(), itemModelResourceLocation);
-
 	}
-	
 }

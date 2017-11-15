@@ -10,8 +10,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class PABShapedOreRecipe extends ShapedOreRecipe{
 	private String material = "";
 
-    public PABShapedOreRecipe(String mat, Object... recipe){
-        super(null, Items.flask_component, recipe);
+    public PABShapedOreRecipe(String mat, ItemStack result, Object... recipe){
+        super(null, result, recipe);
 
     	material = mat;
     	NBTTagCompound outputdata = new NBTTagCompound();

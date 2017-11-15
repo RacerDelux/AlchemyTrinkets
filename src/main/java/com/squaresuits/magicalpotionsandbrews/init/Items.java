@@ -18,8 +18,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -110,7 +112,7 @@ public class Items {
 	}
 	
 	private static Item createPotionFlask(){
-		return regFlask(new ItemPotionFlask(), "potion_flask", MPBGlobal.MyCrTab);
+		return regItem(new ItemPotionFlask(), "potion_flask", null, MPBGlobal.MyCrTab);
 	}
 	
 	private static Item createFlaskComponent(){
@@ -132,22 +134,18 @@ public class Items {
 	private static Item regItem(Item item, String name, ResourceMaterial metal, CreativeTabs tab){
 		item.setRegistryName(MPBGlobal.MOD_ID, name);
 		item.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
-		GameRegistry.register(item); 
 		itemMPBRegistry.put(item, name);
 		if(tab != null){
 			item.setCreativeTab(tab);
 		}
 		return item;
 	}
-	private static Item regFlask(Item item, String name, CreativeTabs tab){
-		item.setRegistryName(MPBGlobal.MOD_ID, name);
-		item.setUnlocalizedName(MPBGlobal.MOD_ID+"."+name);
-		GameRegistry.register(item);
-		itemMPBRegistry.put(item, name);
-		if(tab != null){
-			item.setCreativeTab(tab);
+
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event) {
+		for( Item item : itemMPBRegistry.keySet() ) {
+				event.getRegistry().register(item);
 		}
-		return item;
 	}
 	
 	@SideOnly(Side.CLIENT)

@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.squaresuits.magicalpotionsandbrews.MPBGlobal;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockLiquidFluid;
+import com.squaresuits.magicalpotionsandbrews.blocks.BlockMoltenFluid;
 import com.squaresuits.magicalpotionsandbrews.fluids.CustomFluid;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -17,10 +20,12 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,6 +34,9 @@ public class Fluids {
 	static {
 		FluidRegistry.enableUniversalBucket();
 	}
+
+	private static Map<Block,String> fluidMPBRegistry = new HashMap<>();
+	private static Map<ItemBlock,String> fluidItemBlockMPBRegistry = new HashMap<>();
 
 	public static Fluid fluidPyrite = null;
 	public static Fluid fluidPotion = null;
@@ -97,16 +105,31 @@ public class Fluids {
 		ResourceLocation location = new ResourceLocation(MPBGlobal.MOD_ID, name);
 		block.setRegistryName(location);
 		block.setUnlocalizedName(location.toString());
-		GameRegistry.register(block);
 		block.setCreativeTab(CreativeTabs.MISC);
+		fluidMPBRegistry.put(block, name);
 
 		ItemBlock itemBlock = new ItemBlock(block);
 		itemBlock.setRegistryName(location);
 		itemBlock.setUnlocalizedName(location.toString());
-		GameRegistry.register(itemBlock);
-		
+		fluidItemBlockMPBRegistry.put(itemBlock, name);
+
 		fluidBlocks.put(fluid, block);
 		fluidBlockNames.put(block, name);
 		return block;
 	}
+
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		for( Block b : fluidMPBRegistry.keySet() ) {
+			event.getRegistry().register(b);
+		}
+	}
+
+	@SubscribeEvent
+	public static void registerItems(RegistryEvent.Register<Item> event) {
+		for( ItemBlock ib : fluidItemBlockMPBRegistry.keySet() ) {
+			event.getRegistry().register(ib);
+		}
+	}
+
 }

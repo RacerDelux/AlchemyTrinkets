@@ -15,14 +15,14 @@ public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
 	
 	private NBTTagCompound currenttag = new NBTTagCompound();
 	
-	public PotionAdditionFlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
-    public PotionAdditionFlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
+	//public PotionAdditionFlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
+    //public PotionAdditionFlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
     public PotionAdditionFlaskRecipe(ItemStack result, Object... recipe){ 
-    	super(result, recipe); }
+    	super(null, result, recipe); }
     
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
-    	for(int i = 0; i < input.length; i++){
+    	/*for(int i = 0; i < input.length; i++){
     		
     		if(input[i] != null){
     			ItemStack thestack = (ItemStack) input[i];
@@ -35,7 +35,8 @@ public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
 
     	newStack.setTagCompound(currenttag);
 
-    	return newStack;
+    	return newStack;*/
+    	return null;
     }
     
     @Override
