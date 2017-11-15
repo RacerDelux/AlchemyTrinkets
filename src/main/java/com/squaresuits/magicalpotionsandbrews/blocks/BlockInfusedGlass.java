@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -42,11 +43,11 @@ public class BlockInfusedGlass extends BlockGlass{
 	// - the "metadata" value of the block is set to the materials metadata
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List list)
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items)
 	{
 		EnumMat[] allMaterials = EnumMat.values();
 		for (EnumMat material : allMaterials) {
-			list.add(new ItemStack(itemIn, 1, material.getMetadata()));
+			items.add(new ItemStack(this, 1, material.getMetadata()));
 		}
 	}
 	/*public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> subBlocks)
@@ -61,11 +62,11 @@ public class BlockInfusedGlass extends BlockGlass{
 
 
 	///// OVERRIDE OF ALL METHODS THAT DEPEND ON BLOCK MATERIAL: /////
-	@Override
-    @Nonnull
-	public MapColor getMapColor(final IBlockState p_getMapColor_1_) {
-		return MapColor.IRON;
-	}
+	//@Override
+    //@Nonnull
+	//public MapColor getMapColor(final IBlockState p_getMapColor_1_) {
+	//	return MapColor.IRON;
+	//}
 
 	// Our block has two properties:
 	// 1) PROPERTYFACING for which way the sign points (east, west, north, south).  EnumFacing is as standard used by vanilla for a number of blocks.

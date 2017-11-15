@@ -15,6 +15,7 @@ import com.squaresuits.magicalpotionsandbrews.Main;
 import static java.util.Arrays.asList;
 
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -236,14 +237,14 @@ public class ItemPotionFlask extends Item implements IColorItem{
 
                 case EARTHSTONE:
                     Main.logger.info("There is a earthstone flask that activated!");
-                    if(event.getSource().getEntity() instanceof EntityLiving){
-                        EntityLiving source = (EntityLiving) event.getSource().getEntity();
+                    if(event.getSource().getTrueSource() instanceof EntityLiving){
+                        EntityLiving source = (EntityLiving) event.getSource().getTrueSource();
                         Main.logger.info("The damage source was from " + source.getName());
                         source.addPotionEffect(new PotionEffect(Potion.getPotionById(2), 100));
                         Vec3d a = event.getEntity().getPositionVector();
                         Vec3d b = source.getPositionVector();
                         Vec3d motion = (a.subtract(b)).normalize();
-                        source.knockBack(event.getEntity(),0.7f,motion.xCoord,motion.zCoord);
+                        source.knockBack(event.getEntity(),0.7f,motion.x,motion.z);
                     }
                     break;
 
@@ -347,11 +348,12 @@ public class ItemPotionFlask extends Item implements IColorItem{
 
 	@Override
     @Nonnull
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
 	{
+	    ItemStack itemStackIn = playerIn.getHeldItem(handIn);
         if(itemStackIn.hasTagCompound()) {
             if (!itemStackIn.getTagCompound().getBoolean("isEmpty")) {
-                playerIn.setActiveHand(hand);
+                playerIn.setActiveHand(handIn);
                 return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
             } else {
                 return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
@@ -379,7 +381,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
 	{
 		if(stack.hasTagCompound()) {
 		    NBTTagCompound tag = stack.getTagCompound();

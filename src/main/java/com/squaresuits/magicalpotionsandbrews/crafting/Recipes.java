@@ -34,37 +34,39 @@ public class Recipes {
 				'o', new ItemStack(net.minecraft.init.Items.POTIONITEM,1,OreDictionary.WILDCARD_VALUE),
 				'x', Items.potion_flask));
 		//Pyrite Block
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.pyrite_block),
+
+		//DONE
+		/*GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.pyrite_block),
 				"###",
 				"###",
 				"###",
-				'#', "ingotPyrite"));
+				'#', "ingotPyrite"));*/
 		//Pyrite Infused Glass
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 0),
+		/*GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 0),
 				"###",
 				"#@#",
 				"###",
 				'#', "blockGlass",
-				'@', "ingotPyrite"));
+				'@', "ingotPyrite"));*/
 		//Diamond Infused Glass
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 1),
+        /*GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 1),
                 "#%#",
                 "#@#",
                 "#%#",
                 '#', "blockGlass",
                 '@', "ingotPyrite",
-                '%', "gemDiamond"));
+                '%', "gemDiamond"));*/
         //Emerald Infused Glass
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 2),
+        /*GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.infused_glass_block, 4, 2),
                 "#%#",
                 "#@#",
                 "#%#",
                 '#', "blockGlass",
                 '@', "ingotPyrite",
-                '%', "gemEmerald"));
+                '%', "gemEmerald"));*/
 		//Pyrite Ingot
-		GameRegistry.addShapelessRecipe(new ItemStack(Items.pyrite_ingot, 9),
-				Blocks.pyrite_block);
+		//GameRegistry.addShapelessRecipe(new ItemStack(Items.pyrite_ingot, 9),
+		//		Blocks.pyrite_block);
 		// Flask Component
 		GameRegistry.addRecipe(new PABShapedOreRecipe(new ItemStack(Items.flask_component), "iron",
 				" o ",
@@ -105,23 +107,6 @@ public class Recipes {
 						'x', "ingotPyrite"));
 				flask.flaskMaterials.add("starsteel");
 				Console.out().println("Base Metals found - recipes added!");
-			}
-			catch (Exception e) {
-				Console.out().println("Base Metals not found!");
-				e.printStackTrace(System.err);
-			}
-		}
-		if (Loader.isModLoaded("fyrestone")) {
-			try {
-				
-				//Fyrestone Flask Component
-				RitualRecipeManager.RegisterRecipe(new RitualRecipe(addNBT(new ItemStack(Items.flask_component),"fyrestone"), 0, new ItemStack(Items.pyrite_ingot), new ItemStack(ItemRegister.itemFyrestoneIngot, 3)));
-				flask.flaskMaterials.add("fyrestone");
-				//Earthstone Flask Component
-				RitualRecipeManager.RegisterRecipe(new RitualRecipe(addNBT(new ItemStack(Items.flask_component),"earthstone"), 0, new ItemStack(Items.pyrite_ingot), new ItemStack(ItemRegister.itemEarthstoneIngot, 3), new ItemStack(ItemRegister.itemMysticalOrb)));
-				flask.flaskMaterials.add("earthstone");
-				
-				Console.out().println("Fyrestone found - recipes added!");
 			}
 			catch (Exception e) {
 				Console.out().println("Base Metals not found!");

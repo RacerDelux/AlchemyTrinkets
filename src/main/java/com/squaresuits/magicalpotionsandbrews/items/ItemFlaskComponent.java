@@ -15,6 +15,7 @@ import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -61,11 +62,11 @@ public class ItemFlaskComponent extends Item{
      */
     @Override
 	@SideOnly(Side.CLIENT)
-    public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems)
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems)
     {
         for (int i = 0; i < ((ItemPotionFlask)Items.potion_flask).flaskMaterials.size(); ++i)
         {
-            subItems.add(setComponentNBT(new ItemStack(itemIn), ((ItemPotionFlask)Items.potion_flask).flaskMaterials.get(i)));
+            subItems.add(setComponentNBT(new ItemStack(this), ((ItemPotionFlask)Items.potion_flask).flaskMaterials.get(i)));
         }
     }
     private ItemStack setComponentNBT(ItemStack itemIn, String string) {

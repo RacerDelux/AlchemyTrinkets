@@ -34,10 +34,10 @@ public class BlockBlock extends Block implements MPBOreDictionaryEntry {
 	}
 
 	///// OVERRIDE OF ALL METHODS THAT DEPEND ON BLOCK MATERIAL: /////
-	@Override
-	public MapColor getMapColor(final IBlockState p_getMapColor_1_) {
-        return MapColor.IRON;
-    }
+	//@Override
+	//public MapColor getMapColor(final IBlockState p_getMapColor_1_) {
+    //    return MapColor.IRON;
+    //}
 	
 	@Override
 	public boolean isFullBlock(IBlockState bs) {

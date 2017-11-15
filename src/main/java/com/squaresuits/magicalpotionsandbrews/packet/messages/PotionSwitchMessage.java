@@ -36,7 +36,8 @@ public class PotionSwitchMessage implements IMessage, IMessageHandler<PotionSwit
 
         @Override
         public IMessage onMessage(PotionSwitchMessage message, MessageContext ctx) {
-            EntityPlayer entity = ctx.getServerHandler().playerEntity;
+            //TODO varify this is correct
+            EntityPlayer entity = ctx.getServerHandler().player;
             if (entity != null) {
                 ItemStack stack = entity.inventory.getCurrentItem();
                 if (stack != null) {
