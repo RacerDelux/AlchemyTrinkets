@@ -2,6 +2,7 @@ package com.squaresuits.magicalpotionsandbrews.init;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.mcmoddev.lib.data.Names;
 import com.mcmoddev.lib.material.MMDMaterial;
@@ -125,6 +126,7 @@ public class Blocks extends com.mcmoddev.lib.init.Blocks{
 		return block;
 	}
 
+	/*
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		for( MMDMaterial mat : Materials.getMaterialsByMod(MPBGlobal.MOD_ID) ) {
@@ -134,21 +136,21 @@ public class Blocks extends com.mcmoddev.lib.init.Blocks{
 				}
 			}
 		}
-	}
-	/*
+	}*/
+	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		for( String name : allBlocks.keySet() ) {
-			event.getRegistry().register(allBlocks.get(name));
+		for( Entry<String, Block> ent : allBlocks.entrySet() ) {
+			event.getRegistry().register(ent.getValue());
 		}
 	}
-*/
-	/*@SubscribeEvent
+
+	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		for( ItemBlock ib : allBlockItemMPBRegistry.keySet() ) {
-			event.getRegistry().register(ib);
+		for( Entry<ItemBlock, String> ent : allBlockItemMPBRegistry.entrySet() ) {
+			event.getRegistry().register(ent.getKey());
 		}
-	}*/
+	}
 
 	@SideOnly(Side.CLIENT)
 	public static void regBlockRenders(FMLInitializationEvent event){
