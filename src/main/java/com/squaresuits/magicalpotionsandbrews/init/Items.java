@@ -2,6 +2,7 @@ package com.squaresuits.magicalpotionsandbrews.init;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.mcmoddev.lib.data.Names;
 import com.mcmoddev.lib.material.MMDMaterial;
@@ -133,12 +134,16 @@ public class Items extends com.mcmoddev.lib.init.Items{
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		for( MMDMaterial mat : Materials.getMaterialsByMod(MPBGlobal.MOD_ID) ) {
+/*		for( MMDMaterial mat : Materials.getMaterialsByMod(MPBGlobal.MOD_ID) ) {
 			for( Item item : mat.getItems() ) {
 				if( item.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) ) {
 					event.getRegistry().register(item);
 				}
 			}
+		} */
+		
+		for( Entry<String, Item>  ent : allMPBItems.entrySet() ) {
+			event.getRegistry().register(ent.getValue());
 		}
 
 		Oredicts.registerItemOreDictionaryEntries();
