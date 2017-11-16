@@ -39,10 +39,10 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 
 
 	public static Fluid fluidPotion = null;
-	
+
 
 	public static BlockFluidBase fluidBlockPotion = null;
-	
+
 
 	private static final Map<Fluid,BlockFluidBase> fluidBlocks = new HashMap<>();
 	private static final Map<BlockFluidBase,String> fluidBlockNames = new HashMap<>();
@@ -50,23 +50,18 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 	private static boolean initDone = false;
 	public static void init() {
 		if( initDone ) return;
-		
+
 		Materials.init();
 		Blocks.init();
 		Items.init();
-		
+
 		MMDMaterial pyrite = Materials.getMaterialByName("pyrite");
 		addFluid(pyrite.getName(), 2000, 10000, 769, 10);
 		addFluidBlock( pyrite.getName() );
+		MMDMaterial potion = Materials.getMaterialByName("potion");
+		addFluid(potion.getName(), 500, 3000, 60, 3);
+		addFluidBlock( potion.getName() );
 
-		// fluids
-		//fluidPyrite = newFluid(MPBGlobal.MOD_ID, "pyrite", 2000,10000,330,10, 0xFFC4B012);
-		fluidPotion = newFluid(MPBGlobal.MOD_ID, "potion", 500,3000,60,3, 0x996868FF);
-
-		// fluid blocks
-		//fluidBlockPyrite = registerFluidBlock(fluidPyrite, new BlockMoltenFluid(fluidPyrite),"pyrite");
-		fluidBlockPotion = registerFluidBlock(fluidPotion, new BlockLiquidFluid(fluidPotion),"potion");
-		
 		initDone = true;
 	}
 
@@ -77,7 +72,7 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 			Item item = Item.getItemFromBlock(block);
 			final ModelResourceLocation fluidModelLocation = new ModelResourceLocation(
 					modID.toLowerCase() + ":" + fluidBlockNames.get(block), "fluid");
-            ModelBakery.registerItemVariants(item);
+			ModelBakery.registerItemVariants(item);
 			ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition()
 			{
 				@Override
@@ -96,21 +91,8 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 			});
 		}
 	}
-	
 
-	private static Fluid newFluid(String modID, String name, int density, int viscosity, int temperature, int luminosity, int tintColor) {
-		Fluid fluid = new CustomFluid(name, new ResourceLocation(modID+":blocks/molten_metal_still"), new ResourceLocation(modID+":blocks/molten_metal_flow"), tintColor);
-		fluid.setDensity(density);
-		fluid.setViscosity(viscosity);
-		fluid.setTemperature(temperature);
-		fluid.setLuminosity(luminosity);
-		fluid.setUnlocalizedName(modID+"."+name);
-		FluidRegistry.registerFluid(fluid);
-		FluidRegistry.addBucketForFluid(fluid);
-		return fluid;
-	}
-
-	private static BlockFluidClassic registerFluidBlock(Fluid fluid, BlockFluidClassic block, String name) {
+	/*private static BlockFluidClassic registerFluidBlock(Fluid fluid, BlockFluidClassic block, String name) {
 		ResourceLocation location = new ResourceLocation(MPBGlobal.MOD_ID, name);
 		block.setRegistryName(location);
 		block.setUnlocalizedName(location.toString());
@@ -125,7 +107,7 @@ public class Fluids extends com.mcmoddev.lib.init.Fluids{
 		fluidBlocks.put(fluid, block);
 		fluidBlockNames.put(block, name);
 		return block;
-	}
+	}*/
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {

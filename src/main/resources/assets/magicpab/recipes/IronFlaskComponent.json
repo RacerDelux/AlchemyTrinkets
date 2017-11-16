@@ -1,6 +1,9 @@
 {
   "type": "magicpab:set_material",
   "material": "iron",
+  "result": {
+    "item": "magicpab:flask_component"
+  },
   "pattern": [
     " o ",
     "oxo",
@@ -8,13 +11,12 @@
   ],
   "key": {
     "o": {
-      "item": "minecraft:ingotIron"
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
     },
     "x": {
-      "item": "magicpab:ingotPyrite"
+      "type": "forge:ore_dict",
+      "ore": "ingotPyrite"
     }
-  },
-  "result": {
-    "item": "magicpab:flask_component"
   }
 }

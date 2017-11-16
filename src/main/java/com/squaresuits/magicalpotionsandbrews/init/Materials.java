@@ -12,6 +12,8 @@ public abstract class Materials extends com.mcmoddev.lib.init.Materials{
 		/*createMaterial("copper", MMDMaterial.MaterialType.METAL, 3.5, 3, 9, 0xFFFF9F78);
 		createMaterial("nickel", MMDMaterial.MaterialType.METAL, 3.5, 3, 9, 0xFFEEFFEB);*/
 		createMaterial("topaz", MMDMaterial.MaterialType.METAL, 3.5, 3, 9, 0x0000FFFF);
+
+		createMaterial("potion", MMDMaterial.MaterialType.CRYSTAL, 5, 3, 10, 0x996868FF);
 		
 		initDone = true;
 	}

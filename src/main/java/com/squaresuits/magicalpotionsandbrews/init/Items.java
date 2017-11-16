@@ -102,10 +102,10 @@ public class Items extends com.mcmoddev.lib.init.Items{
 	private static ItemFlaskComponent makeFlaskComponent( String name ) {
 		ItemFlaskComponent item = new ItemFlaskComponent();
 		String actName;
-		
-		if( name != null && name.length() > 0 )
-			actName = String.format("%s_flask_component", name);
-		else
+
+		//if( name != null && name.length() > 0 )
+		//	actName = String.format("%s_flask_component", name);
+		//else
 			actName = "flask_component";
 
 		String unloc = String.format("%s.%s", MPBGlobal.MOD_ID, actName);
@@ -157,6 +157,8 @@ public class Items extends com.mcmoddev.lib.init.Items{
 			if( item.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) )
 				event.getRegistry().register(item);			
 		}));
+
+		event.getRegistry().register(Blocks.infused_glass_item_block);
 
 		Oredicts.registerItemOreDictionaryEntries();
 		Oredicts.registerBlockOreDictionaryEntries();

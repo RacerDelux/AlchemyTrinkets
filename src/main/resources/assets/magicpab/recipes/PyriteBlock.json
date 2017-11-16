@@ -10,7 +10,8 @@
   "type": "forge:ore_shaped",
   "key": {
     "p": {
-      "ore": "magicpab:ingotPyrite"
+      "type": "forge:ore_dict",
+      "ore": "ingotPyrite"
     }
   }
 }

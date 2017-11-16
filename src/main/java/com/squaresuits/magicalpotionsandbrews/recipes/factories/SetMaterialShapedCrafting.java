@@ -2,6 +2,7 @@ package com.squaresuits.magicalpotionsandbrews.recipes.factories;
 
 import com.google.gson.JsonObject;
 import com.squaresuits.magicalpotionsandbrews.recipes.PABShapedOreRecipe;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
