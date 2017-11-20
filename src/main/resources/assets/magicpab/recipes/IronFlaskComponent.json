@@ -2,12 +2,12 @@
   "type": "magicpab:set_material",
   "material": "iron",
   "result": {
-    "item": "magicpab:flask_component"
+    "item": "magicpab:flask_component",
+    "data": 0
   },
   "pattern": [
     " o ",
-    "oxo",
-    "   "
+    "oxo"
   ],
   "key": {
     "o": {

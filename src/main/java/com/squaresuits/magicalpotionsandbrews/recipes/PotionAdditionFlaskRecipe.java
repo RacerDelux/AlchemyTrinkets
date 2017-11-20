@@ -8,7 +8,9 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
@@ -17,8 +19,8 @@ public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
 	
 	//public PotionAdditionFlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
     //public PotionAdditionFlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
-    public PotionAdditionFlaskRecipe(ItemStack result, Object... recipe){ 
-    	super(null, result, recipe); }
+    public PotionAdditionFlaskRecipe(ItemStack result, ShapedPrimer recipe){
+    	super(new ResourceLocation("mpab-shaped"), result, recipe); }
     
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {

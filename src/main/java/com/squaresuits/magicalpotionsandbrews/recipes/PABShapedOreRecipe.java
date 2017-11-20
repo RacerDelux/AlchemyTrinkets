@@ -1,17 +1,16 @@
 package com.squaresuits.magicalpotionsandbrews.recipes;
 
-import com.squaresuits.magicalpotionsandbrews.init.Items;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class PABShapedOreRecipe extends ShapedOreRecipe{
 	private String material = "";
 
-    public PABShapedOreRecipe(String mat, ItemStack result, Object... recipe){
-        super(null, result, recipe);
+    public PABShapedOreRecipe(String mat, ItemStack result, ShapedPrimer recipe){
+        super(new ResourceLocation("mpab-shaped"), result, recipe);
 
     	material = mat;
     	NBTTagCompound outputdata = new NBTTagCompound();

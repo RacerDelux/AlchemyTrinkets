@@ -1,5 +1,6 @@
 {
   "recipes": {
-    "set_material": "com.squaresuits.magicalpotionsandbrews.recipes.factories.SetMaterialShapedCrafting"
+    "set_material": "com.squaresuits.magicalpotionsandbrews.recipes.factories.SetMaterialFactory",
+    "add_potion": "com.squaresuits.magicalpotionsandbrews.recipes.factories.AddPotionFactory"
   }
 }
