@@ -1,6 +1,6 @@
 {
   "recipes": {
-    "set_material": "com.squaresuits.magicalpotionsandbrews.recipes.factories.SetMaterialFactory",
-    "add_potion": "com.squaresuits.magicalpotionsandbrews.recipes.factories.AddPotionFactory"
+    "set_material": "com.mcmoddev.alchemytrinkets.recipes.factories.SetMaterialFactory",
+    "add_potion": "com.mcmoddev.alchemytrinkets.recipes.factories.AddPotionFactory"
   }
 }

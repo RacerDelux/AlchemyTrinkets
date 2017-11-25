@@ -19,8 +19,8 @@ apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: 'com.matthewprenger.cursegradle'
 
 version = "0.1.8.1"
-group = "com.squaresuits"
-archivesBaseName = "magicalpotionsandbrews"
+group = "com.mcmoddev"
+archivesBaseName = "alchemytrinkets"
 sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
