@@ -20,9 +20,9 @@ build
 # other
 eclipse
 run
+classes
 
 /README.txt
 /forge-*-changelog.txt
-gradle.properties
 
-minecraft
+secret.json
