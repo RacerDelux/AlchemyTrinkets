@@ -1,6 +1,0 @@
-{
-  "recipes": {
-    "set_material": "com.mcmoddev.alchemytrinkets.recipes.factories.SetMaterialFactory",
-    "add_potion": "com.mcmoddev.alchemytrinkets.recipes.factories.AddPotionFactory"
-  }
-}
