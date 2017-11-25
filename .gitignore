@@ -23,6 +23,7 @@ run
 classes
 minecraft/logs
 minecraft/crash-reports
+minecraft/saves
 
 /README.txt
 /forge-*-changelog.txt
