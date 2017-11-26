@@ -9,16 +9,17 @@ import com.mcmoddev.alchemytrinkets.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class FlaskRecipe extends ShapedOreRecipe{
 	private String material = "";
 	private String glass = "";
-	//public FlaskRecipe(Block     result, Object... recipe){super(result, recipe); }
-    //public FlaskRecipe(Item      result, Object... recipe){ super(result, recipe); }
-    public FlaskRecipe(ItemStack result, Object... recipe){
-        super(null, result, recipe);
+
+    public FlaskRecipe(ItemStack result, ShapedPrimer recipe){
+        super(new ResourceLocation("mpab-shaped"), result, recipe);
         output.setTagCompound(result.getTagCompound());
     }
     
@@ -69,8 +70,8 @@ public class FlaskRecipe extends ShapedOreRecipe{
     public boolean matches(InventoryCrafting inv, World world)
     {
 
-        for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++) {
-            for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y) {
+        for (int x = 0; x <= inv.getWidth() - width; x++) {
+            for (int y = 0; y <= inv.getHeight() - height; ++y) {
                 if (checkMatch(inv, x, y, false)) {
                     customMatched(inv);
                     return true;

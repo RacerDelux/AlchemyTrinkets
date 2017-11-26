@@ -22,30 +22,23 @@ public class PotionAdditionFlaskRecipe extends ShapedOreRecipe{
     
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
-    	/*for(int i = 0; i < input.length; i++){
-    		
-    		if(input[i] != null){
-    			ItemStack thestack = (ItemStack) input[i];
-    			
-    			Main.logger.info(i + ": " + thestack.getItem().getClass().getName());
-    		}
-    	}
+
     	ItemStack newStack = output.copy();
     	
 
-    	newStack.setTagCompound(currenttag);
+    	if(currenttag.getSize() > 0)
+    		newStack.setTagCompound(currenttag);
 
-    	return newStack;*/
-    	return null;
+    	return newStack;
     }
     
     @Override
     public boolean matches(InventoryCrafting inv, World world)
     {
 
-        for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
+        for (int x = 0; x <= inv.getWidth() - width; x++)
         {
-            for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y)
+            for (int y = 0; y <= inv.getHeight() - height; ++y)
             {
                 if (checkMatch(inv, x, y, false))
                 {

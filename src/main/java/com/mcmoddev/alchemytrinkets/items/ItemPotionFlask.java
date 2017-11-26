@@ -106,7 +106,7 @@ public class ItemPotionFlask extends Item implements IColorItem{
             @SideOnly(Side.CLIENT)
             public float apply(@Nonnull ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
             {
-                if(stack.hasTagCompound()){
+                if(stack != null && stack.hasTagCompound()){
                     return ((ItemPotionFlask) Items.potion_flask).flaskGlassInfo.get(stack.getTagCompound().getString("infusedGlass"))[MATINT];
                 }
                 return 0;
