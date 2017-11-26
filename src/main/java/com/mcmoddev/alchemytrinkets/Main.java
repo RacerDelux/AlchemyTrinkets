@@ -18,6 +18,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 		acceptedMinecraftVersions = "[1.12,)",
 		dependencies = "after:tconstruct;required-after:basemetals;before:orespawn")
 public class Main {
+
+	public  static final String MOD_ID = "magicpab";
+	public static final String MOD_NAME = "Alchemy Trinkets";
+	public static final String VERSION = "0.1.9.0";
 	
 	public static Logger logger;
 	
