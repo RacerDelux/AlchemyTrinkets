@@ -18,10 +18,37 @@ buildscript {
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: 'com.matthewprenger.cursegradle'
 
-version = "0.1.8.1"
+def mod_file = getModFile()
+def mc_version = "1.12"
+def short_version = getVersion("VERSION", mod_file)
+version = mc_version + "-" + short_version
 group = "com.mcmoddev"
 archivesBaseName = "alchemytrinkets"
 sourceCompatibility = targetCompatibility = "1.8"
+
+class Secrets {
+    def data = null
+
+    def getProperty(String key) {
+        return data ? data[key] : ''
+    }
+}
+
+import groovy.json.JsonSlurper
+
+def secretFile
+if (System.getenv().SECRET_FILE) {
+    secretFile = file System.getenv().SECRET_FILE
+} else {
+    secretFile = file 'secret.json'
+}
+
+project.ext.secret = new Secrets()
+if (secretFile.exists()) {
+    secretFile.withReader {
+        project.ext.secret.data = new JsonSlurper().parse it
+    }
+}
 
 minecraft {
     version = "14.23.0.2532"
@@ -61,4 +88,67 @@ processResources {
     from (sourceSets.main.resources.srcDirs) {
         exclude "mcmod.info"
     }
+}
+
+curseforge {
+    apiKey = secret.curseforgeAPIKey
+    project {
+        id = '245813'
+        changelog = file('CHANGELOG.txt')
+        releaseType = 'alpha'
+        addGameVersion(project.mc_version)
+        def projectName = 'Alchemy Trinkets'
+        def displayVersion = getVersion('VERSION', mod_file)
+        if (System.getenv().BUILD_NUMBER) {
+            displayVersion += '.' + System.getenv().BUILD_NUMBER
+        }
+        mainArtifact(jar) {
+            displayName = "$project.description $displayVersion"
+            relations {
+                requiredLibrary 'base-metals'
+                optionalLibrary 'mmd-orespawn'
+            }
+        }
+        addArtifact(sourceJar) {
+            displayName = "$project.description $displayVersion Sources"
+        }
+
+    }
+}
+
+String getModFile() {
+    String path = ''
+    FileTree tree = fileTree(dir: 'src/main/java')
+    tree.include '**/*.java'
+    tree.visit { element ->
+        if (element.file.isFile()) {
+            element.file.eachLine { String s ->
+                s = s.trim()
+                if (s.startsWith('@Mod(')) {
+                    path = "src/main/java/$element.relativePath"
+                }
+            }
+        }
+    }
+    return path
+}
+
+String getVersion(String type, String mod_file) {
+    String major = '0'
+    String revision = '0'
+    String patch = '0'
+    String prefix = "public static final String $type = \""
+    File file = file(mod_file)
+    file.eachLine { String s ->
+        s = s.trim()
+        if (s.startsWith(prefix)) {
+            s = s.substring(prefix.length(), s.length() - 2)
+            String[] pts = s.split("\\.")
+
+            major = pts[0]
+            revision = pts[1]
+            patch = pts[2]
+        }
+    }
+    return "$major.$revision.$patch"
 }
