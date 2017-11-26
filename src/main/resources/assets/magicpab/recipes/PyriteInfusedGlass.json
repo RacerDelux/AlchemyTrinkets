@@ -12,7 +12,8 @@
       "ore": "ingotPyrite"
     },
     "g": {
-      "item": "minecraft:blockGlass"
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
     }
   },
   "result": {

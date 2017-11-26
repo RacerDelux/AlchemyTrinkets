@@ -1,6 +1,8 @@
 package com.mcmoddev.alchemytrinkets.blocks;
 
 import java.util.List;
+import java.util.regex.Pattern;
+
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -80,8 +82,7 @@ public class BlockInfusedGlass extends BlockGlass{
 	@Override
 	public int damageDropped(IBlockState state)
 	{
-		EnumMat enummaterial = (EnumMat)state.getValue(PROPERTYNAME);
-		return enummaterial.getMetadata();
+		return getMetaFromState(state);
 	}
 
 	// getStateFromMeta, getMetaFromState are used to interconvert between the block's property values and

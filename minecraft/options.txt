@@ -29,7 +29,7 @@ fullscreen:false
 enableVsync:true
 useVbo:true
 hideServerAddress:false
-advancedItemTooltips:false
+advancedItemTooltips:true
 pauseOnLostFocus:true
 touchscreen:false
 overrideWidth:0
@@ -93,6 +93,9 @@ key_key.jei.recipeBack:14
 key_key.jei.toggleCheatMode:0
 key_key.jei.previousPage:201
 key_key.jei.nextPage:209
+key_key.cofh.multimode:47
+key_key.toggleLiquids:38
+key_key.toggleVisible:0
 soundCategory_master:0.70198673
 soundCategory_music:0.0
 soundCategory_record:1.0

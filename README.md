@@ -1,2 +1,2 @@
-# Magical Potions & Brews [![Build Status](https://travis-ci.org/RacerDelux/MagicalPotionsAndBrews.svg?branch=master)](https://travis-ci.org/RacerDelux/MagicalPotionsAndBrews)
+# Alchemy Trinkets [![Build Status](https://travis-ci.org/RacerDelux/MagicalPotionsAndBrews.svg?branch=master)](https://travis-ci.org/RacerDelux/MagicalPotionsAndBrews)
 Addon to Base Metals/Modern Metals....

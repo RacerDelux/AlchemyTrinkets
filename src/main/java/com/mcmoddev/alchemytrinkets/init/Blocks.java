@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Arrays;
 
 import com.mcmoddev.alchemytrinkets.MPBGlobal;
+import com.mcmoddev.alchemytrinkets.items.ItemInfusedGlassBlock;
 import com.mcmoddev.lib.data.Names;
 import com.mcmoddev.alchemytrinkets.blocks.BlockInfusedGlass;
 
@@ -24,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Blocks extends com.mcmoddev.lib.init.Blocks{
 	protected static Block infused_glass_block;
-	protected static ItemBlock infused_glass_item_block;
+	protected static ItemInfusedGlassBlock infused_glass_item_block;
 	
 	private static boolean initDone = false;
 	
@@ -42,7 +43,7 @@ public class Blocks extends com.mcmoddev.lib.init.Blocks{
 		infused_glass_block = new BlockInfusedGlass(false);
 		infused_glass_block.setRegistryName("infused_glass_block");
 		infused_glass_block.setUnlocalizedName(MPBGlobal.MOD_ID+".infused_glass_block");
-		infused_glass_item_block = new ItemBlock(infused_glass_block);
+		infused_glass_item_block = new ItemInfusedGlassBlock(infused_glass_block);
 		infused_glass_item_block.setRegistryName("infused_glass_block");
 		infused_glass_item_block.setUnlocalizedName(MPBGlobal.MOD_ID+".infused_glass_block");
 		
