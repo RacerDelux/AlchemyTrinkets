@@ -17,11 +17,13 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@Mod.EventBusSubscriber
 public class Items extends com.mcmoddev.lib.init.Items{
 	private static boolean initDone = false;
 	
@@ -149,21 +151,21 @@ public class Items extends com.mcmoddev.lib.init.Items{
 		Oredicts.registerItemOreDictionaryEntries();
 		Oredicts.registerBlockOreDictionaryEntries();
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public static void regItemRenders(FMLInitializationEvent event){
 		Materials.getAllMaterials().forEach( mat ->
 		mat.getItems().forEach( item -> {
 			if( item.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) )
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(item, 0, 
+				.register(item, 0,
 					new ModelResourceLocation(MPBGlobal.MOD_ID+":"+item.getRegistryName().getResourcePath(), "inventory"));
 		}));
-		
+
 		List<Item> items = Arrays.asList( potion_flask, potion_mock, component_mock, topaz_stone, flask_component );
 		items.forEach( item -> {
 			ResourceLocation newLoc = new ResourceLocation(MPBGlobal.MOD_ID, item.getRegistryName().getResourcePath());
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(newLoc, "inventory"));
 		});
-	}	
+	}
 }

@@ -19,7 +19,7 @@ public class ClientProxy extends CommonProxy implements MPBProxy{
 		
 		Fluids.bakeModels(MPBGlobal.MOD_ID);
 
-		Blocks.createCustomModels();
+
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ public class ClientProxy extends CommonProxy implements MPBProxy{
 		
 
 		Items.regItemRenders(event);
-		Blocks.regBlockRenders(event);
+		//Blocks.regBlockRenders(event);
 		
 		
 		

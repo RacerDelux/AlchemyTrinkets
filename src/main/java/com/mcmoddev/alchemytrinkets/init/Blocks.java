@@ -62,37 +62,12 @@ public class Blocks extends com.mcmoddev.lib.init.Blocks{
 
 		event.getRegistry().register(infused_glass_block);
 	}
-	
-
-	@SideOnly(Side.CLIENT)
-	public static void regBlockRenders(FMLInitializationEvent event){
-		Materials.getMaterialsByMod(MPBGlobal.MOD_ID).forEach( mat ->
-		mat.getBlocks().forEach( block ->
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-		.register(Item.getItemFromBlock(block), 0,
-				new ModelResourceLocation(block.getRegistryName(), "inventory"))));
-
-	}
-	
-	@SideOnly(Side.CLIENT)
-	public static void createCustomModels(){
-
-
-	}
 
 	@SubscribeEvent
-	public void modelRegistryBits(ModelRegistryEvent ev) {
-		ResourceLocation test = new ResourceLocation("magicpab:infused_glass_block");
-		Item itemBlockVariants = Item.REGISTRY.getObject(test);
-		//GameRegistry.findItem("magicpab", "infused_glass_block");
+	public static void modelRegistryBits(ModelRegistryEvent ev) {
 
-		ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("magicpab:diamond_infused_glass_block", "inventory");
-		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.DIAMOND.getMetadata(), itemModelResourceLocation);
-
-		itemModelResourceLocation = new ModelResourceLocation("magicpab:pyrite_infused_glass_block", "inventory");
-		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.PYRITE.getMetadata(), itemModelResourceLocation);
-
-		itemModelResourceLocation = new ModelResourceLocation("magicpab:emerald_infused_glass_block", "inventory");
-		ModelLoader.setCustomModelResourceLocation(itemBlockVariants, BlockInfusedGlass.EnumMat.EMERALD.getMetadata(), itemModelResourceLocation);
+		ModelLoader.setCustomModelResourceLocation(infused_glass_item_block, 0, new ModelResourceLocation(infused_glass_item_block.getRegistryName(), "material=pyrite"));
+		ModelLoader.setCustomModelResourceLocation(infused_glass_item_block, 1, new ModelResourceLocation(infused_glass_item_block.getRegistryName(), "material=diamond"));
+		ModelLoader.setCustomModelResourceLocation(infused_glass_item_block, 2, new ModelResourceLocation(infused_glass_item_block.getRegistryName(), "material=emerald"));
 	}
 }

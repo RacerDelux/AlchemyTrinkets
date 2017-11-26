@@ -59,7 +59,7 @@ public class CommonProxy implements MPBProxy {
 			//tconPlugin.initTconPlugin();
 		}
 
-		MinecraftForge.EVENT_BUS.register(Items.class);
+		//MinecraftForge.EVENT_BUS.register(Items.class);
 		//MinecraftForge.EVENT_BUS.register(Blocks.class);
 		MinecraftForge.EVENT_BUS.register(Fluids.class);
 
