@@ -17,12 +17,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-
+@Mod.EventBusSubscriber
 public class Blocks extends com.mcmoddev.lib.init.Blocks{
 	protected static Block infused_glass_block;
 	protected static ItemInfusedGlassBlock infused_glass_item_block;
@@ -60,7 +61,6 @@ public class Blocks extends com.mcmoddev.lib.init.Blocks{
 		}));
 
 		event.getRegistry().register(infused_glass_block);
-
 	}
 	
 
@@ -71,6 +71,7 @@ public class Blocks extends com.mcmoddev.lib.init.Blocks{
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 		.register(Item.getItemFromBlock(block), 0,
 				new ModelResourceLocation(block.getRegistryName(), "inventory"))));
+
 	}
 	
 	@SideOnly(Side.CLIENT)

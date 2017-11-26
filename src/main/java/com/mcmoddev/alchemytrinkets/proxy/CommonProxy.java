@@ -60,7 +60,7 @@ public class CommonProxy implements MPBProxy {
 		}
 
 		MinecraftForge.EVENT_BUS.register(Items.class);
-		MinecraftForge.EVENT_BUS.register(Blocks.class);
+		//MinecraftForge.EVENT_BUS.register(Blocks.class);
 		MinecraftForge.EVENT_BUS.register(Fluids.class);
 
 		PacketHandler.preInit();
