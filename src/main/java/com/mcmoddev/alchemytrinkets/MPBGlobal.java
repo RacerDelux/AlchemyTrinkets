@@ -1,9 +1,9 @@
 package com.mcmoddev.alchemytrinkets;
 
 public class MPBGlobal {
-	public  static final String MOD_ID = "magicpab";
-	public static final String MOD_NAME = "Alchemy Trinkets";
-	public static final String VERSION = "0.1.9.0";
+	public  static final String MOD_ID = Main.MOD_ID;
+	public static final String MOD_NAME = Main.MOD_NAME;
+	public static final String VERSION = Main.VERSION;
 	
 	public static final String NG_CLIENT_PROXY = "com.mcmoddev.alchemytrinkets.proxy.ClientProxy";
 	public static final String NG_COMMON_PROXY = "com.mcmoddev.alchemytrinkets.proxy.CommonProxy";
