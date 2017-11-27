@@ -1,8 +1,8 @@
 package com.mcmoddev.alchemytrinkets;
 
 public class MPBGlobal {
-	public  static final String MOD_ID = Main.MOD_ID;
-	public static final String MOD_NAME = Main.MOD_NAME;
+	public  static final String MOD_ID = Main.MODID;
+	public static final String MOD_NAME = Main.NAME;
 	public static final String VERSION = Main.VERSION;
 	
 	public static final String NG_CLIENT_PROXY = "com.mcmoddev.alchemytrinkets.proxy.ClientProxy";

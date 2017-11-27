@@ -8,11 +8,15 @@ import com.mcmoddev.alchemytrinkets.init.Items;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper.ShapedPrimer;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import javax.annotation.Nonnull;
 
 public class FlaskRecipe extends ShapedOreRecipe{
 	private String material = "";
@@ -52,8 +56,11 @@ public class FlaskRecipe extends ShapedOreRecipe{
 
     @Override
     public ItemStack getRecipeOutput(){
-        //ItemStack out = output.copy();
-        /*if(!output.hasTagCompound()){
+        System.out.println("testing outputs from default");
+        System.out.println(input);
+        System.out.println(input.get(1).getMatchingStacks());
+        ItemStack out = output.copy();
+        if(!output.hasTagCompound()){
             NBTTagCompound tag = new NBTTagCompound();
             tag.setString("flaskComponent", "copper");
             tag.setString("infusedGlass", "pyrite");
@@ -61,10 +68,17 @@ public class FlaskRecipe extends ShapedOreRecipe{
             tag.setInteger("uses", 0);
             tag.setInteger("maxUses", 4);
             output.setTagCompound(tag);
-        }*/
+        }
         return output;
     }
-    
+    @Nonnull
+    public final NonNullList<Ingredient> getInput() {
+        return input;
+    }
+    @Nonnull
+    public final ItemStack getOutput() {
+        return output;
+    }
     
     @Override
     public boolean matches(InventoryCrafting inv, World world)
