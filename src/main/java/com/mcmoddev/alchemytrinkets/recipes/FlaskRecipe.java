@@ -1,11 +1,16 @@
 package com.mcmoddev.alchemytrinkets.recipes;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Pattern;
 
 
 import com.mcmoddev.alchemytrinkets.items.ItemPotionFlask;
 import com.mcmoddev.alchemytrinkets.init.Items;
 
+import com.mcmoddev.alchemytrinkets.plugin.JEIAlchemyTrinketsPlugin;
+import mezz.jei.api.recipe.IStackHelper;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -33,7 +38,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
     		
     		//if(input[i] != null){
     			//ItemStack thestack = (ItemStack) input[i];
-    			
+
     			//Main.logger.info(i + ": " + thestack.getItem().getClass().getName());
     		//}
     	//}
@@ -54,7 +59,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	return tmp;//new ItemStack(hi);
     }
 
-    @Override
+    /*@Override
     public ItemStack getRecipeOutput(){
         System.out.println("testing outputs from default");
         System.out.println(input);
@@ -70,10 +75,13 @@ public class FlaskRecipe extends ShapedOreRecipe{
             output.setTagCompound(tag);
         }
         return output;
-    }
+    }*/
     @Nonnull
-    public final NonNullList<Ingredient> getInput() {
-        return input;
+    public final List<List<ItemStack>> getInput() {
+        IStackHelper stackHelper = JEIAlchemyTrinketsPlugin.helpers.getStackHelper();
+
+        List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(this.getIngredients());
+        return inputs;
     }
     @Nonnull
     public final ItemStack getOutput() {
