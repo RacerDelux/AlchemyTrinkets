@@ -52,7 +52,7 @@ if (secretFile.exists()) {
 }
 
 minecraft {
-    version = "14.23.0.2532"
+    version = "14.23.1.2556"
     runDir = "minecraft"
     mappings = "snapshot_20170925"
 }

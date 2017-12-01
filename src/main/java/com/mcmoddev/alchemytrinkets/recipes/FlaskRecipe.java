@@ -59,9 +59,10 @@ public class FlaskRecipe extends ShapedOreRecipe{
     	return tmp;//new ItemStack(hi);
     }
 
-    /*@Override
+    @Override
     public ItemStack getRecipeOutput(){
-        System.out.println("testing outputs from default");
+        System.out.println("Getting output!");
+        /*System.out.println("testing outputs from default");
         System.out.println(input);
         System.out.println(input.get(1).getMatchingStacks());
         ItemStack out = output.copy();
@@ -73,9 +74,9 @@ public class FlaskRecipe extends ShapedOreRecipe{
             tag.setInteger("uses", 0);
             tag.setInteger("maxUses", 4);
             output.setTagCompound(tag);
-        }
+        }*/
         return output;
-    }*/
+    }
     @Nonnull
     public final List<List<ItemStack>> getInput() {
         IStackHelper stackHelper = JEIAlchemyTrinketsPlugin.helpers.getStackHelper();
@@ -84,8 +85,28 @@ public class FlaskRecipe extends ShapedOreRecipe{
         return inputs;
     }
     @Nonnull
-    public final ItemStack getOutput() {
-        return output;
+    public final List<ItemStack> getOutput() {
+        List<ItemStack> outList = new ArrayList<>();
+        System.out.println("time to fetch the output!");
+        ItemStack out = output.copy();
+            NBTTagCompound tag = new NBTTagCompound();
+            tag.setString("flaskComponent", "copper");
+            tag.setString("infusedGlass", "pyrite");
+            tag.setBoolean("isEmpty", true);
+            tag.setInteger("uses", 0);
+            tag.setInteger("maxUses", 4);
+        out.setTagCompound(tag);
+        outList.add(out);
+        ItemStack out2 = output.copy();
+        NBTTagCompound tag2 = new NBTTagCompound();
+        tag2.setString("flaskComponent", "gold");
+        tag2.setString("infusedGlass", "diamond");
+        tag2.setBoolean("isEmpty", true);
+        tag2.setInteger("uses", 0);
+        tag2.setInteger("maxUses", 5);
+        out2.setTagCompound(tag2);
+        outList.add(out2);
+        return outList;
     }
     
     @Override
