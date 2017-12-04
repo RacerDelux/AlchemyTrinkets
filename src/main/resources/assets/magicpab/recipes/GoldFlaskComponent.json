@@ -1,20 +1,22 @@
 {
   "type": "magicpab:set_material",
   "material": "gold",
+  "result": {
+    "item": "magicpab:flask_component",
+    "data": 0
+  },
   "pattern": [
     " o ",
-    "oxo",
-    "   "
+    "oxo"
   ],
   "key": {
     "o": {
-      "item": "minecraft:ingotGold"
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
     },
     "x": {
-      "item": "magicpab:ingotPyrite"
+      "type": "forge:ore_dict",
+      "ore": "ingotPyrite"
     }
-  },
-  "result": {
-    "item": "magicpab:flask_component"
   }
 }

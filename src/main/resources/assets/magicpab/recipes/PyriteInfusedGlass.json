@@ -8,10 +8,12 @@
   ],
   "key": {
     "p": {
-      "ore": "magicpab:ingotPyrite"
+      "type": "forge:ore_dict",
+      "ore": "ingotPyrite"
     },
     "g": {
-      "ore": "minecraft:blockGlass"
+      "type": "forge:ore_dict",
+      "ore": "blockGlass"
     }
   },
   "result": {

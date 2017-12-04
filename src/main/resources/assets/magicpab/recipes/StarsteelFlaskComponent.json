@@ -1,0 +1,25 @@
+{
+  "type": "magicpab:set_material",
+  "material": "starsteel",
+  "result": {
+    "item": "magicpab:flask_component",
+    "data": 0
+  },
+  "pattern": [
+    " o ",
+    "oxo"
+  ],
+  "key": {
+    "o": {
+      "type": "forge:ore_dict",
+      "ore": "ingotStarsteel"
+    },
+    "x": {
+      "type": "forge:ore_dict",
+      "ore": "ingotPyrite"
+    }
+  },
+  "conditions": [
+      { "type": "forge:mod_loaded", "modid": "basemetals"}
+    ]
+}

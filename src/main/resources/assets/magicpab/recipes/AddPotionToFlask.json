@@ -1,0 +1,18 @@
+{
+  "type": "magicpab:add_potion",
+  "result": {
+    "item": "magicpab:potion_flask"
+  },
+  "pattern": [
+    "xo"
+  ],
+  "key": {
+    "o": {
+      "item": "minecraft:potion",
+      "data": 32767
+    },
+    "x": {
+      "item": "magicpab:potion_flask"
+    }
+  }
+}

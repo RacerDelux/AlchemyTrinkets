@@ -1,0 +1,6 @@
+[
+  {
+    "name": "default",
+    "class": "com.mcmoddev.orespawn.impl.features.DefaultFeatureGenerator"
+  }
+]

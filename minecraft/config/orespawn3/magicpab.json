@@ -1,0 +1,51 @@
+{
+  "version": "2.0",
+  "spawns": {
+    "topaz": {
+      "biomes": {
+        "excludes": [ ]
+      },
+      "blocks": [
+        {
+          "chance": 100,
+          "name": "magicpab:topaz_ore"
+        }
+      ],
+      "dimensions":  { "excludes": [ -1, 1 ] },
+      "enabled": true,
+      "feature": "default",
+      "replaces": "default",
+      "retrogen": false,
+      "parameters": {
+        "size": 6,
+        "variation": 4,
+        "frequency": 4.0,
+        "minHeight": 0,
+        "maxHeight": 32
+      }
+    },
+    "pyrite": {
+      "biomes": {
+        "excludes": [ ]
+      },
+      "blocks": [
+        {
+          "chance": 100,
+          "name": "magicpab:pyrite_ore"
+        }
+      ],
+      "dimensions":  { "excludes": [ -1, 1 ] },
+      "enabled": true,
+      "feature": "default",
+      "replaces": "default",
+      "retrogen": false,
+      "parameters": {
+        "size": 8,
+        "variation": 4,
+        "frequency": 10.0,
+        "minHeight": 0,
+        "maxHeight": 96
+      }
+    }
+  }
+}

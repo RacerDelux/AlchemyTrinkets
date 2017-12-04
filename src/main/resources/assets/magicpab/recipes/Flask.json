@@ -1,0 +1,21 @@
+{
+  "type": "magicpab:create_flask",
+  "result": {
+    "item": "magicpab:potion_flask"
+  },
+  "pattern": [
+    " x ",
+    "o o",
+    "ooo"
+  ],
+  "key": {
+    "o": {
+      "item": "magicpab:infused_glass_block",
+      "data": 32767
+    },
+    "x": {
+      "item": "magicpab:flask_component",
+      "data": 32767
+    }
+  }
+}
