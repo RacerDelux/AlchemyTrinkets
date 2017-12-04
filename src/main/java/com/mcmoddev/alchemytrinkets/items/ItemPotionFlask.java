@@ -384,40 +384,46 @@ public class ItemPotionFlask extends Item implements IColorItem{
 	{
 		if(stack.hasTagCompound()) {
 		    NBTTagCompound tag = stack.getTagCompound();
-			if(effectName.get(tag.getString("flaskComponent")).equals("")){
-				tooltip.add("Material: " + tag.getString("flaskComponent"));
-			} else {
-				tooltip.add(effectName.get(tag.getString("flaskComponent")));
-			}
-            String selected = "";
-            for(int i = 0; i < flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD]; i++){
-                if(i == tag.getInteger("potionSelected")){
-                    if(tag.getString("Potion" + Integer.toString(i)).equals("") && !tag.getBoolean("isEmpty")){
-                        tag.setString("Potion" + Integer.toString(i),tag.getString("Potion"));
-                    }
-                    if(tag.getString("Potion" + Integer.toString(i)).equals("")) {
-                        selected += (TextFormatting.DARK_RED + "\u25CB");
-                    } else {
-                        selected += (TextFormatting.DARK_RED + Character.toString('\u25CF'));
-                    }
+
+                if (effectName.get(tag.getString("flaskComponent")).equals("")) {
+                    tooltip.add("Material: " + tag.getString("flaskComponent"));
                 } else {
-                    if(tag.getString("Potion" + Integer.toString(i)).equals("")) {
-                        selected += (TextFormatting.WHITE + "\u25CB");
+                    tooltip.add(effectName.get(tag.getString("flaskComponent")));
+                }
+                String selected = "";
+                for (int i = 0; i < flaskGlassInfo.get(tag.getString("infusedGlass"))[POTIONHELD]; i++) {
+                    if (i == tag.getInteger("potionSelected")) {
+                        if (tag.getString("Potion" + Integer.toString(i)).equals("") && !tag.getBoolean("isEmpty")) {
+                            tag.setString("Potion" + Integer.toString(i), tag.getString("Potion"));
+                        }
+                        if (tag.getString("Potion" + Integer.toString(i)).equals("")) {
+                            selected += (TextFormatting.DARK_RED + "\u25CB");
+                        } else {
+                            selected += (TextFormatting.DARK_RED + Character.toString('\u25CF'));
+                        }
                     } else {
-                        selected += (TextFormatting.WHITE + Character.toString('\u25CF'));
+                        if (tag.getString("Potion" + Integer.toString(i)).equals("")) {
+                            selected += (TextFormatting.WHITE + "\u25CB");
+                        } else {
+                            selected += (TextFormatting.WHITE + Character.toString('\u25CF'));
+                        }
                     }
                 }
-            }
-            tooltip.add(selected);
-			tooltip.add(tag.getInteger("uses") + "/" + tag.getInteger("maxUses"));
-			if(!tag.getBoolean("isEmpty")){
-				PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
-			} else {
+                tooltip.add(selected);
+                tooltip.add(tag.getInteger("uses") + "/" + tag.getInteger("maxUses"));
+                if (!tag.getBoolean("isEmpty")) {
+                    PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
+                } else {
 
-				tooltip.add(TextFormatting.GRAY + "Empty");
+                    tooltip.add(TextFormatting.GRAY + "Empty");
 
-			}
-		}
+                }
+
+		} else {
+            tooltip.add("A combination of" + TextFormatting.BLUE + " Infused Glass" + TextFormatting.GRAY + " and a" + TextFormatting.GREEN + " Flask Cap" + TextFormatting.GRAY + " will create a flask.");
+            tooltip.add(TextFormatting.BLUE + "Infused Glass" + TextFormatting.GRAY + " determines the number of different potions a Flask can hold");
+            tooltip.add(TextFormatting.GREEN + "Flask Cap" + TextFormatting.GRAY + " determines the flask's special effect and number of uses for each potion.");
+        }
 
 	}
 
@@ -473,16 +479,24 @@ public class ItemPotionFlask extends Item implements IColorItem{
     @SideOnly(Side.CLIENT)
     public IItemColor getColor(){
         return (stack, pass) -> {
+            boolean isItem = true;
             if(!stack.hasTagCompound()){
-                pass = -1;
+                isItem = false;
             }
+
             switch(pass){
                 case 0: //Glass
                     return 0xFFFFFF; //flaskUtil.materialColor.get(stack.getTagCompound().getString("infusedGlass"));
                 case 1: //Fluid
-                    return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
+                    if(isItem)
+                        return PotionUtils.getPotionColor(PotionUtils.getPotionFromItem(stack));
+                    else
+                        return 16253176;
                 case 2: //Metal
-                    return flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATCOLOR];
+                    if(isItem)
+                        return flaskMaterialInfo.get(stack.getTagCompound().getString("flaskComponent"))[MATCOLOR];
+                    else
+                        return flaskMaterialInfo.get("gold")[MATCOLOR];
                 default:
                     return 0xFFFFFF;
             }

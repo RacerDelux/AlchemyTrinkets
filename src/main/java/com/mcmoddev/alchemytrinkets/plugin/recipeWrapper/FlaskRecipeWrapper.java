@@ -16,7 +16,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.Collections;
 import java.util.List;
 
-public class FlaskRecipeWrapper implements ICustomCraftingRecipeWrapper {
+public class FlaskRecipeWrapper implements IRecipeWrapper {
     private FlaskRecipe theRecipe;
 
     public FlaskRecipeWrapper(FlaskRecipe recipe) {
@@ -25,15 +25,8 @@ public class FlaskRecipeWrapper implements ICustomCraftingRecipeWrapper {
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        System.out.println("I am getting ingredients!");
-        System.out.println(theRecipe.getInput());
         ingredients.setInputLists(ItemStack.class, theRecipe.getInput());
-        ingredients.setOutputs(ItemStack.class, theRecipe.getOutput());
+        ingredients.setOutput(ItemStack.class, theRecipe.getOutput());
     }
 
-
-    @Override
-    public void setRecipe(IRecipeLayout iRecipeLayout, IIngredients iIngredients) {
-
-    }
 }

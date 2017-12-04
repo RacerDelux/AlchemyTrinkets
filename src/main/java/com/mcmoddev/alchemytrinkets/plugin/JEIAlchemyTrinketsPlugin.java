@@ -26,6 +26,7 @@ public class JEIAlchemyTrinketsPlugin implements IModPlugin {
                 return new FlaskRecipeWrapper(recipe);
             }
         }, VanillaRecipeCategoryUid.CRAFTING);
+
         //registry.addRecipes(FlaskRecipeWrapper.getFlaskRecipies, "flasks");
     }
 

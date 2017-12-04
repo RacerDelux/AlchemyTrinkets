@@ -21,7 +21,7 @@ public class Main {
 
 	public  static final String MODID  = "magicpab";
 	public static final String NAME = "Alchemy Trinkets";
-	public static final String VERSION = "0.1.9.0";
+	public static final String VERSION = "0.1.10.0";
 
 	public static Logger logger;
 	

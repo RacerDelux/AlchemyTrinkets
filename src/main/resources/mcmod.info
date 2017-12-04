@@ -1,7 +1,7 @@
 [
 {
   "modid": "magicpab",
-  "name": "Magical Potions And Brews",
+  "name": "Alchemy Trinkets",
   "description": "A mod all bout potions and brews, and well MAGIC! Create powerful artifacts, useful potions. Maybe even combine the two!",
   "version": "${version}",
   "mcversion": "${mcversion}",

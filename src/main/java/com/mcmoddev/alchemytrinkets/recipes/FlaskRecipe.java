@@ -61,7 +61,7 @@ public class FlaskRecipe extends ShapedOreRecipe{
 
     @Override
     public ItemStack getRecipeOutput(){
-        System.out.println("Getting output!");
+
         /*System.out.println("testing outputs from default");
         System.out.println(input);
         System.out.println(input.get(1).getMatchingStacks());
@@ -85,28 +85,10 @@ public class FlaskRecipe extends ShapedOreRecipe{
         return inputs;
     }
     @Nonnull
-    public final List<ItemStack> getOutput() {
-        List<ItemStack> outList = new ArrayList<>();
-        System.out.println("time to fetch the output!");
+    public final ItemStack getOutput() {
         ItemStack out = output.copy();
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setString("flaskComponent", "copper");
-            tag.setString("infusedGlass", "pyrite");
-            tag.setBoolean("isEmpty", true);
-            tag.setInteger("uses", 0);
-            tag.setInteger("maxUses", 4);
-        out.setTagCompound(tag);
-        outList.add(out);
-        ItemStack out2 = output.copy();
-        NBTTagCompound tag2 = new NBTTagCompound();
-        tag2.setString("flaskComponent", "gold");
-        tag2.setString("infusedGlass", "diamond");
-        tag2.setBoolean("isEmpty", true);
-        tag2.setInteger("uses", 0);
-        tag2.setInteger("maxUses", 5);
-        out2.setTagCompound(tag2);
-        outList.add(out2);
-        return outList;
+            out.setTagCompound(null);
+        return out;
     }
     
     @Override

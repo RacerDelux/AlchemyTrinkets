@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -77,7 +78,13 @@ public class Items extends com.mcmoddev.lib.init.Items{
 		
 		//Flask Components
 		flask_component = makeFlaskComponent("");
-		
+
+		ItemPotionFlask flask = (ItemPotionFlask) Items.potion_flask;
+		if (Loader.isModLoaded("basemetals")) {
+			flask.flaskMaterials.add("copper");
+			flask.flaskMaterials.add("starsteel");
+		}
+
 		initDone = true;
 	}
 

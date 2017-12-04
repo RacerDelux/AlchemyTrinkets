@@ -13,7 +13,7 @@ public class MPBGlobal {
 	public static final String defaultOreSpawnJSON = "{"
 			+ "\n	\"dimensions\":["
 			+ "\n		{"
-			+ "\n			\"dimension\":\"+\","
+			+ "\n			\"dimension\":\"0\","
 			+ "\n			\"__comment\":\""
 			+ "dimension 0 for overworld, -1 for the nether, 1 for the end, other numbers "
 			+ "for dimensions added by other mods, and + for any dimension not already "

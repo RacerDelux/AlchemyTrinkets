@@ -1,2 +1,8 @@
+0.1.10.0
+    Fixed OreSpawn Implementation
+    Added some JEI support
+    Fixed tooltips on flask
+    Cleaned up code
+    Added additional materials
 0.1.9.0
     Updated to MC 1.12.2

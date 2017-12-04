@@ -1,9 +1,8 @@
 package com.mcmoddev.alchemytrinkets.proxy;
 
 import java.nio.file.Path;
+import java.util.HashSet;
 
-import com.mcmoddev.alchemytrinkets.crafting.Recipes;
-import com.mcmoddev.alchemytrinkets.crafting.Smelting;
 import com.mcmoddev.alchemytrinkets.event.MPBEventHandler;
 import com.mcmoddev.alchemytrinkets.init.Blocks;
 import com.mcmoddev.alchemytrinkets.init.Fluids;
@@ -16,9 +15,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.MissingModsException;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.versioning.ArtifactVersion;
+import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.server.FMLServerHandler;
 
 public class CommonProxy implements MPBProxy {
@@ -38,12 +40,6 @@ public class CommonProxy implements MPBProxy {
 		
 		/* location of ore-spawn files */
 		Path oreSpawnFolder;
-
-		/*if (!Loader.isModLoaded("orespawn")) {
-			final HashSet<ArtifactVersion> orespawnMod = new HashSet<>();
-			orespawnMod.add(new DefaultArtifactVersion("3.2.0"));
-			throw new MissingModsException(orespawnMod, "orespawn", "MMD Ore Spawn Mod");
-		}*/
 		
 		config.save();
 		
@@ -52,15 +48,12 @@ public class CommonProxy implements MPBProxy {
 		Items.init();
 		Blocks.init();
 		Fluids.init();
-		Recipes.initRecipes();
-		Smelting.initSmelting();
+
 		//Plugins
 		if(Loader.isModLoaded("tconstruct")) {
 			//tconPlugin.initTconPlugin();
 		}
 
-		//MinecraftForge.EVENT_BUS.register(Items.class);
-		//MinecraftForge.EVENT_BUS.register(Blocks.class);
 		MinecraftForge.EVENT_BUS.register(Fluids.class);
 
 		PacketHandler.preInit();
