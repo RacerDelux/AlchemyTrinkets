@@ -9,6 +9,8 @@ public class MPBGlobal {
 	public static final String NG_COMMON_PROXY = "com.mcmoddev.alchemytrinkets.proxy.CommonProxy";
 	
 	public static final MPBCreativeTab MyCrTab = new MPBCreativeTab("ngCreativeTab");
+
+	public static String KNOWLEDGE = MOD_ID + ":knowledge";
 	
 	public static final String defaultOreSpawnJSON = "{"
 			+ "\n	\"dimensions\":["

@@ -5,10 +5,7 @@ import java.util.List;
 
 import com.mcmoddev.alchemytrinkets.MPBCreativeTab;
 import com.mcmoddev.alchemytrinkets.MPBGlobal;
-import com.mcmoddev.alchemytrinkets.items.ItemFlaskComponent;
-import com.mcmoddev.alchemytrinkets.items.ItemGem;
-import com.mcmoddev.alchemytrinkets.items.ItemMock;
-import com.mcmoddev.alchemytrinkets.items.ItemPotionFlask;
+import com.mcmoddev.alchemytrinkets.items.*;
 import com.mcmoddev.lib.data.Names;
 import com.mcmoddev.lib.material.MMDMaterial;
 import com.mcmoddev.lib.util.Oredicts;
@@ -27,7 +24,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @Mod.EventBusSubscriber
 public class Items extends com.mcmoddev.lib.init.Items{
 	private static boolean initDone = false;
-	
+
+	//Book
+	public static Item alchemy_book;
+
 	//Flask
 	public static Item potion_flask;
 	
@@ -59,6 +59,9 @@ public class Items extends com.mcmoddev.lib.init.Items{
 		create(Names.AXE, pyrite, MPBGlobal.MyCrTab);
 		create(Names.HOE, pyrite, MPBGlobal.MyCrTab);
 		create(Names.SWORD, pyrite, MPBGlobal.MyCrTab);
+
+		//Book
+		alchemy_book = makeBook("alchemy_book", 0);
 
 		//Flask
 		potion_flask = makePotionFlask("");
@@ -132,6 +135,15 @@ public class Items extends com.mcmoddev.lib.init.Items{
 		setupItem( item, regName, unloc, MPBGlobal.MyCrTab );
 		return item;		
 	}
+
+	private static ItemBook makeBook(String name, int GUI){
+		ItemBook item = new ItemBook(name, GUI);
+		String actName = String.format("%s_book", name);
+		String unloc = String.format("%s.%s", MPBGlobal.MOD_ID, actName);
+		ResourceLocation regName = new ResourceLocation(MPBGlobal.MOD_ID, actName);
+		setupItem( item, regName, unloc, MPBGlobal.MyCrTab );
+		return item;
+	}
 	
 	private static ItemGem makeItemGem(String name ) {
 		ItemGem item = new ItemGem(Materials.getMaterialByName(name));
@@ -144,7 +156,7 @@ public class Items extends com.mcmoddev.lib.init.Items{
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		List<Item> items = Arrays.asList( potion_flask, potion_mock, component_mock, topaz_stone, flask_component );
+		List<Item> items = Arrays.asList( potion_flask, potion_mock, component_mock, topaz_stone, flask_component, alchemy_book );
 		items.forEach( event.getRegistry()::register );
 
 		Materials.getAllMaterials().forEach( mat ->
@@ -169,7 +181,7 @@ public class Items extends com.mcmoddev.lib.init.Items{
 					new ModelResourceLocation(MPBGlobal.MOD_ID+":"+item.getRegistryName().getResourcePath(), "inventory"));
 		}));
 
-		List<Item> items = Arrays.asList( potion_flask, potion_mock, component_mock, topaz_stone, flask_component );
+		List<Item> items = Arrays.asList( potion_flask, potion_mock, component_mock, topaz_stone, flask_component, alchemy_book );
 		items.forEach( item -> {
 			ResourceLocation newLoc = new ResourceLocation(MPBGlobal.MOD_ID, item.getRegistryName().getResourcePath());
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(newLoc, "inventory"));

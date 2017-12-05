@@ -31,3 +31,5 @@ item.magicpab.fyrestone_flask_component.name=Fyrestone Flask Cap
 item.magicpab.earthstone_flask_component.name=Earthstone Flask Cap
 
 itemGroup.ngCreativeTab=Alchemy Trinkets
+
+magicpab.book.alchemy_book.intro.title=Alchemy Trinkets

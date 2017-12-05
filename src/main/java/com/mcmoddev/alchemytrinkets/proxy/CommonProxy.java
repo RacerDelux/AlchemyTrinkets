@@ -3,7 +3,10 @@ package com.mcmoddev.alchemytrinkets.proxy;
 import java.nio.file.Path;
 import java.util.HashSet;
 
+import com.mcmoddev.alchemytrinkets.Main;
+import com.mcmoddev.alchemytrinkets.book.bookRegistry;
 import com.mcmoddev.alchemytrinkets.event.MPBEventHandler;
+import com.mcmoddev.alchemytrinkets.gui.gHandler;
 import com.mcmoddev.alchemytrinkets.init.Blocks;
 import com.mcmoddev.alchemytrinkets.init.Fluids;
 import com.mcmoddev.alchemytrinkets.init.Items;
@@ -19,6 +22,7 @@ import net.minecraftforge.fml.common.MissingModsException;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.versioning.ArtifactVersion;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.server.FMLServerHandler;
@@ -64,7 +68,8 @@ public class CommonProxy implements MPBProxy {
 	}
 
 	public void postInit(FMLPostInitializationEvent postEvent){
-	
+		bookRegistry.init();
+		NetworkRegistry.INSTANCE.registerGuiHandler(Main.instance, new gHandler());
 	}
 
 	@Override
