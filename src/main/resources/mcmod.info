@@ -2,7 +2,7 @@
 {
   "modid": "magicpab",
   "name": "Alchemy Trinkets",
-  "description": "A mod all bout potions and brews, and well MAGIC! Create powerful artifacts, useful potions. Maybe even combine the two!",
+  "description": "A mod all about potions and brews, and well MAGIC! Create powerful artifacts, useful potions. Maybe even combine the two!",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/RacerDelux/MagicalPotionsAndBrews",
@@ -11,6 +11,8 @@
   "credits": "The Forge and FML guys, for making the Forge modding API (you guys are awesome), geologists everywhere, and the mod authors",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "requiredMods": ["basemetals"],
+  "dependencies": ["basemetals"],
+  "useDependencyInformation": true
 }
 ]
