@@ -6,10 +6,12 @@ import com.mcmoddev.alchemytrinkets.items.ItemPotionFlask;
 import com.mcmoddev.alchemytrinkets.packet.PacketHandler;
 import com.mcmoddev.alchemytrinkets.packet.messages.PotionSwitchMessage;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.MouseEvent;
+import net.minecraftforge.event.entity.EntityEvent.EnteringChunk;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
@@ -18,6 +20,14 @@ import org.lwjgl.input.Keyboard;
  * Created by Jeffrey on 7/13/2016.
  */
 public class MPBEventHandler {
+
+    @SubscribeEvent
+    public void onChunkEnter(EnteringChunk event){
+        if(event.getEntity() instanceof EntityPlayer) {
+            System.out.println(event.getEntity());
+        }
+    }
+
     @SubscribeEvent
     public void onLivingHurt(LivingHurtEvent event) {
         //Main.logger.info("You were hurt");
