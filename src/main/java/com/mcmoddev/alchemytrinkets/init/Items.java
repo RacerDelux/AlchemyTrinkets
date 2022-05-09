@@ -161,8 +161,8 @@ public class Items extends com.mcmoddev.lib.init.Items{
 
 		Materials.getAllMaterials().forEach( mat ->
 		mat.getItems().forEach( item -> {
-			if( item.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) )
-				event.getRegistry().register(item);			
+			if( item.getItem().getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) )
+				event.getRegistry().register(item.getItem());
 		}));
 
 		event.getRegistry().register(Blocks.infused_glass_item_block);
@@ -175,10 +175,10 @@ public class Items extends com.mcmoddev.lib.init.Items{
 	public static void regItemRenders(FMLInitializationEvent event){
 		Materials.getAllMaterials().forEach( mat ->
 		mat.getItems().forEach( item -> {
-			if( item.getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) )
+			if( item.getItem().getRegistryName().getResourceDomain().equals(MPBGlobal.MOD_ID) )
 				Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(item, 0,
-					new ModelResourceLocation(MPBGlobal.MOD_ID+":"+item.getRegistryName().getResourcePath(), "inventory"));
+				.register(item.getItem(), 0,
+					new ModelResourceLocation(MPBGlobal.MOD_ID+":"+item.getItem().getRegistryName().getResourcePath(), "inventory"));
 		}));
 
 		List<Item> items = Arrays.asList( potion_flask, potion_mock, component_mock, topaz_stone, flask_component, alchemy_book );
